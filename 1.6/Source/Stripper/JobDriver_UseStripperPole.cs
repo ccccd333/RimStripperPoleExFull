@@ -95,8 +95,13 @@ namespace Stripper {
             var prostitute = new Toil();
 			prostitute.defaultCompleteMode = ToilCompleteMode.Instant;
             prostitute.initAction = () => {
-                // ダイアログボックス
-                //Log.Message($"[StripperPole] Try prostitute toil");
+				// ダイアログボックス
+				//Log.Message($"[StripperPole] Try prostitute toil");
+
+				if (!pawn.IsColonist)
+				{
+					return;
+				}
 
                 StripperPoleHelper.DistributeDancePayout(pawn);
 

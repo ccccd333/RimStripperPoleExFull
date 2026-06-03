@@ -42,6 +42,7 @@ namespace Stripper {
             base.ExposeData();
             Scribe_Values.Look<string>(ref lastDanceInfo, "lastDanceInfo", "", false);
             Scribe_Values.Look<string>(ref currentDanceInfo, "currentDanceInfo", "", false);
+            Scribe_References.Look(ref currentDancer, "currentDancer");
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad) {

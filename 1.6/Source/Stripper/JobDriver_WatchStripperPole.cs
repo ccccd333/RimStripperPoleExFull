@@ -23,6 +23,8 @@ namespace Stripper {
 
 		private Pawn dancer;
 
+		private bool isWatching = false;
+
 
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
             return pawn.ReserveSittableOrSpot(Cell, job, errorOnFailed);
@@ -31,21 +33,65 @@ namespace Stripper {
             return false;
         }
 
-		protected override IEnumerable<Toil> MakeNewToils() {
+        public override void ExposeData()
+        {
+            base.ExposeData();
+
+            Scribe_Values.Look<bool>(ref isWatching, "isWatching", false, false);
+            
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                Building_StripperPole pole = job.targetA.Thing as Building_StripperPole;
+
+                if (isWatching && pole != null)
+                {
+                    dancer = pole.currentDancer;
+                    //Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching}");
+                    //Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching} currentDancer: {dancer}");
+                    Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching} currentDancer: {dancer} watcher: {pawn} mode: {Scribe.mode}");
+                    if (dancer != null && !pawn.IsColonist)
+                    {
+                        // セーブ時この観客のjobが生きている場合、セーブロード後観客リストを復元する必要があるので
+                        // セーブロード時のみ挿入しなおす
+                        StripperPoleHelper.RegisterAvailableProstitute(dancer, pawn);
+                    }
+                }
+            }
+        }
+
+        protected override IEnumerable<Toil> MakeNewToils() {
 			this.EndOnDespawnedOrNull(TargetIndex.A);
-			this.AddEndCondition(() => StripperPole.currentDancer == null ? JobCondition.Incompletable : JobCondition.Ongoing);
+            this.AddEndCondition(() => {
+                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddEndCondition currentDancer: {StripperPole.currentDancer} mode: {Scribe.mode}");
+                if (StripperPole.currentDancer == null)
+                {
+                    if (Scribe.mode != LoadSaveMode.Inactive) return JobCondition.Ongoing;
+                    return JobCondition.Incompletable;
+                }
+                return JobCondition.Ongoing;
+            });
+
+            //this.AddEndCondition(() => StripperPole.currentDancer == null ? JobCondition.Incompletable : JobCondition.Ongoing);
 			yield return Toils_Goto.GotoCell(TargetIndex.B, PathEndMode.OnCell);
 			var watch = ToilMaker.MakeToil("MakeNewToils");
 			watch.initAction = () => {
-				dancer = StripperPole.currentDancer;
-				StripperPoleHelper.RegisterAvailableProstitute(dancer,pawn);
+                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils initAction currentDancer: {StripperPole.currentDancer}");
+                dancer = StripperPole.currentDancer;
+				// 到達前にポーンがダンスを終了した場合は観客数に加えない
+				if (dancer != null && !pawn.IsColonist)
+				{
+                    isWatching = true;
+                    StripperPoleHelper.RegisterAvailableProstitute(dancer, pawn);
+				}
 
             };
 			watch.AddPreTickAction(() => {
-				WatchTickAction();
+                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
+                WatchTickAction();
 			});
 			watch.AddFinishAction(() => {
-				AddRecords();
+                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddFinishAction currentDancer: {StripperPole.currentDancer}");
+                AddRecords();
 				JoyUtility.TryGainRecRoomThought(pawn);
 				AddPlayLog();
 				AddThought();

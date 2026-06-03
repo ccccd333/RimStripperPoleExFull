@@ -8,17 +8,19 @@ namespace Stripper
 
         public GameComponent_StripperPole(Game game) : base()
         {
+            Log.Message($"[StripperPole] GameComponent_StripperPole ctor");
+            StripperPoleHelper.ClearAvailableProstitutes();
             Instance = this;
         }
 
-        public override void StartedNewGame()
-        {
-            StripperPoleHelper.ClearAvailableProstitutes();
-        }
+        //public override void StartedNewGame()
+        //{
+            
+        //}
 
-        public override void LoadedGame()
-        {
-            StripperPoleHelper.ClearAvailableProstitutes();
-        }
+        //public override void LoadedGame()
+        //{
+        //    StripperPoleHelper.ClearAvailableProstitutes();
+        //}
     }
 }
