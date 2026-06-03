@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<JobDef Class="Stripper.Job_UseStripperPole_Def">
+		<defName>UseStripperPole</defName>
+		<driverClass>Stripper.JobDriver_UseStripperPole</driverClass>
+		<reportString>doing a dance</reportString>
+		<casualInterruptible>false</casualInterruptible>
+        <joyDuration>4000</joyDuration>
+    	<joyKind>Physical_Dance</joyKind>
+        <turnMin>45</turnMin>
+        <turnMax>90</turnMax>
+        <undressMin>200</undressMin>
+        <undressMax>350</undressMax>
+        <recordCountName>DancesPerformed</recordCountName>
+        <logDef>UseStripperPole</logDef>
+	</JobDef>
+	<JobDef Class="Stripper.Job_WatchStripperPole_Def">
+		<defName>WatchStripperPole</defName>
+		<driverClass>Stripper.JobDriver_WatchStripperPole</driverClass>
+		<reportString>watching a dance</reportString>
+		<casualInterruptible>true</casualInterruptible>
+        <joyDuration>4000</joyDuration>
+        <joyMaxParticipants>8</joyMaxParticipants>
+    	<joyKind>Visual_Dance</joyKind>
+        <recordCountName>DancesWatched</recordCountName>
+        <logDef>WatchStripperPole</logDef>
+        <thoughtDef>WatchStripperPole</thoughtDef>
+	</JobDef>
+	<JobDef>
+		<defName>SP_ServingVisitor</defName>
+		<driverClass>Stripper.JobDriver_ServingVisitor</driverClass>
+		<reportString>servicing TargetA.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>	
+	<JobDef>
+		<defName>SP_SexClient</defName>
+		<driverClass>Stripper.JobDriver_SexClient</driverClass>
+		<reportString>enjoyin TargetA.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
+</Defs>

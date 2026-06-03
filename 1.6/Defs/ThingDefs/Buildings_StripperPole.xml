@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThingCategoryDef>
+        <defName>BuildingsStripperPole</defName>
+        <label>stripper poles</label>
+        <parent>Buildings</parent>
+    </ThingCategoryDef>
+
+    <ThingDef ParentName="BuildingBase" Class="Stripper.Building_StripperPole_Def">
+        <defName>StripperPole</defName>
+		<thingClass>Stripper.Building_StripperPole</thingClass>
+        <label>Stripper Pole</label>
+        <description>A big, solid pole. Do a sexy dance around it, with it, on it.</description>
+        <graphicData>
+            <texPath>Buildings/Stripper/pole</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,1.25)</drawSize>
+            <drawOffset>(0,0,0.2)</drawOffset>
+            <shadowData>
+                <volume>(0.1, 0.5, 0.1)</volume>
+                <offset>(0,0,-0.3)</offset>
+            </shadowData>
+            <damageData>
+                <rect>(0.35,0.2,0.3,0.6)</rect>
+            </damageData>
+        </graphicData>
+        <size>(1,1)</size>
+		<uiIconPath>Buildings/Stripper/pole</uiIconPath>
+		<uiIconScale>0.90</uiIconScale>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+		<rotatable>false</rotatable>
+		<altitudeLayer>Building</altitudeLayer>
+		<designationCategory>Joy</designationCategory>
+		<statBases>
+			<MaxHitPoints>400</MaxHitPoints>
+			<Flammability>0.2</Flammability>
+			<WorkToBuild>10000</WorkToBuild>
+			<Mass>40</Mass>
+			<Beauty>1</Beauty>
+		</statBases>
+		<stuffCategories>
+			<li>Metallic</li>
+            <li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<fillPercent>0.1</fillPercent>
+		<pathCost>15</pathCost>
+        <building>
+            <paintable>true</paintable>
+        </building>
+		<techLevel>Industrial</techLevel>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>Smithing</li>
+		</researchPrerequisites>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+            <li Class="CompProperties_AssignableToPawn">
+                <drawAssignmentOverlay>false</drawAssignmentOverlay>
+                <compClass>CompAssignableToPawn</compClass>
+            </li>
+		</comps>
+		<passability>PassThroughOnly</passability>
+		<socialPropernessMatters>false</socialPropernessMatters>
+		<placeWorkers>
+			<li>Stripper.PlaceWorker_StripperPoleRadius</li>
+		</placeWorkers>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+
+		<inspectOwnerDisplayCount>3</inspectOwnerDisplayCount>
+		<jobName>UseStripperPole</jobName>
+        <watchRadius>4.8</watchRadius>
+        <joyGainFactor>1</joyGainFactor>
+    </ThingDef>
+    
+    <ThingDef ParentName="BuildingBase" Class="Stripper.Building_StripperPole_Def">
+        <defName>DanceSpot</defName>
+		<thingClass>Stripper.Building_StripperPole</thingClass>
+        <label>Dance Spot</label>
+        <description>A nice place to do a little dance.</description>
+        <graphicData>
+            <texPath>Buildings/Stripper/spot</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <size>(1,1)</size>
+		<uiIconPath>Buildings/Stripper/spot</uiIconPath>
+		<uiIconScale>0.90</uiIconScale>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+		<rotatable>false</rotatable>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+        <useHitPoints>False</useHitPoints>
+		<designationCategory>Joy</designationCategory>
+		<statBases>
+			<WorkToBuild>0</WorkToBuild>
+		</statBases>
+        <building>
+            <sowTag>SupportPlantsOnly</sowTag>
+            <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+            <ai_chillDestination>false</ai_chillDestination>
+            <wakeDormantPawnsOnConstruction>false</wakeDormantPawnsOnConstruction>
+            <artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+        </building>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+            <li Class="CompProperties_AssignableToPawn">
+                <drawAssignmentOverlay>false</drawAssignmentOverlay>
+                <compClass>CompAssignableToPawn</compClass>
+            </li>
+		</comps>
+		<passability>Standable</passability>
+		<socialPropernessMatters>false</socialPropernessMatters>
+		<placeWorkers>
+			<li>Stripper.PlaceWorker_StripperPoleRadius</li>
+		</placeWorkers>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+
+		<inspectOwnerDisplayCount>3</inspectOwnerDisplayCount>
+		<jobName>UseStripperPole</jobName>
+        <watchRadius>2.8</watchRadius>
+        <joyGainFactor>0.6</joyGainFactor>
+    </ThingDef>
+</Defs>

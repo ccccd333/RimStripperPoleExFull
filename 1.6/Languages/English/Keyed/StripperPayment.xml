@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+<LanguageData>
+  <SP_PaymentSilver>{0} paid {1} silver to {2} (Fee based on beauty: {3}).</SP_PaymentSilver>
+  <SP_PaymentSilverPartial>{0} could only pay {1} silver out of {2} to {3}.</SP_PaymentSilverPartial>
+  <SP_PaymentSilverNone>{0} could not pay {1} silver to {2}.</SP_PaymentSilverNone>
+  <SP_DistributeDancePayout>{0} finished dancing. Received a total of {2} silver from {1} spectators based on beauty.</SP_DistributeDancePayout>
+  <SP_MessageDancePayout_None>{0} finished dancing, but the spectators didn't pay a single silver.</SP_MessageDancePayout_None>
+  <SP_Prostitute_Title>Prostitution Negotiation</SP_Prostitute_Title>
+  <SP_Prostitute_Text>{1}, who watched {0} dance, is offering extra silver if {0} does as they say. It is unknown what exactly {0} will be asked to do. Do you accept?</SP_Prostitute_Text>
+  <SP_Prostitute_Accept>{0} accepted the offer from {1}.</SP_Prostitute_Accept>
+  <SP_Prostitute_Reject>Declined the offer.</SP_Prostitute_Reject>
+</LanguageData>
+</LanguageData>

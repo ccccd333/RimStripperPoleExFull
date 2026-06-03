@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JoyGiverDef>
+        <defName>Dance_StripperPole</defName>
+        <giverClass>Stripper.JoyGiver_UseStripperPole</giverClass>
+        <baseChance>2</baseChance>
+        <thingDefs>
+            <li>StripperPole</li>
+            <li>DanceSpot</li>
+        </thingDefs>
+        <jobDef>UseStripperPole</jobDef>
+        <joyKind>Physical_Dance</joyKind>
+        <requiredCapacities>
+            <li>Manipulation</li>
+        </requiredCapacities>
+    </JoyGiverDef>
+    <JoyGiverDef>
+        <defName>Watch_StripperPole</defName>
+        <giverClass>Stripper.JoyGiver_WatchStripperPole</giverClass>
+        <baseChance>5</baseChance>
+        <thingDefs>
+            <li>StripperPole</li>
+            <li>DanceSpot</li>
+        </thingDefs>
+        <jobDef>WatchStripperPole</jobDef>
+        <joyKind>Visual_Dance</joyKind>
+        <requiredCapacities>
+            <li>Sight</li>
+        </requiredCapacities>
+    </JoyGiverDef>
+</Defs>

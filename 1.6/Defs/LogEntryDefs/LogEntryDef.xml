@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <LogEntryDef Class="Stripper.LogEntry_UseStripperPole_Def">
+    <defName>UseStripperPole</defName>
+    <label>did a dance</label>
+    <symbol>Things/Mote/Heart</symbol>
+    <logRules>
+        <rulesStrings>
+            <li>r_logentry->[DANCER_nameDef] [dida] [dance].</li>
+
+            <li>dida->did a</li>
+            <li>dida->performed a</li>
+
+            <li>dance->dance</li>
+            <li>dance->sexy dance</li>
+            <li>dance->sultry dance</li>
+            <li>dance->provocative display</li>
+        </rulesStrings>
+    </logRules>
+  </LogEntryDef>
+
+  <LogEntryDef Class="Stripper.LogEntry_WatchStripperPole_Def">
+    <defName>WatchStripperPole</defName>
+    <label>watched a dance</label>
+    <symbol>Things/Mote/Heart</symbol>
+    <logRules>
+        <rulesStrings>
+            <li>r_logentry->[WATCHER_nameDef] [watched] [DANCER_nameDef]'s [dance].</li>
+            <li>r_logentry->[DANCER_nameDef] [dida] [dance] while [WATCHER_nameDef] [watched] it.</li>
+
+            <li>watched->watched</li>
+            <li>watched->gawked at</li>
+            <li>watched(p=0.5)->drooled over</li>
+
+            <li>dance->dance</li>
+            <li>dance->sexy dance</li>
+            <li>dance->sultry dance</li>
+            <li>dance->provocative display</li>
+        </rulesStrings>
+    </logRules>
+  </LogEntryDef>
+
+</Defs>

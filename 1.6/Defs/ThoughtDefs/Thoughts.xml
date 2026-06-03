@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThoughtDef>
+        <defName>WatchStripperPole</defName>
+        <thoughtClass>Thought_MemorySocial</thoughtClass>
+        <durationDays>5</durationDays>
+        <stackLimit>300</stackLimit>
+        <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+        <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
+        <developmentalStageFilter>Adult</developmentalStageFilter>
+        <socialTargetDevelopmentalStageFilter>Adult</socialTargetDevelopmentalStageFilter>
+        <stages>
+            <li>
+                <label>watched a dance</label>
+                <baseOpinionOffset>5</baseOpinionOffset>
+            </li>
+        </stages>
+    </ThoughtDef>
+</Defs>

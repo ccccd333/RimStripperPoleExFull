@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SP_PaymentSilver>{0}は{2}に{1}シルバーを支払った（美しさに基づく料金: {3}）。</SP_PaymentSilver>
+  <SP_PaymentSilverPartial>{0}は{3}に{2}シルバーのうち{1}シルバーしか支払えなかった。</SP_PaymentSilverPartial>
+  <SP_PaymentSilverNone>{0}は{2}に{1}シルバーを支払えなかった。</SP_PaymentSilverNone>
+  <SP_DistributeDancePayout>{0}のダンス終了。観客の{1}人から美しさに応じて、合計{2}シルバーが支払われました。</SP_DistributeDancePayout>
+  <SP_MessageDancePayout_None>{0}のダンス終了。観客から1シルバーも支払われませんでした。</SP_MessageDancePayout_None>
+  <SP_Prostitute_Title>売春の交渉</SP_Prostitute_Title>
+  <SP_Prostitute_Text>{0}のダンスを見た{1}が、言う通りの行為をさせてくれれば追加のシルバーを払うと言っています。何をさせられるかは不明です。応じますか？</SP_Prostitute_Text>
+  <SP_Prostitute_Accept>{0}は{1}との交渉に応じました。</SP_Prostitute_Accept>
+  <SP_Prostitute_Reject>交渉を拒否しました。</SP_Prostitute_Reject>
+</LanguageData>

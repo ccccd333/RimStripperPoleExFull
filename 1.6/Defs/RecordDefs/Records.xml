@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <RecordDef>
+        <defName>DancesPerformed</defName>
+        <label>dances performed</label>
+        <description>The number of dances done.</description>
+        <type>Int</type>
+    </RecordDef>
+	<RecordDef>
+		<defName>TimeSpentDancing</defName>
+		<label>time spent dancing</label>
+		<description>Total time spent dancing.</description>
+		<type>Time</type>
+		<measuredTimeJobs>
+			<li>UseStripperPole</li>
+		</measuredTimeJobs>
+	</RecordDef>
+    <RecordDef>
+        <defName>DancesWatched</defName>
+        <label>dances watched</label>
+        <description>The number of dances watched.</description>
+        <type>Int</type>
+    </RecordDef>
+	<RecordDef>
+		<defName>TimeSpentWatchingDancing</defName>
+		<label>time spent watching dancing</label>
+		<description>Total time spent watching someone dance.</description>
+		<type>Time</type>
+		<measuredTimeJobs>
+			<li>WatchStripperPole</li>
+		</measuredTimeJobs>
+	</RecordDef>
+</Defs>

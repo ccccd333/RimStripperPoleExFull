@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest>
+	<identifier>Stripper Pole</identifier>
+	<version>1.0.5</version>
+	<dependencies />
+	<incompatibleWith />
+	<loadBefore />
+	<loadAfter />
+	<manifestUri>https://gitgud.io/cryptidfarmer/rimworld-stripper-pole/-/blob/main/About/Manifest.xml</manifestUri>
+	<downloadUri>https://gitgud.io/cryptidfarmer/rimworld-stripper-pole</downloadUri>
+</Manifest>

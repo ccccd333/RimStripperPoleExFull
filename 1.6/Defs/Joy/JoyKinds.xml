@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JoyKindDef>
+        <defName>Physical_Dance</defName>
+        <label>dancing</label>
+    </JoyKindDef>
+    <JoyKindDef>
+        <defName>Visual_Dance</defName>
+        <label>watching dancing</label>
+    </JoyKindDef>
+</Defs>
