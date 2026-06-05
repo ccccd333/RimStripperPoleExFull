@@ -282,7 +282,7 @@ namespace Stripper {
 		}
 
 		private void TickStats(int delta) {
-            Log.Message($"joyGainFactor={StripperPole.def.joyGainFactor}");
+            //Log.Message($"joyGainFactor={StripperPole.def.joyGainFactor}");
             JoyUtility.JoyTickCheckEnd(pawn, delta, JoyTickFullJoyAction.None, StripperPole.def.joyGainFactor, StripperPole);
 			if (!pawn.IsHashIntervalTick(tickerFrequency)) return;
 
