@@ -1,3 +1,34 @@
+# Rimworld Stripper Pole (Forked)
+
+This is a forked version of the mod originally created by cryptidfarmer.
+[Original Repository](https://gitgud.io/cryptidfarmer/rimworld-stripper-pole)
+I will remove this repository if requested by the original author.
+
+## Features & Bug Fixes
+New Features
+Prostitution system: Added the ability to select sexual interactions.
+Configurable Settings: You can now adjust the following from the Mod Settings menu:
+Base dance fee and beauty multiplier.
+Base prostitution fee and beauty multiplier.
+Interaction-specific multipliers.
+Option to spawn silver for dance spectators if they cannot afford the fee.
+Option to spawn silver for prostitution clients if they cannot afford the fee.
+
+Bug Fixes
+Joy Gain: Fixed a bug where the joy gauge was not increasing for both the dancer and the spectator.
+UAP Teleportation: Fixed an issue where pawns were forcibly teleported to the pole location if drafted while pole dancing.
+
+Required Mods
+UAP (Utility Animation Framework)
+RimWorld-Animations 2.0
+RJW (RimJobWorld)
+
+## Requirements
+* UAP
+* Rimworld-Animation2.0
+* RJW
+ーーーーーーーーーーーー
+
 こちらのModはcryptidfarmerさん作のModの拡張機能を追加したものです。
 https://gitgud.io/cryptidfarmer/rimworld-stripper-pole
 元Modのフォークであるため、削除申請があれば削除します。
