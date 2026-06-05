@@ -21,9 +21,10 @@ namespace Stripper {
         private IntVec3 Cell => job.targetB.Cell;
         private Building Chair => job.targetC.HasThing ? job.targetC.Thing as Building : null;
 
-		private Pawn dancer;
+		public Pawn dancer;
 
 		private bool isWatching = false;
+
 
 
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
@@ -46,9 +47,11 @@ namespace Stripper {
                 if (isWatching && pole != null)
                 {
                     dancer = pole.currentDancer;
-                    //Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching}");
-                    //Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching} currentDancer: {dancer}");
-                    Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching} currentDancer: {dancer} watcher: {pawn} mode: {Scribe.mode}");
+
+					if (StripperMod.settings.debugLog)
+					{
+						Log.Message($"[StripperPole] WatchStripperPole ExposeData isWatching: {isWatching} currentDancer: {dancer} watcher: {pawn} mode: {Scribe.mode}");
+					}
                     if (dancer != null && !pawn.IsColonist)
                     {
                         // セーブ時この観客のjobが生きている場合、セーブロード後観客リストを復元する必要があるので
@@ -62,7 +65,12 @@ namespace Stripper {
         protected override IEnumerable<Toil> MakeNewToils() {
 			this.EndOnDespawnedOrNull(TargetIndex.A);
             this.AddEndCondition(() => {
-                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddEndCondition currentDancer: {StripperPole.currentDancer} mode: {Scribe.mode}");
+
+				//if (StripperMod.settings.debugLog)
+				//{
+				//	Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddEndCondition currentDancer: {StripperPole.currentDancer} mode: {Scribe.mode}");
+				//}
+
                 if (StripperPole.currentDancer == null)
                 {
                     if (Scribe.mode != LoadSaveMode.Inactive) return JobCondition.Ongoing;
@@ -75,7 +83,10 @@ namespace Stripper {
 			yield return Toils_Goto.GotoCell(TargetIndex.B, PathEndMode.OnCell);
 			var watch = ToilMaker.MakeToil("MakeNewToils");
 			watch.initAction = () => {
-                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils initAction currentDancer: {StripperPole.currentDancer}");
+				//if (StripperMod.settings.debugLog)
+				//{
+				//	Log.Message($"[StripperPole] WatchStripperPole MakeNewToils initAction currentDancer: {StripperPole.currentDancer}");
+				//}
                 dancer = StripperPole.currentDancer;
 				// 到達前にポーンがダンスを終了した場合は観客数に加えない
 				if (dancer != null && !pawn.IsColonist)
@@ -85,11 +96,16 @@ namespace Stripper {
 				}
 
             };
-			watch.AddPreTickAction(() => {
-                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
+			//watch.AddPreTickAction(() => {
+   //             //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
+   //             //WatchTickAction();
+			//});
+            watch.tickIntervalAction = (int delta) => {
+                //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils tickIntervalAction currentDancer: {StripperPole.currentDancer}");
                 WatchTickAction();
-			});
-			watch.AddFinishAction(() => {
+                JoyUtility.JoyTickCheckEnd(pawn, delta, JoyTickFullJoyAction.EndJob, StripperPole.def.joyGainFactor, StripperPole);
+            };
+            watch.AddFinishAction(() => {
                 //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddFinishAction currentDancer: {StripperPole.currentDancer}");
                 AddRecords();
 				JoyUtility.TryGainRecRoomThought(pawn);
@@ -105,7 +121,7 @@ namespace Stripper {
 		protected virtual void WatchTickAction() {
 			pawn.rotationTracker.FaceCell(base.TargetA.Cell);
 			pawn.GainComfortFromCellIfPossible(0);
-			JoyUtility.JoyTickCheckEnd(pawn, 0, JoyTickFullJoyAction.EndJob, StripperPole.def.joyGainFactor, StripperPole);
+			//JoyUtility.JoyTickCheckEnd(pawn, 0, JoyTickFullJoyAction.EndJob, StripperPole.def.joyGainFactor, StripperPole);
 		}
 
 		private void AddRecords() {

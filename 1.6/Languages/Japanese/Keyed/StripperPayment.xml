@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <SP_PaymentSilver>{0}は{2}に{1}シルバーを支払った（美しさに基づく料金: {3}）。</SP_PaymentSilver>
-  <SP_PaymentSilverPartial>{0}は{3}に{2}シルバーのうち{1}シルバーしか支払えなかった。</SP_PaymentSilverPartial>
-  <SP_PaymentSilverNone>{0}は{2}に{1}シルバーを支払えなかった。</SP_PaymentSilverNone>
-  <SP_DistributeDancePayout>{0}のダンス終了。観客の{1}人から美しさに応じて、合計{2}シルバーが支払われました。</SP_DistributeDancePayout>
-  <SP_MessageDancePayout_None>{0}のダンス終了。観客から1シルバーも支払われませんでした。</SP_MessageDancePayout_None>
-  <SP_Prostitute_Title>売春の交渉</SP_Prostitute_Title>
-  <SP_Prostitute_Text>{0}のダンスを見た{1}が、言う通りの行為をさせてくれれば追加のシルバーを払うと言っています。何をさせられるかは不明です。応じますか？</SP_Prostitute_Text>
-  <SP_Prostitute_Accept>{0}は{1}との交渉に応じました。</SP_Prostitute_Accept>
-  <SP_Prostitute_Reject>交渉を拒否しました。</SP_Prostitute_Reject>
+	<SP_PaymentSilver>{0}は{2}に{1}シルバーを支払った（美しさに基づく料金: {3}）。</SP_PaymentSilver>
+	<SP_PaymentSilverPartial>{0}は{3}に{2}シルバーのうち{1}シルバーしか支払えなかった。</SP_PaymentSilverPartial>
+	<SP_PaymentSilverNone>{0}は{2}に{1}シルバーを支払えなかった。</SP_PaymentSilverNone>
+	<SP_DistributeDancePayout>{0}のダンス終了。観客の{1}人から美しさに応じて、合計{2}シルバーが支払われました。</SP_DistributeDancePayout>
+	<SP_MessageDancePayout_None>{0}のダンス終了。観客から1シルバーも支払われませんでした。</SP_MessageDancePayout_None>
+	<SP_PartsMult>シルバー倍率: ×{0}</SP_PartsMult>
+	<SP_Prostitute_Title>売春の交渉</SP_Prostitute_Title>
+	<SP_Prostitute_Text>{0}のダンスを見た{1}が、シルバーを見せながらこっちに来いと言っています。行為の内容を選んでください。</SP_Prostitute_Text>
+	<SP_Prostitute_Accept>交渉に応じる</SP_Prostitute_Accept>
+	<SP_Prostitute_Reject>交渉を拒否する</SP_Prostitute_Reject>
+	<SP_SelectAct>行為を選択:</SP_SelectAct>
+	<SP_NoActsAvailable>このペアで実行可能な行為が見つかりませんでした。</SP_NoActsAvailable>
+	<SP_Settings_Dance_Title>ダンス基本設定</SP_Settings_Dance_Title>
+	<SP_Settings_Dance_BasePrice>基本ダンス料金: </SP_Settings_Dance_BasePrice>
+	<SP_Settings_Dance_BeautyMult>ダンス美しさ乗算値: </SP_Settings_Dance_BeautyMult>
+	<SP_Settings_Prostitute_Title>売春基本設定</SP_Settings_Prostitute_Title>
+	<SP_Settings_Prostitute_BasePrice>基本売春料金: </SP_Settings_Prostitute_BasePrice>
+	<SP_Settings_Prostitute_BeautyMult>売春美しさ乗算値: </SP_Settings_Prostitute_BeautyMult>
+	<SP_Settings_SexType_Title>体位乗算</SP_Settings_SexType_Title>
+	<SP_Settings_Payment_Title>料金の支払い設定</SP_Settings_Payment_Title>
+	<SP_Settings_Payment_DanceAutoSpawn>ダンスでシルバーが足りない場合、強制的に沸かせる</SP_Settings_Payment_DanceAutoSpawn>
+	<SP_Settings_Payment_ProstituteAutoSpawn>売春でシルバーが足りない場合、強制的に沸かせる</SP_Settings_Payment_ProstituteAutoSpawn>
+	<SP_Settings_SexType_Vaginal>マンコ利用時倍率</SP_Settings_SexType_Vaginal>
+	<SP_Settings_SexType_Anal>アナル利用時倍率</SP_Settings_SexType_Anal>
+	<SP_Settings_SexType_Oral>口利用時倍率</SP_Settings_SexType_Oral>
+	<SP_Settings_SexType_DoublePenetration>二穴利用時倍率</SP_Settings_SexType_DoublePenetration>
+	<SP_Settings_SexType_Boobjob>パイズリ時倍率</SP_Settings_SexType_Boobjob>
+	<SP_Settings_SexType_Handjob>手コキ時倍率</SP_Settings_SexType_Handjob>
+	<SP_Settings_SexType_Footjob>足コキ利用時倍率</SP_Settings_SexType_Footjob>
+	<SP_Settings_SexType_Fingering>手マン時倍率</SP_Settings_SexType_Fingering>
+	<SP_Settings_SexType_Scissoring>具合わせ時倍率</SP_Settings_SexType_Scissoring>
+	<SP_Settings_SexType_MutualMasturbation>相互オナニー時倍率</SP_Settings_SexType_MutualMasturbation>
+	<SP_Settings_SexType_Fisting>フィストファック時倍率</SP_Settings_SexType_Fisting>
+	<SP_Settings_SexType_Rimming>アナル舐め時倍率</SP_Settings_SexType_Rimming>
+	<SP_Settings_SexType_Fellatio>フェラ時倍率</SP_Settings_SexType_Fellatio>
+	<SP_Settings_SexType_Cunnilingus>クンニリングス時倍率</SP_Settings_SexType_Cunnilingus>
+	<SP_Settings_SexType_Sixtynine>シックスナイン時倍率</SP_Settings_SexType_Sixtynine>
+	
+	<SP_Reserved>使用中</SP_Reserved>
+	<SP_NoPath>到達不能</SP_NoPath>
+	<SP_OwnedBySomeoneElse>他のポーンが使用中</SP_OwnedBySomeoneElse>
+	<SP_NotOldEnough>未成年</SP_NotOldEnough>
+	<SP_DoADance>ダンスを披露する</SP_DoADance>
 </LanguageData>

@@ -83,16 +83,16 @@ namespace Stripper {
                 yield return next;
             }
             if (!selPawn.CanReserve(this, 1, -1, null, false)) {
-                yield return new FloatMenuOption("Reserved", null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                yield return new FloatMenuOption("SP_Reserved".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
             else if (!selPawn.CanReach(this, PathEndMode.InteractionCell, Danger.Deadly, false, false, TraverseMode.ByPawn)) {
-                yield return new FloatMenuOption("No path", null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                yield return new FloatMenuOption("SP_NoPath".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
             else if (!CanUse(selPawn)) {
-                yield return new FloatMenuOption("Owned by someone else", null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                yield return new FloatMenuOption("SP_OwnedBySomeoneElse".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
             else if (!selPawn.ageTracker.Adult) {
-                yield return new FloatMenuOption("Not old enough", null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                yield return new FloatMenuOption("SP_NotOldEnough".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
             else {
                 Action doIt = () => {
@@ -102,7 +102,7 @@ namespace Stripper {
                     selPawn.jobs.TryTakeOrderedJob(job, JobTag.SatisfyingNeeds);
                 };
 
-                yield return new FloatMenuOption("Do a dance", doIt);
+                yield return new FloatMenuOption("SP_DoADance".Translate(), doIt);
             }
         }
     }

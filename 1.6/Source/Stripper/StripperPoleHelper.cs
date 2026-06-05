@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
 using Verse;
 using Verse.AI;
+using static rjw.xxx;
 
 namespace Stripper {
     public static class StripperPoleHelper {
@@ -42,11 +43,32 @@ namespace Stripper {
         {
             if (dancer == null) return null;
 
+
+
             if (dancerWatcherMap.TryGetValue(dancer, out var watchers) && watchers != null)
             {
+                //if (StripperMod.settings.debugLog)
+                //{
+                //    foreach(var a in watchers)
+                //    {
+                //        Log.Message($"[StripperPole] StripperPoleHelper.GetRandomAvailableProstitute. pawn: {a}");
+                //    }
+                //}
+
                 var validWatchers = watchers
-                    .Where(w => w != null && w.Spawned && !w.Dead && !w.Downed)
-                    .ToList();
+                            .Where(w => w != null && w.Spawned && !w.Dead && !w.Downed)
+                            .Where(w =>
+                            {
+                                var watchDriver = w.jobs?.curDriver as JobDriver_WatchStripperPole;
+
+                                // 観客がダンス終了後、予約したポーンを見続けているか(別ジョブ中だといやなので)
+                                // 以下エラー対応
+                                //Could not reserve Thing_Human32341 (layer: null) for Amelia for job SP_ServingVisitor (Job_14061) A = Thing_Human32341 (now doing job SP_ServingVisitor (Job_14061) A = Thing_Human32341(curToil=-1)) for maxPawns 1 and stackCount 0.
+                                //Existing reservers:
+                                //   [0] Natsuki (job: SP_ServingVisitor (Job_13998) A = Thing_Human32341, toil: 1, maxPawns: 1, stackCount: 0)
+                                return watchDriver != null && watchDriver.dancer == dancer;
+                            })
+                            .ToList();
 
                 if (validWatchers.Count > 0)
                 {
@@ -65,9 +87,7 @@ namespace Stripper {
                 return;
             }
 
-            float dancerBeauty = dancer.GetStatValue(StatDefOf.Beauty, true);
-
-            int basePayout = StripperPaymentHelper.PriceOfPerformance(dancer);
+            int basePayout = StripperPaymentHelper.PriceOfPerformance(dancer, StripperMod.settings.baseDancePrice, StripperMod.settings.danceBeautyMultiplier);
             
             int totalSilverToDrop = 0;
 
@@ -77,7 +97,11 @@ namespace Stripper {
 
                 if(watcher.IsColonist) continue;
 
-                totalSilverToDrop += StripperPaymentHelper.PayClientToPerformer(watcher, dancer, basePayout, watchers);
+                var watchDriver = watcher.jobs?.curDriver as JobDriver_WatchStripperPole;
+                if (watchDriver == null) continue;
+                if (watchDriver.dancer != dancer) continue;
+
+                totalSilverToDrop += StripperPaymentHelper.PayClientToPerformer(watcher, dancer, basePayout, watchers, StripperMod.settings.spawnSilverForDance);
             }
 
             if (totalSilverToDrop > 0)
@@ -188,5 +212,93 @@ namespace Stripper {
 			chair = null;
 			return false;
 		}
-	}
+
+        public static float GetProstitutePartsMult(rjwSextype sextype)
+        {
+            switch (sextype)
+            {
+                case rjwSextype.Vaginal:
+                    return StripperMod.settings.prostitutePartsVaginal;
+                case rjwSextype.Anal:
+                    return StripperMod.settings.prostitutePartsAnal;
+                case rjwSextype.Oral:
+                    return StripperMod.settings.prostitutePartsOral;
+                case rjwSextype.DoublePenetration:
+                    return StripperMod.settings.prostitutePartsDoublePenetration;
+                case rjwSextype.Boobjob:
+                    return StripperMod.settings.prostitutePartsBoobjob;
+                case rjwSextype.Handjob:
+                    return StripperMod.settings.prostitutePartsHandjob;
+                case rjwSextype.Footjob:
+                    return StripperMod.settings.prostitutePartsFootjob;
+                case rjwSextype.Fingering:
+                    return StripperMod.settings.prostitutePartsFingering;
+                case rjwSextype.Scissoring:
+                    return StripperMod.settings.prostitutePartsScissoring;
+                case rjwSextype.Fisting:
+                    return StripperMod.settings.prostitutePartsFisting;
+                case rjwSextype.Rimming:
+                    return StripperMod.settings.prostitutePartsRimming;
+                case rjwSextype.Fellatio:
+                    return StripperMod.settings.prostitutePartsFellatio;
+                case rjwSextype.Cunnilingus:
+                    return StripperMod.settings.prostitutePartsCunnilingus;
+                case rjwSextype.Sixtynine:
+                    return StripperMod.settings.prostitutePartsSixtynine;
+                default:
+                    return 1.0f;
+            }
+        }
+
+        public static void SetProstitutePartsMult(rjwSextype sextype, float value)
+        {
+            switch (sextype)
+            {
+                case rjwSextype.Vaginal:
+                    StripperMod.settings.prostitutePartsVaginal = value;
+                    break;
+                case rjwSextype.Anal:
+                    StripperMod.settings.prostitutePartsAnal = value;
+                    break;
+                case rjwSextype.Oral:
+                    StripperMod.settings.prostitutePartsOral = value;
+                    break;
+                case rjwSextype.DoublePenetration:
+                    StripperMod.settings.prostitutePartsDoublePenetration = value;
+                    break;
+                case rjwSextype.Boobjob:
+                    StripperMod.settings.prostitutePartsBoobjob = value;
+                    break;
+                case rjwSextype.Handjob:
+                    StripperMod.settings.prostitutePartsHandjob = value;
+                    break;
+                case rjwSextype.Footjob:
+                    StripperMod.settings.prostitutePartsFootjob = value;
+                    break;
+                case rjwSextype.Fingering:
+                    StripperMod.settings.prostitutePartsFingering = value;
+                    break;
+                case rjwSextype.Scissoring:
+                    StripperMod.settings.prostitutePartsScissoring = value;
+                    break;
+                case rjwSextype.Fisting:
+                    StripperMod.settings.prostitutePartsFisting = value;
+                    break;
+                case rjwSextype.Rimming:
+                    StripperMod.settings.prostitutePartsRimming = value;
+                    break;
+                case rjwSextype.Fellatio:
+                    StripperMod.settings.prostitutePartsFellatio = value;
+                    break;
+                case rjwSextype.Cunnilingus:
+                    StripperMod.settings.prostitutePartsCunnilingus = value;
+                    break;
+                case rjwSextype.Sixtynine:
+                    StripperMod.settings.prostitutePartsSixtynine = value;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

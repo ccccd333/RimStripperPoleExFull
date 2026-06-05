@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <UseStripperPole.label>ダンスを披露した</UseStripperPole.label>
+  <UseStripperPole.logRules.rulesStrings>
+      <li>r_logentry->[DANCER_nameDef]は[dida][dance]。</li>
+
+      <li>dida-></li>
+      <li>dida->魅惑的な</li>
+
+      <li>dance->ダンスを披露した</li>
+      <li>dance->セクシーなダンスを披露した</li>
+      <li>dance->妖艶な踊りを披露した</li>
+      <li>dance->挑発的なパフォーマンスを披露した</li>
+  </UseStripperPole.logRules.rulesStrings>
+  
+  <WatchStripperPole.label>ダンスを鑑賞した</WatchStripperPole.label>
+  <WatchStripperPole.logRules.rulesStrings>
+      <li>r_logentry->[WATCHER_nameDef]は[DANCER_nameDef]の[dance]を鑑賞した。</li>
+      <li>r_logentry->[WATCHER_nameDef]は[DANCER_nameDef]が[dance]のを見守った。</li>
+
+      <li>dance->ダンス</li>
+      <li>dance->セクシーなダンス</li>
+      <li>dance->妖艶な踊り</li>
+      <li>dance->挑発的なパフォーマンス</li>
+  </WatchStripperPole.logRules.rulesStrings>
+</LanguageData>

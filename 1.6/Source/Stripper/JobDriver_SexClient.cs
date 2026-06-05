@@ -40,6 +40,26 @@ namespace Stripper
                 this.FailOn(() => Partner.CurJob == null);
                 yield return Toils_Reserve.Reserve(iTarget, 1, 0);
 
+                Toil waitForPartner = new Toil();
+                waitForPartner.defaultCompleteMode = ToilCompleteMode.Never;
+                waitForPartner.initAction = delegate
+                {
+                    Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
+                    //pawn.pather.StopDead(); // その場に立ち止まらせる
+                };
+                waitForPartner.tickAction = delegate
+                {
+                    Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
+                    //pawn.pather.StopDead();
+
+                    if (Partner != null &&
+                        pawn.Position.DistanceTo(Partner.Position) <= 1f)
+                    {
+                        ReadyForNextToil();
+                    }
+                };
+                yield return waitForPartner;
+
                 var lovedToil = new Toil();
 
                 lovedToil.defaultCompleteMode = ToilCompleteMode.Never;
@@ -63,7 +83,6 @@ namespace Stripper
                     }
                     GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
                 });
-
                 lovedToil.FailOn(() => Partner.CurJob?.def != SPJobDefOf.SP_ServingVisitor);
                 yield return lovedToil;
             }

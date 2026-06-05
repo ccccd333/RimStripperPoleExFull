@@ -11,6 +11,7 @@
     </supportedVersions>
 	<loadAfter>
 		<li>rim.job.world</li>
+		<li>c0ffee.rimworld.animations</li>
 	</loadAfter>
     <packageId>cryptidfarmer.stripper</packageId>
 </ModMetaData>

@@ -14,5 +14,6 @@ namespace Stripper
         public static JobDef WatchStripperPole;
         public static JobDef SP_ServingVisitor;
         public static JobDef SP_SexClient;
+        public static JobDef SP_WaitForDancer;
     }
 }

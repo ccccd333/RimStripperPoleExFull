@@ -38,4 +38,9 @@
 		<reportString>enjoyin TargetA.</reportString>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
+	<JobDef>
+		<defName>SP_WaitForDancer</defName>
+		<driverClass>Stripper.JobDriver_WaitForDancer</driverClass>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
 </Defs>

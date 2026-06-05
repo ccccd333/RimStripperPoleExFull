@@ -8,7 +8,10 @@ namespace Stripper
 
         public GameComponent_StripperPole(Game game) : base()
         {
-            Log.Message($"[StripperPole] GameComponent_StripperPole ctor");
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] GameComponent_StripperPole ctor");
+            }
             StripperPoleHelper.ClearAvailableProstitutes();
             Instance = this;
         }

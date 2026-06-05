@@ -1,6 +1,8 @@
 ﻿using RimWorld;
 using rjw;
+using System;
 using System.Collections.Generic;
+using System.Runtime;
 using Verse;
 using Verse.AI;
 
@@ -21,9 +23,12 @@ namespace Stripper
             this.FailOn(() => pawn.Drafted);
             this.FailOn(() => Partner.IsFighting());
 
+            Job clientWaitJob = JobMaker.MakeJob(SPJobDefOf.SP_WaitForDancer, pawn);
+            Partner.jobs.StartJob(clientWaitJob, JobCondition.InterruptForced);
+
             yield return Toils_Reserve.Reserve(iTarget, 1, 0);
 
-            int basePrice = StripperPaymentHelper.PriceOfPerformance(pawn);
+            int basePrice = StripperPaymentHelper.PriceOfPerformance(pawn, StripperMod.settings.baseProstitutionPrice, StripperMod.settings.danceBeautyMultiplier);
 
             yield return Toils_Goto.GotoThing(iTarget, PathEndMode.OnCell);
 
@@ -63,10 +68,6 @@ namespace Stripper
                 // その場にとどまらせるためStopDead
                 Partner.pather.StopDead();
 
-                // Todo:寝るToil調べてるときの残り香、テスト用なので一応残しておく
-                // 疲れ果てたとか出来たらいいな
-                //Partner.jobs.curDriver.asleep = true;
-
                 Start();
 
                 var receiverDriver = Partner.jobs.curDriver as JobDriver_SexBaseReciever;
@@ -96,19 +97,26 @@ namespace Stripper
                 initAction = delegate
                 {
                     SexUtility.ProcessSex(Sexprops);
-
-                    int paid = StripperPaymentHelper.PayClientToPerformer(Partner, pawn, basePrice, null);
-                    if (paid >= basePrice)
+                    var sextype = Sexprops.interaction.Sextype;
+                    
+                    float paymult = StripperPoleHelper.GetProstitutePartsMult(sextype);
+                    int price = (int)Math.Round(basePrice * paymult);
+                    if (StripperMod.settings.debugLog)
                     {
-                        Messages.Message("SP_PaymentSilver".Translate(Partner, paid, pawn, basePrice), pawn, MessageTypeDefOf.NeutralEvent);
+                        Log.Message($"[StripperPole] Prostitute End. Sex type: {sextype} Base Price: {basePrice} Price: {price} SexTypeMult: {paymult}");
+                    }
+                    int paid = StripperPaymentHelper.PayClientToPerformer(Partner, pawn, price, null, StripperMod.settings.spawnSilverForProstitution);
+                    if (paid >= price)
+                    {
+                        Messages.Message("SP_PaymentSilver".Translate(Partner, paid, pawn, price), pawn, MessageTypeDefOf.NeutralEvent);
                     }
                     else if (paid > 0)
                     {
-                        Messages.Message("SP_PaymentSilverPartial".Translate(Partner, paid, basePrice, pawn), pawn, MessageTypeDefOf.NeutralEvent);
+                        Messages.Message("SP_PaymentSilverPartial".Translate(Partner, paid, price, pawn), pawn, MessageTypeDefOf.NeutralEvent);
                     }
                     else
                     {
-                        Messages.Message("SP_PaymentSilverNone".Translate(Partner, basePrice, pawn), pawn, MessageTypeDefOf.NegativeEvent);
+                        Messages.Message("SP_PaymentSilverNone".Translate(Partner, price, pawn), pawn, MessageTypeDefOf.NegativeEvent);
                     }
                 },
                 defaultCompleteMode = ToilCompleteMode.Instant

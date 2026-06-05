@@ -9,10 +9,8 @@ namespace Stripper
 {
     public static class StripperPaymentHelper
     {
-        public const float BasePrice = 20f;
-        public const float BeautyPricePerPoint = 25f;
 
-        public static int PriceOfPerformance(Pawn performer)
+        public static int PriceOfPerformance(Pawn performer, float basePrice, float beautyPricePerPoint)
         {
             if (performer == null)
             {
@@ -20,10 +18,10 @@ namespace Stripper
             }
 
             float beauty = performer.GetStatValue(StatDefOf.PawnBeauty);
-            return Math.Max(1, (int)Math.Round(BasePrice + beauty * BeautyPricePerPoint));
+            return Math.Max(1, (int)Math.Round(basePrice + beauty * beautyPricePerPoint));
         }
 
-        public static int PayClientToPerformer(Pawn client, Pawn performer, int price, HashSet<Pawn> watchers)
+        public static int PayClientToPerformer(Pawn client, Pawn performer, int price, HashSet<Pawn> watchers, bool useVirtualPocket = false)
         {
             if (client == null || performer == null || price <= 0)
             {
@@ -53,6 +51,16 @@ namespace Stripper
                         break;
                     }
                 }
+            }
+
+            if (useVirtualPocket && amountLeft > 0)
+            {
+                Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver);
+                silver.stackCount = amountLeft;
+
+                GenPlace.TryPlaceThing(silver, performer.Position, performer.Map, ThingPlaceMode.Near);
+
+                amountLeft = 0;
             }
 
             return price - amountLeft;

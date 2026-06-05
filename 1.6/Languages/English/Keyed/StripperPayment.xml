@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-<LanguageData>
-  <SP_PaymentSilver>{0} paid {1} silver to {2} (Fee based on beauty: {3}).</SP_PaymentSilver>
-  <SP_PaymentSilverPartial>{0} could only pay {1} silver out of {2} to {3}.</SP_PaymentSilverPartial>
-  <SP_PaymentSilverNone>{0} could not pay {1} silver to {2}.</SP_PaymentSilverNone>
-  <SP_DistributeDancePayout>{0} finished dancing. Received a total of {2} silver from {1} spectators based on beauty.</SP_DistributeDancePayout>
-  <SP_MessageDancePayout_None>{0} finished dancing, but the spectators didn't pay a single silver.</SP_MessageDancePayout_None>
-  <SP_Prostitute_Title>Prostitution Negotiation</SP_Prostitute_Title>
-  <SP_Prostitute_Text>{1}, who watched {0} dance, is offering extra silver if {0} does as they say. It is unknown what exactly {0} will be asked to do. Do you accept?</SP_Prostitute_Text>
-  <SP_Prostitute_Accept>{0} accepted the offer from {1}.</SP_Prostitute_Accept>
-  <SP_Prostitute_Reject>Declined the offer.</SP_Prostitute_Reject>
-</LanguageData>
+	<SP_PaymentSilver>{0} paid {1} silver to {2} (Fee based on beauty: {3}).</SP_PaymentSilver>
+	<SP_PaymentSilverPartial>{0} could only pay {1} silver out of {2} to {3}.</SP_PaymentSilverPartial>
+	<SP_PaymentSilverNone>{0} could not pay {1} silver to {2}.</SP_PaymentSilverNone>
+	<SP_DistributeDancePayout>{0} finished dancing. Received a total of {2} silver from {1} spectators based on beauty.</SP_DistributeDancePayout>
+	<SP_MessageDancePayout_None>{0} finished dancing, but the spectators didn't pay a single silver.</SP_MessageDancePayout_None>
+	<SP_PartsMult>silver: ×{0}</SP_PartsMult>
+	<SP_Prostitute_Title>Prostitution Negotiation</SP_Prostitute_Title>
+	<SP_Prostitute_Text>{1}, who watched {0} dance, is offering extra silver. Choose what to do.</SP_Prostitute_Text>
+	<SP_Prostitute_Accept>Accepted the offer.</SP_Prostitute_Accept>
+	<SP_Prostitute_Reject>Declined the offer.</SP_Prostitute_Reject>
+	<SP_SelectAct>Select act:</SP_SelectAct>
+	<SP_NoActsAvailable>No acts available for this pair.</SP_NoActsAvailable>
+	<SP_Settings_Dance_Title>Dance Base Settings</SP_Settings_Dance_Title>
+	<SP_Settings_Dance_BasePrice>Base Dance Price: </SP_Settings_Dance_BasePrice>
+	<SP_Settings_Dance_BeautyMult>Dance Beauty Multiplier: </SP_Settings_Dance_BeautyMult>
+	<SP_Settings_Prostitute_Title>Prostitution Base Settings</SP_Settings_Prostitute_Title>
+	<SP_Settings_Prostitute_BasePrice>Base Prostitution Price: </SP_Settings_Prostitute_BasePrice>
+	<SP_Settings_Prostitute_BeautyMult>Prostitution Beauty Multiplier: </SP_Settings_Prostitute_BeautyMult>
+	<SP_Settings_SexType_Title>Position Multipliers</SP_Settings_SexType_Title>
+	<SP_Settings_Payment_Title>Payment Settings</SP_Settings_Payment_Title>
+	<SP_Settings_Payment_DanceAutoSpawn>Force spawn silver if insufficient for dance</SP_Settings_Payment_DanceAutoSpawn>
+	<SP_Settings_Payment_ProstituteAutoSpawn>Force spawn silver if insufficient for prostitution</SP_Settings_Payment_ProstituteAutoSpawn>
+	<SP_Settings_SexType_Vaginal>Vaginal Multiplier</SP_Settings_SexType_Vaginal>
+	<SP_Settings_SexType_Anal>Anal Multiplier</SP_Settings_SexType_Anal>
+	<SP_Settings_SexType_Oral>Oral Multiplier</SP_Settings_SexType_Oral>
+	<SP_Settings_SexType_DoublePenetration>Double Penetration Multiplier</SP_Settings_SexType_DoublePenetration>
+	<SP_Settings_SexType_Boobjob>Boobjob Multiplier</SP_Settings_SexType_Boobjob>
+	<SP_Settings_SexType_Handjob>Handjob Multiplier</SP_Settings_SexType_Handjob>
+	<SP_Settings_SexType_Footjob>Footjob Multiplier</SP_Settings_SexType_Footjob>
+	<SP_Settings_SexType_Fingering>Fingering Multiplier</SP_Settings_SexType_Fingering>
+	<SP_Settings_SexType_Scissoring>Scissoring Multiplier</SP_Settings_SexType_Scissoring>
+	<SP_Settings_SexType_MutualMasturbation>Mutual Masturbation Multiplier</SP_Settings_SexType_MutualMasturbation>
+	<SP_Settings_SexType_Fisting>Fisting Multiplier</SP_Settings_SexType_Fisting>
+	<SP_Settings_SexType_Rimming>Rimming Multiplier</SP_Settings_SexType_Rimming>
+	<SP_Settings_SexType_Fellatio>Fellatio Multiplier</SP_Settings_SexType_Fellatio>
+	<SP_Settings_SexType_Cunnilingus>Cunnilingus Multiplier</SP_Settings_SexType_Cunnilingus>
+	<SP_Settings_SexType_Sixtynine>69 Multiplier</SP_Settings_SexType_Sixtynine>
+	
+	<SP_Reserved>Reserved</SP_Reserved>
+	<SP_NoPath>No path</SP_NoPath>
+	<SP_OwnedBySomeoneElse>Owned by someone else</SP_OwnedBySomeoneElse>
+	<SP_NotOldEnough>Not old enough</SP_NotOldEnough>
+	<SP_DoADance>Do a dance</SP_DoADance>
 </LanguageData>
