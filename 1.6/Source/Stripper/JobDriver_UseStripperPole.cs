@@ -75,12 +75,12 @@ namespace Stripper {
 
 
             var dancing = new Toil();
-
+            dancing.tickAction = StripperPoleTick;
             dancing.tickIntervalAction  = (int delta)=>{
-                TickFacing();
-                TickClothes();
+                //TickFacing();
+                //TickClothes();
                 TickStats(delta);
-                ticks_elapsed++;
+                //ticks_elapsed++;
             };
             dancing.initAction = () => {
                 Log.Message($"[StripperPole] MakeNewToils dancing initAction. pawn: {pawn}");
@@ -250,14 +250,15 @@ namespace Stripper {
 			yield return prostitute;
         }
 
-  //      public void StripperPoleTick() {
-		//	TickFacing();
-		//	TickClothes();
-		//	TickStats();
-		//	ticks_elapsed++;
-		//}
+        public void StripperPoleTick()
+        {
+            TickFacing();
+            TickClothes();
+            //TickStats();
+            ticks_elapsed++;
+        }
 
-		private void TickFacing() {
+        private void TickFacing() {
 			if (ticks_elapsed < turnTick) return;
 			pawn.Rotation = Rot4.Random;
 			turnTick = GetNextTurnTick();

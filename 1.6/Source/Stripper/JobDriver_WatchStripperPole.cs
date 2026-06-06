@@ -96,13 +96,14 @@ namespace Stripper {
 				}
 
             };
-			//watch.AddPreTickAction(() => {
-   //             //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
-   //             //WatchTickAction();
-			//});
-            watch.tickIntervalAction = (int delta) => {
+			watch.AddPreTickAction(() =>
+			{
+				//Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
+				WatchTickAction();
+			});
+			watch.tickIntervalAction = (int delta) => {
                 //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils tickIntervalAction currentDancer: {StripperPole.currentDancer}");
-                WatchTickAction();
+                //WatchTickAction();
                 JoyUtility.JoyTickCheckEnd(pawn, delta, JoyTickFullJoyAction.EndJob, StripperPole.def.joyGainFactor, StripperPole);
             };
             watch.AddFinishAction(() => {
