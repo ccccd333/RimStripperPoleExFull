@@ -1,12 +1,15 @@
 using RimWorld;
+using Rimworld_Animations;
 using rjw;
 using rjw.Modules.Interactions;
-using Rimworld_Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 using Verse.AI;
+using Verse.Noise;
+using Verse.Sound;
 using static UnityEngine.GraphicsBuffer;
 
 namespace Stripper {
@@ -37,12 +40,16 @@ namespace Stripper {
 
         private const string GroupAnimDefName = "GroupAnimation_Female_Stripper_UAP_Start";
 
+        private Mote rotationMote;
+        private Mote lightsMote;
+        private Sustainer danceMusic;
+
         private void Init(bool loadingSave = false) {
 			this.FailOnDespawnedOrNull(StripperPoleIndex);
 			this.FailOn(() => pawn.Drafted);
 			this.FailOn(() => pawn.IsFighting());
 
-		}
+        }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
             return pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed);
@@ -99,7 +106,10 @@ namespace Stripper {
                 
             };
             dancing.AddFinishAction(() => {
-				if (StripperMod.settings.debugLog)
+                danceMusic?.End();
+                danceMusic = null;
+
+                if (StripperMod.settings.debugLog)
 				{
 					Log.Message($"[StripperPole] MakeNewToils dancing AddFinishAction. pawn: {pawn}");
 				}
@@ -256,6 +266,12 @@ namespace Stripper {
             TickClothes();
             //TickStats();
             ticks_elapsed++;
+
+            if (ModsConfig.IdeologyActive)
+            {
+                DanceEffect();
+                DanceMusic();
+            }
         }
 
         private void TickFacing() {
@@ -267,6 +283,56 @@ namespace Stripper {
 		private int GetNextTurnTick() {
 			return turnTick + Rand.RangeInclusive(def.turnMin, def.turnMax);
 		}
+
+        private void DanceEffect()
+        {
+            Vector3 pos = StripperPole.DrawPos;
+            pos.z += 2f;
+
+            if (rotationMote == null || rotationMote.Destroyed)
+            {
+
+
+                rotationMote = MoteMaker.MakeStaticMote(
+                    pos,
+                    pawn.Map,
+                    SPThingDefOf.Mote_StripLightBall,
+                    1f
+                );
+            }
+
+            if (lightsMote == null || lightsMote.Destroyed)
+            {
+
+
+                lightsMote = MoteMaker.MakeStaticMote(
+                    pos,
+                    pawn.Map,
+                    SPThingDefOf.Mote_StripLightBallLights,
+                    1f
+                );
+
+                lightsMote.rotationRate = -3f;
+            }
+            
+            rotationMote.Maintain();
+            lightsMote.Maintain();
+        }
+
+        private void DanceMusic()
+        {
+            //SoundDef music = DefDatabase<SoundDef>.GetNamed("Drum_Music_6");
+            if (danceMusic == null || danceMusic.Ended)
+            {
+                danceMusic = SPSoundDefOf.StripMusicSoundDef.TrySpawnSustainer(
+                    SoundInfo.InMap(
+                        new TargetInfo(pawn.Position, pawn.Map),
+                        MaintenanceType.PerTick
+                    )
+                );
+            }
+            danceMusic.Maintain();
+        }
 
 		private void TickClothes() {
 			if (nextApparel >= wornApparel.Count) return;

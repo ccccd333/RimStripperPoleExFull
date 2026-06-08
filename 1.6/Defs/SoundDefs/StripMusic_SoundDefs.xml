@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <SoundDef>
+    <defName>StripMusicSoundDef</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Ritual/Drum/LSM_Tribal_Drum6_V2_Loop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>32</volumeRange>
+        <distRange>12~50</distRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+  
+</Defs>

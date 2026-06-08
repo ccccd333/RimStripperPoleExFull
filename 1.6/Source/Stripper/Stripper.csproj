@@ -75,6 +75,8 @@
     <Compile Include="LogEntry_UseStripperPole.cs" />
     <Compile Include="LogEntry_WatchStripperPole.cs" />
     <Compile Include="PlaceWorker_StripperPoleRadius.cs" />
+    <Compile Include="SPSoundDefOf.cs" />
+    <Compile Include="SPThingDefOf.cs" />
     <Compile Include="StripperMod.cs" />
     <Compile Include="StripperSettings.cs" />
     <Compile Include="JobDriver_UseStripperPole.cs" />

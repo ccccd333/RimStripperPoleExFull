@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="MoteBase">
+    <defName>Mote_StripLightBall</defName>
+    <thingClass>MoteThrown</thingClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <solidTime>99999</solidTime>
+      <needsMaintenance>True</needsMaintenance>
+    </mote>
+    <graphicData>
+      <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+      <shaderType>CutoutAnimated</shaderType>
+      <texPath>Things/Building/Misc/Lightball/Lightball_Overlay</texPath>
+      <shaderParameters>
+        <_NumFrames>4</_NumFrames>
+        <_FramesPerSec>7</_FramesPerSec>
+      </shaderParameters>
+      <drawSize>1</drawSize>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>Mote_StripLightBallLights</defName>
+    <thingClass>MoteThrown</thingClass>
+    <altitudeLayer>LightingOverlay</altitudeLayer>
+    <mote>
+      <solidTime>99999</solidTime>
+      <needsMaintenance>True</needsMaintenance>
+    </mote>
+    <graphicData>
+      <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+      <shaderType>AdditiveChangeHue</shaderType>
+      <texPath>Things/Building/Misc/Lightball/Lightball_Light</texPath>
+      <shaderParameters>
+        <_ChangeSpeed>0.5</_ChangeSpeed>
+      </shaderParameters>
+      <drawSize>12</drawSize>
+    </graphicData>
+  </ThingDef>
+</Defs>

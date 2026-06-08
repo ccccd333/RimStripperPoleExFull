@@ -48,13 +48,13 @@ namespace Stripper {
 
             if (dancerWatcherMap.TryGetValue(dancer, out var watchers) && watchers != null)
             {
-                //if (StripperMod.settings.debugLog)
-                //{
-                //    foreach(var a in watchers)
-                //    {
-                //        Log.Message($"[StripperPole] StripperPoleHelper.GetRandomAvailableProstitute. pawn: {a}");
-                //    }
-                //}
+                if (StripperMod.settings.debugLog)
+                {
+                    foreach (var a in watchers)
+                    {
+                        Log.Message($"[StripperPole] StripperPoleHelper.GetRandomAvailableProstitute. pawn: {a} curJob {a.jobs?.curDriver}");
+                    }
+                }
 
                 var validWatchers = watchers
                             .Where(w => w != null && w.Spawned && !w.Dead && !w.Downed)
