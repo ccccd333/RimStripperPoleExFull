@@ -46,8 +46,38 @@ namespace Stripper {
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad) {
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] Building_StripperPole SpawnSetup. map: {map} who?: {this}");
+            }
+
             base.SpawnSetup(map, respawningAfterLoad);
-            StripperPoleHelper.Register(this);
+            StripperPoleHelper.RegisterPole(map, this);
+        }
+
+        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
+        {
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] Building_StripperPole DeSpawn. map: {this.Map} who?: {this}");
+            }
+
+            //if (this.storageGroup != null)
+            //{
+            //    StorageGroup storageGroup = this.storageGroup;
+            //    if (storageGroup != null)
+            //    {
+            //        storageGroup.RemoveMember(this, true);
+            //    }
+            //    this.storageGroup = null;
+            //}
+            //if (mode != DestroyMode.WillReplace)
+            //{
+            //    this.innerContainer.TryDropAll(base.Position, base.Map, ThingPlaceMode.Near, null, null, true);
+            //}
+            StripperPoleHelper.UnregisterPole(Map, this);
+
+            base.DeSpawn(mode);
         }
 
         public override string GetInspectString() {

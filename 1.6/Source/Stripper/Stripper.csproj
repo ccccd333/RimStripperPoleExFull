@@ -77,8 +77,6 @@
     <Compile Include="PlaceWorker_StripperPoleRadius.cs" />
     <Compile Include="StripperMod.cs" />
     <Compile Include="StripperSettings.cs" />
-    <Compile Include="ThinkNode_ChancePerHour_UsingStripperPole.cs" />
-    <Compile Include="ThinkNode_ConditionalCanUseStripperPole.cs" />
     <Compile Include="JobDriver_UseStripperPole.cs" />
     <Compile Include="JobGiver_UseStripperPole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

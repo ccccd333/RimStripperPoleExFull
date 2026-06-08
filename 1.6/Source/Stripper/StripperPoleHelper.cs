@@ -9,7 +9,8 @@ using static rjw.xxx;
 namespace Stripper {
     public static class StripperPoleHelper {
 
-		public static HashSet<ThingDef> registeredDefs = new HashSet<ThingDef>();
+        //public static HashSet<ThingDef> registeredDefs = new HashSet<ThingDef>();
+        private static Dictionary<Map, HashSet<Building_StripperPole>> registeredPoles = new Dictionary<Map, HashSet<Building_StripperPole>>();
         private static Dictionary<Pawn, HashSet<Pawn>> dancerWatcherMap = new Dictionary<Pawn, HashSet<Pawn>>();
 
         public static void ClearAvailableProstitutes()
@@ -115,17 +116,53 @@ namespace Stripper {
             }
         }
 
-        public static void Register(Building_StripperPole pole) {
-			registeredDefs.Add(pole.def);
-		}
+        public static void RegisterPole(Map m, Building_StripperPole pole)
+        {
+            if (!registeredPoles.ContainsKey(m))
+                registeredPoles[m] = new HashSet<Building_StripperPole>();
+
+            registeredPoles[m].Add(pole);
+        }
+
+        public static void UnregisterPole(Map m, Building_StripperPole pole)
+        {
+            if (registeredPoles.TryGetValue(m, out var poles))
+            {
+                poles.Remove(pole);
+                if (poles.Count == 0) registeredPoles.Remove(m);
+            }
+        }
+
+        public static void ClearAllPoles()
+        {
+            registeredPoles.Clear();
+        }
 
 
-        public static List<Thing> GetStripperPoles(Map map) {
-			var poles = registeredDefs.SelectMany(e => map.listerThings.ThingsOfDef(e)).ToList();
-			return poles.Count > 0 ? poles : null;
-		}
+        //public static List<Thing> GetStripperPoles(Map map) {
+			
 
-		public static Building_StripperPole GetStripperPoleForPawn(Pawn pawn) {
+        //    if (map != null && registeredDefs.TryGetValue(map, out var poles))
+        //    {
+        //        return poles.Count > 0 ? poles : null;
+        //    }
+        //    return null;
+        //}
+
+        public static IEnumerable<Thing> GetStripperPoles(Map map)
+        {
+            if (map != null && registeredPoles.TryGetValue(map, out var poles))
+            {
+                if (StripperMod.settings.debugLog)
+                {
+                    Log.Message($"[StripperPole] Found {poles.Count} managed poles on map: {map}");
+                }
+                return poles.Count > 0 ? poles : null;
+            }
+            return null;
+        }
+
+        public static Building_StripperPole GetStripperPoleForPawn(Pawn pawn) {
 			if (!pawn.ageTracker.Adult) return null;
 			var poles = GetStripperPoles(pawn.Map);
 			if (poles == null) return null;

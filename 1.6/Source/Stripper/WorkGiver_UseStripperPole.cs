@@ -10,6 +10,10 @@ using RimWorld;
 namespace Stripper {
     public class WorkGiver_UseStripperPole : WorkGiver_Scanner {
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false) {
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] WorkGiver_UseStripperPole　JobOnThing. pawn: {pawn}");
+            }
             var pole = t as Building_StripperPole;
             if (pole == null) return base.JobOnThing(pawn, t, forced);
             return new Job(pole.GetJobDef(), t);

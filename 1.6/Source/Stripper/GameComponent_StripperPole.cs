@@ -13,6 +13,7 @@ namespace Stripper
                 Log.Message($"[StripperPole] GameComponent_StripperPole ctor");
             }
             StripperPoleHelper.ClearAvailableProstitutes();
+            StripperPoleHelper.ClearAllPoles();
             Instance = this;
         }
 
