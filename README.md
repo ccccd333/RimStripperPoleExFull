@@ -27,7 +27,8 @@ RJW (RimJobWorld)
 * UAP
 * Rimworld-Animation2.0
 * RJW
-
+* Hospitality (Continued)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3509486825
 ## 以下日本語
 
 こちらのModはcryptidfarmerさん作のModの拡張機能を追加したものです。
@@ -50,7 +51,8 @@ https://gitgud.io/cryptidfarmer/rimworld-stripper-pole
 * UAP
 * Rimworld-Animation2.0
 * RJW
-  
+* Hospitality (Continued)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3509486825
 ## 以下元ReadMe
 A Rimworld mod that adds a stripper pole.
 * Stripper pole construction requires Smithing and takes metal or wood to construct
