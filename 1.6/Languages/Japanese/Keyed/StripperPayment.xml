@@ -37,10 +37,36 @@
 	<SP_Settings_SexType_Fellatio>フェラ時倍率</SP_Settings_SexType_Fellatio>
 	<SP_Settings_SexType_Cunnilingus>クンニリングス時倍率</SP_Settings_SexType_Cunnilingus>
 	<SP_Settings_SexType_Sixtynine>シックスナイン時倍率</SP_Settings_SexType_Sixtynine>
+
+	<SP_Settings_InviteCooldown>客の呼び込みクールタイム秒数</SP_Settings_InviteCooldown>
+	<SP_Settings_Invite_Wander>客の呼び込み中にうろうろする秒数</SP_Settings_Invite_Wander>
+	<SP_Settings_Invite_BaseChance>客がダンスの招待を受ける基本確率（％）</SP_Settings_Invite_BaseChance>
+	<SP_Settings_Invite_BeautyMult>客がダンスの招待を受ける確率（美しさによる倍率)</SP_Settings_Invite_BeautyMult>
+	<SP_Settings_Invite_MaxInviteGuests>一度の呼び込みで候補に選ぶ最大人数</SP_Settings_Invite_MaxInviteGuests>
 	
 	<SP_Reserved>使用中</SP_Reserved>
 	<SP_NoPath>到達不能</SP_NoPath>
 	<SP_OwnedBySomeoneElse>他のポーンが使用中</SP_OwnedBySomeoneElse>
 	<SP_NotOldEnough>未成年</SP_NotOldEnough>
 	<SP_DoADance>ダンスを披露する</SP_DoADance>
+
+	<SP_CRM_NoPoleOwner>客の呼び込みにはポールの所有者は1人のみにしてください</SP_CRM_NoPoleOwner>
+	<SP_CRM_NoPath>ポールに到達不能</SP_CRM_NoPath>
+	<SP_CRM_NotOldEnough>客の呼び込みは成人のみ</SP_CRM_NotOldEnough>
+	<SP_CRM_NoGuests>招待可能な客がいない</SP_CRM_NoGuests>
+	<SP_CRM_IsSearchingForCustomer>既に誰かが客を誘惑しに行っている</SP_CRM_IsSearchingForCustomer>
+	<SP_CRM_IsInviteCooldownActive>客の呼び込みクールタイム中(再招待まで {0})</SP_CRM_IsInviteCooldownActive>
+	<SP_CRM_DoApproach>客をストリップダンスに招待する</SP_CRM_DoApproach>
+
+	<SP_Invite_NoGuest>訪問客が忙しそうでダンスに誘えそうにない</SP_Invite_NoGuest>
+
+	<SP_Invite_SearchingGuest>客を探している</SP_Invite_SearchingGuest>
+	<SP_Invite_SelectingGuest>客を選んでいる</SP_Invite_SelectingGuest>
+	<SP_Invite_ApproachingGuest>客に声をかけている</SP_Invite_ApproachingGuest>
+	<SP_Invite_NegotiatingGuest>客と交渉している</SP_Invite_NegotiatingGuest>
+	<SP_Invite_GuidingToDanceSpot>ダンスの場所へ案内している</SP_Invite_GuidingToDanceSpot>
+	<SP_Invite_WaitingForGuest>客を待っている</SP_Invite_WaitingForGuest>
+	<SP_Invite_StartingDance>ダンスを始めようとしている</SP_Invite_StartingDance>
+
+
 </LanguageData>

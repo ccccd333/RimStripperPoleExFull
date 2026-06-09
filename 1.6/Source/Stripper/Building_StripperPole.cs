@@ -9,16 +9,19 @@ using UnityEngine;
 using Verse;
 using Verse.AI;
 
-namespace Stripper {
+namespace Stripper
+{
 
-	public class Building_StripperPole_Def : ThingDef {
+    public class Building_StripperPole_Def : ThingDef
+    {
         public int inspectOwnerDisplayCount = 3;
         public string jobName = "UseStripperPole";
         public float watchRadius = 5;
         public float joyGainFactor = 1;
     }
 
-    public class Building_StripperPole : Building {
+    public class Building_StripperPole : Building
+    {
 
         public new Building_StripperPole_Def def => (Building_StripperPole_Def)base.def;
         public List<Pawn> owners => GetComp<CompAssignableToPawn>().AssignedPawnsForReading;
@@ -28,24 +31,28 @@ namespace Stripper {
         public Pawn currentDancer;
 
 
-        public bool IsOwner(Pawn pawn) {
-			return owners.Contains(pawn);
-		}
+        public bool IsOwner(Pawn pawn)
+        {
+            return owners.Contains(pawn);
+        }
 
-		public bool CanUse(Pawn pawn) {
-			if (IsOwner(pawn)) return true;
-			if (owners.Count <= 0) return true;
-			return false;
-		}
+        public bool CanUse(Pawn pawn)
+        {
+            if (IsOwner(pawn)) return true;
+            if (owners.Count <= 0) return true;
+            return false;
+        }
 
-        public override void ExposeData() {
+        public override void ExposeData()
+        {
             base.ExposeData();
             Scribe_Values.Look<string>(ref lastDanceInfo, "lastDanceInfo", "", false);
             Scribe_Values.Look<string>(ref currentDanceInfo, "currentDanceInfo", "", false);
             Scribe_References.Look(ref currentDancer, "currentDancer");
         }
 
-        public override void SpawnSetup(Map map, bool respawningAfterLoad) {
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
             if (StripperMod.settings.debugLog)
             {
                 Log.Message($"[StripperPole] Building_StripperPole SpawnSetup. map: {map} who?: {this}");
@@ -80,17 +87,20 @@ namespace Stripper {
             base.DeSpawn(mode);
         }
 
-        public override string GetInspectString() {
+        public override string GetInspectString()
+        {
             var sb = new StringBuilder();
             sb.Append(base.GetInspectString());
-            if(sb.Length > 0) sb.AppendLine();
+            if (sb.Length > 0) sb.AppendLine();
 
             sb.Append((owners.Count <= 1 ? "Owner" : "Owners").Translate() + ": ");
             if (owners.Count < 1) sb.Append("Nobody".Translate());
-            else {
+            else
+            {
                 var dc = def.inspectOwnerDisplayCount;
                 sb.Append(string.Join(", ", owners.Take(dc).Select(e => e.LabelShort)));
-                if (owners.Count > dc) {
+                if (owners.Count > dc)
+                {
                     sb.Append($" (+{owners.Count - dc})");
                 }
             }
@@ -102,30 +112,42 @@ namespace Stripper {
             return sb.ToString().TrimEndNewlines();
         }
 
-        public JobDef GetJobDef() {
+        public JobDef GetJobDef()
+        {
             return DefDatabase<JobDef>.GetNamed(def.jobName, true);
         }
 
-        public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn) {
+        public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn)
+        {
             if (selPawn.Faction != Faction.OfPlayer) yield break;
 
-            foreach (var next in base.GetFloatMenuOptions(selPawn)) {
+            foreach (var next in base.GetFloatMenuOptions(selPawn))
+            {
                 yield return next;
             }
-            if (!selPawn.CanReserve(this, 1, -1, null, false)) {
+
+            bool isCanReach = selPawn.CanReach(this, PathEndMode.InteractionCell, Danger.Deadly, false, false, TraverseMode.ByPawn);
+
+            if (!selPawn.CanReserve(this, 1, -1, null, false))
+            {
                 yield return new FloatMenuOption("SP_Reserved".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
-            else if (!selPawn.CanReach(this, PathEndMode.InteractionCell, Danger.Deadly, false, false, TraverseMode.ByPawn)) {
+            else if (!isCanReach)
+            {
                 yield return new FloatMenuOption("SP_NoPath".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
-            else if (!CanUse(selPawn)) {
+            else if (!CanUse(selPawn))
+            {
                 yield return new FloatMenuOption("SP_OwnedBySomeoneElse".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
-            else if (!selPawn.ageTracker.Adult) {
+            else if (!selPawn.ageTracker.Adult)
+            {
                 yield return new FloatMenuOption("SP_NotOldEnough".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
             }
-            else {
-                Action doIt = () => {
+            else
+            {
+                Action doIt = () =>
+                {
                     selPawn.drafter.Drafted = false;
                     Job job = new Job(GetJobDef(), this);
                     if (job == null) return;
@@ -133,6 +155,50 @@ namespace Stripper {
                 };
 
                 yield return new FloatMenuOption("SP_DoADance".Translate(), doIt);
+            }
+
+            // ストリップダンスするターゲットを見つけるジョブを起動する
+            if (owners.Count != 1 || !IsOwner(selPawn))
+            {
+                // ジョブ中にうろうろするので占有状態でないと困るので
+                yield return new FloatMenuOption("SP_CRM_NoPoleOwner".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+            }
+            else if (!selPawn.ageTracker.Adult)
+            {
+                yield return new FloatMenuOption("SP_CRM_NotOldEnough".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+            }
+            else if (!isCanReach)
+            {
+                // そもそも到達不可能なポールの場合
+                yield return new FloatMenuOption("SP_CRM_NoPath".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+            }
+            else
+            {
+                bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map).Any();
+                if (!hasVisitGuest)
+                {
+                    yield return new FloatMenuOption("SP_CRM_NoGuests".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                }
+                else if (StripperPoleHelper.IsSearchingForCustomer)
+                {
+                    yield return new FloatMenuOption("SP_CRM_IsSearchingForCustomer".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+
+                }
+                else if (StripperPoleHelper.IsInviteCooldownActive(out int remainingTicks))
+                {
+                    yield return new FloatMenuOption("SP_CRM_IsInviteCooldownActive".Translate(remainingTicks.ToStringTicksToPeriod()), null);
+                }
+                else
+                {
+                    Action doIt = () =>
+                    {
+                        selPawn.drafter.Drafted = false;
+                        Job job = new Job(SPJobDefOf.SP_InviteToDance, this);
+                        if (job == null) return;
+                        selPawn.jobs.TryTakeOrderedJob(job, JobTag.SatisfyingNeeds);
+                    };
+                    yield return new FloatMenuOption("SP_CRM_DoApproach".Translate(), doIt);
+                }
             }
         }
     }

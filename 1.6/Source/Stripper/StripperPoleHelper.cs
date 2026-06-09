@@ -6,12 +6,46 @@ using Verse;
 using Verse.AI;
 using static rjw.xxx;
 
-namespace Stripper {
-    public static class StripperPoleHelper {
+namespace Stripper
+{
+    public static class StripperPoleHelper
+    {
 
         //public static HashSet<ThingDef> registeredDefs = new HashSet<ThingDef>();
         private static Dictionary<Map, HashSet<Building_StripperPole>> registeredPoles = new Dictionary<Map, HashSet<Building_StripperPole>>();
         private static Dictionary<Pawn, HashSet<Pawn>> dancerWatcherMap = new Dictionary<Pawn, HashSet<Pawn>>();
+        private static bool isSearchingForCustomer = false;
+        private static int lastInviteToDance = 0;
+
+        public static bool IsSearchingForCustomer
+        {
+            get { return isSearchingForCustomer; }
+            set { isSearchingForCustomer = value; }
+        }
+
+        public static int LastInviteToDance
+        {
+            get { return lastInviteToDance; }
+            set { lastInviteToDance = value; }
+        }
+
+        public static void ExposeData()
+        {
+            Scribe_Values.Look(ref isSearchingForCustomer, "isSearchingForCustomer", false);
+            Scribe_Values.Look(ref lastInviteToDance, "lastInviteToDance", 0);
+        }
+
+        public static int GetRemainingTicks()
+        {
+            return Math.Max(0, (lastInviteToDance + StripperMod.settings.inviteCooldownSeconds) - Find.TickManager.TicksGame);
+        }
+
+        public static bool IsInviteCooldownActive(out int remainingTicks)
+        {
+            remainingTicks = GetRemainingTicks();
+
+            return remainingTicks > 0;
+        }
 
         public static void ClearAvailableProstitutes()
         {
@@ -20,6 +54,7 @@ namespace Stripper {
 
         public static void RegisterAvailableProstitute(Pawn dancer, Pawn watcher)
         {
+
             if (dancer == null || watcher == null) return;
 
             if (!dancerWatcherMap.ContainsKey(dancer))
@@ -43,8 +78,6 @@ namespace Stripper {
         public static Pawn GetRandomAvailableProstitute(Pawn dancer)
         {
             if (dancer == null) return null;
-
-
 
             if (dancerWatcherMap.TryGetValue(dancer, out var watchers) && watchers != null)
             {
@@ -89,14 +122,14 @@ namespace Stripper {
             }
 
             int basePayout = StripperPaymentHelper.PriceOfPerformance(dancer, StripperMod.settings.baseDancePrice, StripperMod.settings.danceBeautyMultiplier);
-            
+
             int totalSilverToDrop = 0;
 
             foreach (Pawn watcher in watchers)
             {
                 if (watcher == null || watcher.Dead || !watcher.Spawned) continue;
 
-                if(watcher.IsColonist) continue;
+                if (watcher.IsColonist) continue;
 
                 var watchDriver = watcher.jobs?.curDriver as JobDriver_WatchStripperPole;
                 if (watchDriver == null) continue;
@@ -112,7 +145,7 @@ namespace Stripper {
             else
             {
                 Messages.Message("SP_MessageDancePayout_None".Translate(dancer), dancer, MessageTypeDefOf.NeutralEvent);
-                
+
             }
         }
 
@@ -140,7 +173,7 @@ namespace Stripper {
 
 
         //public static List<Thing> GetStripperPoles(Map map) {
-			
+
 
         //    if (map != null && registeredDefs.TryGetValue(map, out var poles))
         //    {
@@ -162,62 +195,68 @@ namespace Stripper {
             return null;
         }
 
-        public static Building_StripperPole GetStripperPoleForPawn(Pawn pawn) {
-			if (!pawn.ageTracker.Adult) return null;
-			var poles = GetStripperPoles(pawn.Map);
-			if (poles == null) return null;
+        public static Building_StripperPole GetStripperPoleForPawn(Pawn pawn)
+        {
+            if (!pawn.ageTracker.Adult) return null;
+            var poles = GetStripperPoles(pawn.Map);
+            if (poles == null) return null;
 
-			bool validator(Thing t) {
-				if (!(t as Building_StripperPole).CanUse(pawn)) return false;
-				if (!pawn.CanReserve(t, 1, -1, null, false)) return false;
-				if (t.IsForbidden(pawn)) return false;
-				if (!t.IsSociallyProper(pawn)) return false;
-				return true;
-			}
+            bool validator(Thing t)
+            {
+                if (!(t as Building_StripperPole).CanUse(pawn)) return false;
+                if (!pawn.CanReserve(t, 1, -1, null, false)) return false;
+                if (t.IsForbidden(pawn)) return false;
+                if (!t.IsSociallyProper(pawn)) return false;
+                return true;
+            }
 
-			Func<Thing, float> priorityGetter = (t => {
-				float p = 1f;
+            Func<Thing, float> priorityGetter = (t =>
+            {
+                float p = 1f;
 
-				if ((t as Building_StripperPole).IsOwner(pawn)) {
-					p *= 1.15f;
-				}
+                if ((t as Building_StripperPole).IsOwner(pawn))
+                {
+                    p *= 1.15f;
+                }
 
-				return p;
-			});
+                return p;
+            });
 
-			return (Building_StripperPole)GenClosest.ClosestThing_Global_Reachable(
-				pawn.Position,
-				pawn.Map,
-				poles,
-				PathEndMode.OnCell,
-				TraverseParms.For(pawn, Danger.Some, TraverseMode.ByPawn, false),
-				300f,
-				validator,
-				priorityGetter);
-		}
-
-
-		public static IEnumerable<IntVec3> WatchCells(ThingDef def, IntVec3 center, Map map) {
-			if (def == null) throw new Exception("missing def");
-			var poleDef = def as Building_StripperPole_Def;
-			if (poleDef == null) throw new Exception("def is not a pole");
-			return GenRadial.RadialCellsAround(center, poleDef.watchRadius, false)
-				.Where(e => EverPossibleToWatchFrom(e, center, map));
-		}
-
-		private static bool EverPossibleToWatchFrom(IntVec3 watchCell, IntVec3 buildingCenter, Map map) {
-			if (!watchCell.InBounds(map)) return false;
-			if (!watchCell.Standable(map)) return false;
-			Room room = buildingCenter.GetRoom(map);
-			if (room != null && !room.ContainsCell(watchCell)) return false;
-			return GenSight.LineOfSight(buildingCenter, watchCell, map, skipFirstCell: true);
-		}
+            return (Building_StripperPole)GenClosest.ClosestThing_Global_Reachable(
+                pawn.Position,
+                pawn.Map,
+                poles,
+                PathEndMode.OnCell,
+                TraverseParms.For(pawn, Danger.Some, TraverseMode.ByPawn, false),
+                300f,
+                validator,
+                priorityGetter);
+        }
 
 
-		public static bool TryFindBestWatchCell(Thing t, Pawn pawn, out IntVec3 result, out Building chair) {
-			var cells = WatchCells(t.def, t.Position, t.Map).ToList();
-			cells.Shuffle();
-			// 元仕様だと椅子がない場合はJobが起動しないため立見も追加する
+        public static IEnumerable<IntVec3> WatchCells(ThingDef def, IntVec3 center, Map map)
+        {
+            if (def == null) throw new Exception("missing def");
+            var poleDef = def as Building_StripperPole_Def;
+            if (poleDef == null) throw new Exception("def is not a pole");
+            return GenRadial.RadialCellsAround(center, poleDef.watchRadius, false)
+                .Where(e => EverPossibleToWatchFrom(e, center, map));
+        }
+
+        private static bool EverPossibleToWatchFrom(IntVec3 watchCell, IntVec3 buildingCenter, Map map)
+        {
+            if (!watchCell.InBounds(map)) return false;
+            if (!watchCell.Standable(map)) return false;
+            Room room = buildingCenter.GetRoom(map);
+            if (room != null && !room.ContainsCell(watchCell)) return false;
+            return GenSight.LineOfSight(buildingCenter, watchCell, map, skipFirstCell: true);
+        }
+
+        public static bool TryFindBestWatchCell(Thing t, Pawn pawn, out IntVec3 result, out Building chair)
+        {
+            var cells = WatchCells(t.def, t.Position, t.Map).ToList();
+            cells.Shuffle();
+            // 元仕様だと椅子がない場合はJobが起動しないため立見も追加する
             foreach (var next in cells)
             {
                 if (next.IsForbidden(pawn)) continue;
@@ -246,9 +285,9 @@ namespace Stripper {
                 }
             }
             result = IntVec3.Invalid;
-			chair = null;
-			return false;
-		}
+            chair = null;
+            return false;
+        }
 
         public static float GetProstitutePartsMult(rjwSextype sextype)
         {

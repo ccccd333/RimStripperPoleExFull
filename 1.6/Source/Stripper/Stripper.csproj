@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Stripper</RootNamespace>
     <AssemblyName>Stripper</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -34,6 +35,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Hospitality">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\294100\3509486825\1.6\Assemblies\Hospitality.dll</HintPath>
     </Reference>
     <Reference Include="RJW">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\rjw\1.6\Assemblies\RJW.dll</HintPath>
@@ -65,6 +69,8 @@
     <Compile Include="Building_StripperPole.cs" />
     <Compile Include="Dialog_ProstitutionNegotiation.cs" />
     <Compile Include="GameComponent_StripperPole.cs" />
+    <Compile Include="JobDriver_GoToDanceCellAndWait.cs" />
+    <Compile Include="JobDriver_InviteToDance.cs" />
     <Compile Include="JobDriver_SexClient.cs" />
     <Compile Include="JobDriver_WaitForDancer.cs" />
     <Compile Include="SPJobDefOf.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StripperPoleHelper.cs" />
     <Compile Include="StripperPaymentHelper.cs" />
+    <Compile Include="WorkGiver_InviteToDance.cs" />
     <Compile Include="WorkGiver_UseStripperPole.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,4 +43,14 @@
 		<driverClass>Stripper.JobDriver_WaitForDancer</driverClass>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
+	<JobDef>
+		<defName>SP_InviteToDance</defName>
+		<driverClass>Stripper.JobDriver_InviteToDance</driverClass>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
+	<JobDef>
+		<defName>SP_GoToDanceCellAndWait</defName>
+		<driverClass>Stripper.JobDriver_GoToDanceCellAndWait</driverClass>
+		<casualInterruptible>false</casualInterruptible>
+	</JobDef>
 </Defs>

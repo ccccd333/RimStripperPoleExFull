@@ -22,7 +22,7 @@ namespace Stripper
         private Job_WatchStripperPole_Def def => (Job_WatchStripperPole_Def)job.def;
         private Building_StripperPole StripperPole => job.targetA.Thing as Building_StripperPole;
         private IntVec3 Cell => job.targetB.Cell;
-        private Building Chair => job.targetC.HasThing ? job.targetC.Thing as Building : null;
+        //private Building Chair => job.targetC.HasThing ? job.targetC.Thing as Building : null;
 
         public Pawn dancer;
 
@@ -47,11 +47,13 @@ namespace Stripper
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
+
                 Building_StripperPole pole = job.targetA.Thing as Building_StripperPole;
+                    
 
                 if (isWatching && pole != null)
                 {
-                    dancer = pole.currentDancer;
+                    dancer = pole.currentDancer;                    
 
                     if (StripperMod.settings.debugLog)
                     {
@@ -69,13 +71,18 @@ namespace Stripper
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] WatchStripperPole MakeNewToils currentDancer: {StripperPole.currentDancer} watcher: {pawn}");
+            }
+
             this.EndOnDespawnedOrNull(TargetIndex.A);
             this.AddEndCondition(() =>
             {
 
                 //if (StripperMod.settings.debugLog)
                 //{
-                //	Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddEndCondition currentDancer: {StripperPole.currentDancer} mode: {Scribe.mode}");
+                //    Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddEndCondition currentDancer: {StripperPole.currentDancer} mode: {Scribe.mode}");
                 //}
 
                 if (StripperPole.currentDancer == null)
@@ -91,14 +98,21 @@ namespace Stripper
             var watch = ToilMaker.MakeToil("MakeNewToils");
             watch.initAction = () =>
             {
-                //if (StripperMod.settings.debugLog)
-                //{
-                //	Log.Message($"[StripperPole] WatchStripperPole MakeNewToils initAction currentDancer: {StripperPole.currentDancer}");
-                //}
+                if (StripperMod.settings.debugLog)
+                {
+                    Log.Message($"[StripperPole] WatchStripperPole watch(Toil) initAction currentDancer: {StripperPole.currentDancer}");
+                }
+
                 dancer = StripperPole.currentDancer;
+
+                //dancer = StripperPole.currentDancer;
                 // 到達前にポーンがダンスを終了した場合は観客数に加えない
                 if (dancer != null && !pawn.IsColonist)
                 {
+                    if (StripperMod.settings.debugLog)
+                    {
+                        Log.Message($"[StripperPole] WatchStripperPole watch(Toil) initAction RegisterAvailableProstitute dancer: {dancer} wather: {pawn}");
+                    }
                     isWatching = true;
                     StripperPoleHelper.RegisterAvailableProstitute(dancer, pawn);
                 }
@@ -108,6 +122,12 @@ namespace Stripper
             {
                 //Log.Message($"[StripperPole] WatchStripperPole MakeNewToils AddPreTickAction currentDancer: {StripperPole.currentDancer}");
                 WatchTickAction();
+                // ここでしている理由はJobDriver_InviteToDanceだとuseとwatchのジョブを同時に開始したとき
+                // 処理の順番で消されるため仕方なく。そのうち直すかも
+                if (dancer != null && !pawn.IsColonist)
+                {
+                    StripperPoleHelper.RegisterAvailableProstitute(dancer, pawn);
+                }
             });
             watch.tickIntervalAction = (int delta) =>
             {
@@ -126,7 +146,7 @@ namespace Stripper
                 AddThought();
             });
             watch.defaultCompleteMode = ToilCompleteMode.Delay;
-            watch.defaultDuration = job.def.joyDuration;
+            watch.defaultDuration = job.def.joyDuration + 1000;
             watch.handlingFacing = true;
             yield return watch;
         }

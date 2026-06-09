@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<WorkTypeDef>
+		<defName>StripperPole_Dancer</defName>
+		<labelShort>strip</labelShort>
+		<pawnLabel>dancer</pawnLabel>
+		<gerundLabel>dancing</gerundLabel>
+		<description>Dance to entertain visiting guests.</description>
+		<verb>dance</verb>
+		<naturalPriority>150</naturalPriority>
+		<requireCapableColonist>true</requireCapableColonist>
+		<workTags>
+			<li>Social</li>
+			<li>AllWork</li>
+		</workTags>
+	</WorkTypeDef>
+
+</Defs>

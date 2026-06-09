@@ -118,6 +118,55 @@ namespace Stripper
             listing.Gap();
             listing.CheckboxLabeled("SP_Settings_Payment_ProstituteAutoSpawn".Translate(), ref settings.spawnSilverForProstitution);
             listing.GapLine();
+
+            listing.Label("SP_Settings_InviteCooldown".Translate());
+            Rect spic_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spic_rect, ref settings.inviteCooldownSeconds, ref _bufferInviteCooldown, 1.0f,1000000.0f);
+            if (int.TryParse(_bufferInviteCooldown, out int result5))
+            {
+                settings.inviteCooldownSeconds = result5;
+            }
+            listing.Gap();
+
+            listing.Label("SP_Settings_Invite_Wander".Translate());
+            Rect spiw_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spiw_rect, ref settings.inviteWanderSeconds, ref _bufferInviteWander, 1.0f, 1000.0f);
+            if (int.TryParse(_bufferInviteWander, out int result6))
+            {
+                settings.inviteWanderSeconds = result6;
+            }
+            listing.Gap();
+
+            listing.Label("SP_Settings_Invite_BaseChance".Translate());
+            Rect spibc_rect = listing.GetRect(30f);
+            float ibc = settings.inviteBaseChance * 100.0f;
+            Widgets.TextFieldNumeric(spibc_rect, ref ibc, ref _bufferInviteChanceBase, 1.0f, 100.0f);
+            if (float.TryParse(_bufferInviteChanceBase, out float result7))
+            {
+                settings.inviteBaseChance = result7 / 100.0f;
+                    
+            }
+            listing.Gap();
+
+            listing.Label("SP_Settings_Invite_BeautyMult".Translate());
+            Rect spibm_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spibm_rect, ref settings.inviteBeautyMultiplier, ref _bufferInviteChanceBeautyMult, 15000);
+            if (float.TryParse(_bufferInviteChanceBeautyMult, out float result8))
+            {
+                settings.inviteBeautyMultiplier = result8;
+            }
+            listing.Gap();
+
+            listing.Label("SP_Settings_Invite_MaxInviteGuests".Translate());
+            Rect spimig_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spimig_rect, ref settings.maxGuestsToInvite, ref _bufferMaxGuestsToInvite, 1, 100);
+            if (int.TryParse(_bufferMaxGuestsToInvite, out int result9))
+            {
+                settings.maxGuestsToInvite = result9;
+            }
+            listing.Gap();
+
+            listing.GapLine();
             listing.CheckboxLabeled("DebugLog", ref settings.debugLog);
 
             listing.End();
@@ -130,6 +179,11 @@ namespace Stripper
         private string _bufferDanceBeauty;
         private string _bufferProstPrice;
         private string _bufferProstBeauty;
+        private string _bufferInviteCooldown;
+        private string _bufferInviteWander;
+        private string _bufferInviteChanceBase;
+        private string _bufferInviteChanceBeautyMult;
+        private string _bufferMaxGuestsToInvite;
         private string _bufferPartMult;
 
         public override string SettingsCategory() => "Stripper Mod Settings";

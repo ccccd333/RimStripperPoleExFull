@@ -4,12 +4,26 @@
 		<defName>WG_UseStripperPole</defName>
 		<label>Doing a dance</label>
 		<giverClass>Stripper.WorkGiver_UseStripperPole</giverClass>
-		<workType>BasicWorker</workType>
+		<workType>StripperPole_Dancer</workType>
 		<verb>dance</verb>
 		<gerund>dancing</gerund>
 		<scanThings>false</scanThings>
 		<scanCells>false</scanCells>
 		<priorityInType>10</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<WorkGiverDef>
+		<defName>WG_InviteToDance</defName>
+		<label>Invite</label>
+		<giverClass>Stripper.WorkGiver_InviteToDance</giverClass>
+		<workType>StripperPole_Dancer</workType>
+		<verb>dance</verb>
+		<gerund>dancing</gerund>
+		<scanThings>false</scanThings>
+		<scanCells>false</scanCells>
+		<priorityInType>11</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>
 		</requiredCapacities>

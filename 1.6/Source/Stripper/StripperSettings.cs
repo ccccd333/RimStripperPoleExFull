@@ -29,6 +29,19 @@ namespace Stripper
         public float prostitutePartsCunnilingus = 1.0f;
         public float prostitutePartsSixtynine = 1.0f;
 
+        public int inviteCooldownSeconds = 21600;
+        public int inviteWanderSeconds = 10;
+        public int InviteCooldownTicks =>
+            inviteCooldownSeconds * 60;
+
+        public int InviteWanderTicks =>
+            inviteWanderSeconds * 60;
+
+        public float inviteBaseChance = 0.3f;
+        public float inviteBeautyMultiplier = 1.0f;
+
+        public int maxGuestsToInvite = 5;
+
         // 設定の保存・読み込み
         public override void ExposeData()
         {
@@ -56,6 +69,14 @@ namespace Stripper
             Scribe_Values.Look(ref prostitutePartsFellatio, "prostitutePartsFellatio", 1.0f);
             Scribe_Values.Look(ref prostitutePartsCunnilingus, "prostitutePartsCunnilingus", 1.0f);
             Scribe_Values.Look(ref prostitutePartsSixtynine, "prostitutePartsSixtynine", 1.0f);
+
+            Scribe_Values.Look(ref inviteCooldownSeconds, "inviteCooldownSeconds", 21600);
+            Scribe_Values.Look(ref inviteWanderSeconds, "inviteWanderSeconds", 10);
+
+            Scribe_Values.Look(ref inviteBaseChance, "inviteBaseChance", 0.3f);
+            Scribe_Values.Look(ref inviteBeautyMultiplier, "inviteBeautyMultiplier", 1.0f);
+            Scribe_Values.Look(ref maxGuestsToInvite, "maxGuestsToInvite", 10);
+            
         }
     }
 }

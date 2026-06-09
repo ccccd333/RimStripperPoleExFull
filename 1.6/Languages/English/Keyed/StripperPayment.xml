@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<SP_PaymentSilver>{0} paid {1} silver to {2} (Fee based on beauty: {3}).</SP_PaymentSilver>
-	<SP_PaymentSilverPartial>{0} could only pay {1} silver out of {2} to {3}.</SP_PaymentSilverPartial>
+	<SP_PaymentSilver>{0} paid {1} silver to {2} (beauty-based fee: {3}).</SP_PaymentSilver>
+	<SP_PaymentSilverPartial>{0} could only pay {1} silver out of {2} silver to {3}.</SP_PaymentSilverPartial>
 	<SP_PaymentSilverNone>{0} could not pay {1} silver to {2}.</SP_PaymentSilverNone>
-	<SP_DistributeDancePayout>{0} finished dancing. Received a total of {2} silver from {1} spectators based on beauty.</SP_DistributeDancePayout>
-	<SP_MessageDancePayout_None>{0} finished dancing, but the spectators didn't pay a single silver.</SP_MessageDancePayout_None>
-	<SP_PartsMult>silver: ×{0}</SP_PartsMult>
+
+	<SP_DistributeDancePayout>{0}'s dance has ended. A total of {2} silver was paid by {1} audience members based on beauty.</SP_DistributeDancePayout>
+	<SP_MessageDancePayout_None>{0}'s dance has ended. Not a single silver was paid by the audience.</SP_MessageDancePayout_None>
+
+	<SP_PartsMult>Silver Multiplier: ×{0}</SP_PartsMult>
+
 	<SP_Prostitute_Title>Prostitution Negotiation</SP_Prostitute_Title>
-	<SP_Prostitute_Text>{1}, who watched {0} dance, is offering extra silver. Choose what to do.</SP_Prostitute_Text>
-	<SP_Prostitute_Accept>Accepted the offer.</SP_Prostitute_Accept>
-	<SP_Prostitute_Reject>Declined the offer.</SP_Prostitute_Reject>
-	<SP_SelectAct>Select act:</SP_SelectAct>
-	<SP_NoActsAvailable>No acts available for this pair.</SP_NoActsAvailable>
-	<SP_Settings_Dance_Title>Dance Base Settings</SP_Settings_Dance_Title>
+	<SP_Prostitute_Text>{1}, after watching {0}'s dance, is approaching while showing silver and asking for company. Choose the act to perform.</SP_Prostitute_Text>
+	<SP_Prostitute_Accept>Accept Negotiation</SP_Prostitute_Accept>
+	<SP_Prostitute_Reject>Reject Negotiation</SP_Prostitute_Reject>
+
+	<SP_SelectAct>Select Act:</SP_SelectAct>
+	<SP_NoActsAvailable>No available acts were found for this pair.</SP_NoActsAvailable>
+
+	<SP_Settings_Dance_Title>Dance Settings</SP_Settings_Dance_Title>
 	<SP_Settings_Dance_BasePrice>Base Dance Price: </SP_Settings_Dance_BasePrice>
 	<SP_Settings_Dance_BeautyMult>Dance Beauty Multiplier: </SP_Settings_Dance_BeautyMult>
-	<SP_Settings_Prostitute_Title>Prostitution Base Settings</SP_Settings_Prostitute_Title>
+
+	<SP_Settings_Prostitute_Title>Prostitution Settings</SP_Settings_Prostitute_Title>
 	<SP_Settings_Prostitute_BasePrice>Base Prostitution Price: </SP_Settings_Prostitute_BasePrice>
 	<SP_Settings_Prostitute_BeautyMult>Prostitution Beauty Multiplier: </SP_Settings_Prostitute_BeautyMult>
-	<SP_Settings_SexType_Title>Position Multipliers</SP_Settings_SexType_Title>
+
+	<SP_Settings_SexType_Title>Act Multipliers</SP_Settings_SexType_Title>
+
 	<SP_Settings_Payment_Title>Payment Settings</SP_Settings_Payment_Title>
-	<SP_Settings_Payment_DanceAutoSpawn>Force spawn silver if insufficient for dance</SP_Settings_Payment_DanceAutoSpawn>
-	<SP_Settings_Payment_ProstituteAutoSpawn>Force spawn silver if insufficient for prostitution</SP_Settings_Payment_ProstituteAutoSpawn>
+	<SP_Settings_Payment_DanceAutoSpawn>Force-spawn silver if a guest cannot afford a dance</SP_Settings_Payment_DanceAutoSpawn>
+	<SP_Settings_Payment_ProstituteAutoSpawn>Force-spawn silver if a guest cannot afford prostitution</SP_Settings_Payment_ProstituteAutoSpawn>
+
 	<SP_Settings_SexType_Vaginal>Vaginal Multiplier</SP_Settings_SexType_Vaginal>
 	<SP_Settings_SexType_Anal>Anal Multiplier</SP_Settings_SexType_Anal>
 	<SP_Settings_SexType_Oral>Oral Multiplier</SP_Settings_SexType_Oral>
@@ -36,11 +45,36 @@
 	<SP_Settings_SexType_Rimming>Rimming Multiplier</SP_Settings_SexType_Rimming>
 	<SP_Settings_SexType_Fellatio>Fellatio Multiplier</SP_Settings_SexType_Fellatio>
 	<SP_Settings_SexType_Cunnilingus>Cunnilingus Multiplier</SP_Settings_SexType_Cunnilingus>
-	<SP_Settings_SexType_Sixtynine>69 Multiplier</SP_Settings_SexType_Sixtynine>
-	
-	<SP_Reserved>Reserved</SP_Reserved>
-	<SP_NoPath>No path</SP_NoPath>
-	<SP_OwnedBySomeoneElse>Owned by someone else</SP_OwnedBySomeoneElse>
-	<SP_NotOldEnough>Not old enough</SP_NotOldEnough>
-	<SP_DoADance>Do a dance</SP_DoADance>
+	<SP_Settings_SexType_Sixtynine>Sixty-Nine Multiplier</SP_Settings_SexType_Sixtynine>
+
+	<SP_Settings_InviteCooldown>Customer Invitation Cooldown (seconds)</SP_Settings_InviteCooldown>
+	<SP_Settings_Invite_Wander>Wandering Time While Seeking Customers (seconds)</SP_Settings_Invite_Wander>
+	<SP_Settings_Invite_BaseChance>Base Chance a Guest Accepts a Dance Invitation (%)</SP_Settings_Invite_BaseChance>
+	<SP_Settings_Invite_BeautyMult>Guest Acceptance Chance Beauty Multiplier</SP_Settings_Invite_BeautyMult>
+	<SP_Settings_Invite_MaxInviteGuests>Maximum Guests Considered Per Invitation Attempt</SP_Settings_Invite_MaxInviteGuests>
+
+	<SP_Reserved>In Use</SP_Reserved>
+	<SP_NoPath>No Path</SP_NoPath>
+	<SP_OwnedBySomeoneElse>Being Used by Another Pawn</SP_OwnedBySomeoneElse>
+	<SP_NotOldEnough>Underage</SP_NotOldEnough>
+	<SP_DoADance>Perform a Dance</SP_DoADance>
+
+	<SP_CRM_NoPoleOwner>Only one owner may be assigned to the pole when inviting customers</SP_CRM_NoPoleOwner>
+	<SP_CRM_NoPath>No Path to Pole</SP_CRM_NoPath>
+	<SP_CRM_NotOldEnough>Only adults can invite customers</SP_CRM_NotOldEnough>
+	<SP_CRM_NoGuests>No guests available to invite</SP_CRM_NoGuests>
+	<SP_CRM_IsSearchingForCustomer>Someone is already searching for customers</SP_CRM_IsSearchingForCustomer>
+	<SP_CRM_IsInviteCooldownActive>Customer invitation cooldown active (available again in {0})</SP_CRM_IsInviteCooldownActive>
+	<SP_CRM_DoApproach>Invite Guests to a Strip Dance</SP_CRM_DoApproach>
+
+	<SP_Invite_NoGuest>All guests seem too busy to be invited to dance</SP_Invite_NoGuest>
+
+	<SP_Invite_SearchingGuest>Searching for a Guest</SP_Invite_SearchingGuest>
+	<SP_Invite_SelectingGuest>Selecting a Guest</SP_Invite_SelectingGuest>
+	<SP_Invite_ApproachingGuest>Approaching a Guest</SP_Invite_ApproachingGuest>
+	<SP_Invite_NegotiatingGuest>Negotiating with a Guest</SP_Invite_NegotiatingGuest>
+	<SP_Invite_GuidingToDanceSpot>Guiding the Guest to the Dance Area</SP_Invite_GuidingToDanceSpot>
+	<SP_Invite_WaitingForGuest>Waiting for the Guest</SP_Invite_WaitingForGuest>
+	<SP_Invite_StartingDance>Starting the Dance</SP_Invite_StartingDance>
+
 </LanguageData>

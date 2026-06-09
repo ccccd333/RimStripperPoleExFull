@@ -52,13 +52,14 @@ namespace Stripper {
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
+            //Log.Message($"UseStripperPole TryMakePreToilReservations {pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed)}");
             return pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed);
         }
 
         protected override IEnumerable<Toil> MakeNewToils() {
             if (StripperMod.settings.debugLog)
             {
-                Log.Message($"[StripperPole] MakeNewToils. pawn: {pawn}");
+                Log.Message($"[StripperPole] JobDriver_UseStripperPole MakeNewToils. pawn: {pawn}");
             }
             Init();
             var gotoToil = Toils_Goto.GotoThing(StripperPoleIndex, PathEndMode.OnCell);

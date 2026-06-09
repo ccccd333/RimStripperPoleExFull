@@ -19,12 +19,22 @@ namespace Stripper
 
         //public override void StartedNewGame()
         //{
-            
+
         //}
 
         //public override void LoadedGame()
         //{
         //    StripperPoleHelper.ClearAvailableProstitutes();
         //}
+
+        public override void ExposeData()
+        {
+            if (StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] GameComponent_StripperPole ExposeData");
+            }
+            base.ExposeData();
+            StripperPoleHelper.ExposeData();
+        }
     }
 }
