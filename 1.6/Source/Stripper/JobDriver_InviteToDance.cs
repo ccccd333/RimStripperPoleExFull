@@ -128,7 +128,6 @@ namespace Stripper
                 {
                     Log.Message($"[StripperPole] JobDriver_InviteToDance MakeNewToils targetB(Guest): {job.targetB.Pawn}");
                 }
-
                 this.FailOnDespawnedNullOrForbidden(TargetIndex.B);
                 this.FailOnDowned(TargetIndex.B);
                 this.FailOnNotCasualInterruptible(TargetIndex.B);
@@ -153,6 +152,50 @@ namespace Stripper
                 wander.initAction = () =>
                 {
                     pawn.jobs.curJob.locomotionUrgency = LocomotionUrgency.Walk;
+
+                    bool guestReserved = false;
+
+                    if (indexInvitedGuests > 0 && job.targetB.IsValid)
+                    {
+                        var oldGuest = job.targetB.Thing as Pawn;
+                        if (pawn.Map.reservationManager.ReservedBy(oldGuest, pawn, job))
+                        {
+                            pawn.Map.reservationManager.Release(oldGuest, pawn, job);
+                        }
+                    }
+
+                    while (indexInvitedGuests < randomGuests.Count)
+                    {
+                        Pawn potentialGuest = randomGuests[indexInvitedGuests];
+
+                        if (potentialGuest != null &&       
+                            !potentialGuest.Destroyed && 
+                            Hospitality.Utilities.GuestUtility.ViableGuestTarget(potentialGuest) &&  
+                            pawn.CanReserve(potentialGuest))
+                        {
+                            job.targetB = potentialGuest;
+
+                            if (pawn.Reserve(potentialGuest, job))
+                            {
+                                guestReserved = true;
+                                indexInvitedGuests++;
+
+                                if (StripperMod.settings.debugLog)
+                                {
+                                    Log.Message($"[StripperPole] JobDriver_InviteToDance Reserved new TargetB: {potentialGuest}");
+                                }
+                                break;
+                            }
+                        }
+
+                        indexInvitedGuests++;
+                    }
+
+                    if (!guestReserved)
+                    {
+                        EndJobWith(JobCondition.Incompletable);
+                        return;
+                    }
                 };
                 wander.tickAction = () =>
                 {
@@ -178,33 +221,12 @@ namespace Stripper
                 target.initAction = () =>
                 {
                     pawn.jobs.curJob.locomotionUrgency = LocomotionUrgency.Jog;
-                    if (indexInvitedGuests >= randomGuests.Count)
-                    {
-                        EndJobWith(JobCondition.Succeeded);
-                        return;
-                    }
-
-                    if (indexInvitedGuests > 0)
-                    {
-                        var oldGuest = job.targetB;
-                        pawn.Map.reservationManager.Release(
-                            oldGuest,
-                            pawn,
-                            job);
-                    }
-
-                    job.targetB = randomGuests[indexInvitedGuests++];
-
                     if (StripperMod.settings.debugLog)
                     {
-                        float bperchance = (StripperMod.settings.inviteBaseChance * StripperMod.settings.inviteBeautyMultiplier) * 100.0f;
+                        float bperchance = StripperPoleHelper.GetInviteChance(pawn) * 100.0f;
                         Log.Message($"[StripperPole] JobDriver_InviteToDance target(Toil) initAction targetB: {job.targetB.Pawn} Chance: {bperchance}");
                     }
 
-                    if (!pawn.Reserve(Guest, job))
-                    {
-                        Log.Warning($"[StripperPole] JobDriver_InviteToDance target(Toil) initAction Cannot make a reservation targetB: {Guest}");
-                    }
 
                     //if (StripperMod.settings.debugLog)
                     //{
@@ -233,7 +255,10 @@ namespace Stripper
                 // 客に向かっていく
                 var gotoGuest = GotoGuest(pawn, Guest);
                 yield return gotoGuest;
-                yield return Toils_General.Wait(10).JumpIf(() => !CanInteract(pawn, Guest), gotoGuest);
+                //yield return Toils_General.Wait(10).JumpIf(() => !CanInteract(pawn, Guest), gotoGuest);
+
+                yield return Toils_General.Wait(10);
+                yield return Toils_Jump.JumpIf(gotoGuest, () => !CanInteract(pawn, Guest));
 
                 //var gotoGuest = GotoGuest(pawn, Guest);
 
@@ -273,7 +298,10 @@ namespace Stripper
                 //yield return Toils_Interpersonal.SetLastInteractTime(TargetIndex.B);
 
                 // 交渉確率未満だったらうろうろ
-                yield return Toils_General.Wait(10).JumpIf(() => !Rand.Chance(StripperMod.settings.inviteBaseChance * StripperMod.settings.inviteBeautyMultiplier), wander);
+                //yield return Toils_General.Wait(10).JumpIf(() => !Rand.Chance(StripperPoleHelper.GetInviteChance(pawn)), wander);
+                yield return Toils_General.Wait(10);
+
+                yield return Toils_Jump.JumpIf(wander, () => !Rand.Chance(StripperPoleHelper.GetInviteChance(pawn)));
 
                 // 客側から移動ジョブ生成
                 var goDanceCell = new Toil();
@@ -386,9 +414,6 @@ namespace Stripper
                     {
                         Log.Message($"[StripperPole] JobDriver_InviteToDance doDance(Toil) Interact talkee(Dancer): {talkee}");
                     }
-
-                    if (talkee.interactions.InteractedTooRecentlyToInteract()
-                        || pawn.interactions.InteractedTooRecentlyToInteract()) return;
 
                     PawnUtility.ForceWait(talkee, duration, pawn);
                     //TargetThingB = pawn;

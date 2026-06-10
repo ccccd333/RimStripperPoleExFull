@@ -150,7 +150,7 @@ namespace Stripper
 
             listing.Label("SP_Settings_Invite_BeautyMult".Translate());
             Rect spibm_rect = listing.GetRect(30f);
-            Widgets.TextFieldNumeric(spibm_rect, ref settings.inviteBeautyMultiplier, ref _bufferInviteChanceBeautyMult, 15000);
+            Widgets.TextFieldNumeric(spibm_rect, ref settings.inviteBeautyMultiplier, ref _bufferInviteChanceBeautyMult, 1.0f, 100.0f);
             if (float.TryParse(_bufferInviteChanceBeautyMult, out float result8))
             {
                 settings.inviteBeautyMultiplier = result8;

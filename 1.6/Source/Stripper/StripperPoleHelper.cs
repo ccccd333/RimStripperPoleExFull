@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 using static rjw.xxx;
@@ -171,6 +172,15 @@ namespace Stripper
             registeredPoles.Clear();
         }
 
+        public static float GetInviteChance(Pawn pawn)
+        {
+            float beauty = pawn.GetStatValue(StatDefOf.PawnBeauty);
+
+            float chance = StripperMod.settings.inviteBaseChance *
+                           Mathf.Pow(StripperMod.settings.inviteBeautyMultiplier, beauty);
+
+            return Mathf.Clamp01(chance);
+        }
 
         //public static List<Thing> GetStripperPoles(Map map) {
 

@@ -174,7 +174,10 @@ namespace Stripper
             }
             else
             {
-                bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map).Any();
+                //bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map).Any();
+                bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map)
+                    .Any(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g));
+
                 if (!hasVisitGuest)
                 {
                     yield return new FloatMenuOption("SP_CRM_NoGuests".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
