@@ -198,6 +198,7 @@ namespace Stripper
                         selPawn.drafter.Drafted = false;
                         Job job = new Job(SPJobDefOf.SP_InviteToDance, this);
                         if (job == null) return;
+                        job.playerForced = true;
                         selPawn.jobs.TryTakeOrderedJob(job, JobTag.SatisfyingNeeds);
                     };
                     yield return new FloatMenuOption("SP_CRM_DoApproach".Translate(), doIt);

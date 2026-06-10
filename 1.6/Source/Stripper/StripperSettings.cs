@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using UnityEngine;
+using Verse;
 
 namespace Stripper
 {
@@ -31,16 +32,19 @@ namespace Stripper
 
         public int inviteCooldownSeconds = 21600;
         public int inviteWanderSeconds = 10;
-        public int InviteCooldownTicks =>
-            inviteCooldownSeconds * 60;
-
-        public int InviteWanderTicks =>
-            inviteWanderSeconds * 60;
 
         public float inviteBaseChance = 0.3f;
         public float inviteBeautyMultiplier = 1.0f;
 
         public int maxGuestsToInvite = 5;
+
+        public int danceCooldownSeconds = 7200;
+
+        public int InviteCooldownTicks => Mathf.RoundToInt(inviteCooldownSeconds * (2500f / 3600f));
+
+        public int InviteWanderTicks => Mathf.RoundToInt(inviteWanderSeconds * (2500f / 3600f));
+
+        public int DanceCooldownTicks => Mathf.RoundToInt(danceCooldownSeconds * (2500f / 3600f));
 
         // 設定の保存・読み込み
         public override void ExposeData()
@@ -76,7 +80,9 @@ namespace Stripper
             Scribe_Values.Look(ref inviteBaseChance, "inviteBaseChance", 0.3f);
             Scribe_Values.Look(ref inviteBeautyMultiplier, "inviteBeautyMultiplier", 1.0f);
             Scribe_Values.Look(ref maxGuestsToInvite, "maxGuestsToInvite", 10);
-            
+
+            Scribe_Values.Look(ref danceCooldownSeconds, "danceCooldownSeconds", 7200);
+
         }
     }
 }

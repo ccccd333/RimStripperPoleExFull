@@ -16,6 +16,8 @@ namespace Stripper
         private Building_StripperPole StripperPole => (Building_StripperPole)job.GetTarget(StripperPoleIndex);
         private Pawn Guest => job.targetB.Pawn;
 
+        private bool silentFail = false;
+
         private List<Pawn> randomGuests = new List<Pawn>();
         private int indexInvitedGuests = 0;
         private Pawn approachTarget;
@@ -28,6 +30,7 @@ namespace Stripper
 
             Scribe_Collections.Look(ref randomGuests, "randomGuests", LookMode.Reference);
             Scribe_Values.Look<int>(ref indexInvitedGuests, "indexInvitedGuests", 0, false);
+            Scribe_Values.Look<bool>(ref silentFail, "silentFail", false, false);
             //Scribe_Values.Look<int>(ref nextApproachTick, "nextApproachTick", 0, false);
 
             if (randomGuests == null)
@@ -108,7 +111,7 @@ namespace Stripper
                 {
                     StripperPoleHelper.IsSearchingForCustomer = false;
 
-                    if (condition == JobCondition.Incompletable || condition == JobCondition.ErroredPather)
+                    if ((condition == JobCondition.Incompletable || condition == JobCondition.ErroredPather) && job.playerForced)
                     {
                         Messages.Message(
                             "SP_CRM_NoGuests".Translate(),

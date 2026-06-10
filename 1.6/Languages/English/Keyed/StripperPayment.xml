@@ -53,6 +53,10 @@
 	<SP_Settings_Invite_BeautyMult>Guest Acceptance Chance Beauty Multiplier</SP_Settings_Invite_BeautyMult>
 	<SP_Settings_Invite_MaxInviteGuests>Maximum Guests Considered Per Invitation Attempt</SP_Settings_Invite_MaxInviteGuests>
 
+	<SP_Settings_WorkGiver>WorkGiver Settings</SP_Settings_WorkGiver>
+
+	<SP_Settings_Dance_CooldownTicks>Dance Cooldown (seconds)</SP_Settings_Dance_CooldownTicks>
+
 	<SP_Reserved>In Use</SP_Reserved>
 	<SP_NoPath>No Path</SP_NoPath>
 	<SP_OwnedBySomeoneElse>Being Used by Another Pawn</SP_OwnedBySomeoneElse>

@@ -167,6 +167,18 @@ namespace Stripper
             listing.Gap();
 
             listing.GapLine();
+            listing.Label("SP_Settings_WorkGiver".Translate());
+            listing.Gap();
+            listing.Label("SP_Settings_Dance_CooldownTicks".Translate());
+            Rect spsdct_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spsdct_rect, ref settings.danceCooldownSeconds, ref _bufferDanceCooldownSeconds, 0, 1000000);
+            if (int.TryParse(_bufferDanceCooldownSeconds, out int result10))
+            {
+                settings.danceCooldownSeconds = result10;
+            }
+
+            listing.GapLine();
+
             listing.CheckboxLabeled("DebugLog", ref settings.debugLog);
 
             listing.End();
@@ -184,6 +196,7 @@ namespace Stripper
         private string _bufferInviteChanceBase;
         private string _bufferInviteChanceBeautyMult;
         private string _bufferMaxGuestsToInvite;
+        private string _bufferDanceCooldownSeconds;
         private string _bufferPartMult;
 
         public override string SettingsCategory() => "Stripper Mod Settings";

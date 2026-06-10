@@ -19,6 +19,15 @@ namespace Stripper {
             {
                 Log.Message($"[StripperPole] WorkGiver_UseStripperPole NonScanJob. pawn: {pawn}");
             }
+            if (StripperPoleHelper.IsWorkGiverDanceCooldownActive(pawn, out int remainingTicks))
+            {
+                if (StripperMod.settings.debugLog)
+                {
+                    Log.Message($"[StripperPole] WorkGiver_UseStripperPole CoolTime. {remainingTicks.ToStringTicksToPeriod()}");
+                }
+                return null;
+            }
+
             if (!pawn.ageTracker.Adult) return null;
 
             var randomGuests = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
@@ -31,6 +40,7 @@ namespace Stripper {
             if (pole == null) return null;
             if (!pole.CanUse(pawn)) return null;
 
+            StripperPoleHelper.SetLastDanceTick(pawn, Find.TickManager.TicksGame);
             return new Job(pole.GetJobDef(), pole);
         }
         //public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false) {

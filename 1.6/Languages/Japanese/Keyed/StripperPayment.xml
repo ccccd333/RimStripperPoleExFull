@@ -43,6 +43,9 @@
 	<SP_Settings_Invite_BaseChance>客がダンスの招待を受ける基本確率（％）</SP_Settings_Invite_BaseChance>
 	<SP_Settings_Invite_BeautyMult>客がダンスの招待を受ける確率（美しさによる倍率)</SP_Settings_Invite_BeautyMult>
 	<SP_Settings_Invite_MaxInviteGuests>一度の呼び込みで候補に選ぶ最大人数</SP_Settings_Invite_MaxInviteGuests>
+
+	<SP_Settings_WorkGiver>WorkGiver設定</SP_Settings_WorkGiver>
+	<SP_Settings_Dance_CooldownTicks>通常ダンスのクールタイム秒数</SP_Settings_Dance_CooldownTicks>
 	
 	<SP_Reserved>使用中</SP_Reserved>
 	<SP_NoPath>到達不能</SP_NoPath>

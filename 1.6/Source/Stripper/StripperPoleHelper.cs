@@ -17,6 +17,8 @@ namespace Stripper
         private static Dictionary<Pawn, HashSet<Pawn>> dancerWatcherMap = new Dictionary<Pawn, HashSet<Pawn>>();
         private static bool isSearchingForCustomer = false;
         private static int lastInviteToDance = 0;
+        //private static int lastWorkGiverDanceSecond = 0;
+        private static Dictionary<int, int> lastWorkGiverDanceTicks = new Dictionary<int, int>();
 
         public static bool IsSearchingForCustomer
         {
@@ -32,20 +34,58 @@ namespace Stripper
 
         public static void ExposeData()
         {
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                CleanupDeadPawns();
+            }
+
             Scribe_Values.Look(ref isSearchingForCustomer, "isSearchingForCustomer", false);
             Scribe_Values.Look(ref lastInviteToDance, "lastInviteToDance", 0);
+            Scribe_Collections.Look(ref lastWorkGiverDanceTicks, "lastWorkGiverDanceTicks", LookMode.Value, LookMode.Value);
+
+            if (lastWorkGiverDanceTicks == null)
+            {
+                lastWorkGiverDanceTicks = new Dictionary<int, int>();
+            }
         }
 
-        public static int GetRemainingTicks()
+        public static void CleanupDeadPawns()
         {
-            return Math.Max(0, (lastInviteToDance + StripperMod.settings.inviteCooldownSeconds) - Find.TickManager.TicksGame);
+            HashSet<int> activePawnIDs = new HashSet<int>(PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_Colonists.Select(p => p.thingIDNumber));
+
+            var deadPawnIDs = lastWorkGiverDanceTicks.Keys.Where(id => !activePawnIDs.Contains(id)).ToList();
+
+            foreach (var id in deadPawnIDs)
+            {
+                lastWorkGiverDanceTicks.Remove(id);
+            }
         }
+
+        public static int GetRemainingTicks(int lastExecutionTick, int cooldownDuration)
+        {
+            return Math.Max(0, (lastExecutionTick + cooldownDuration) - Find.TickManager.TicksGame);
+        }
+
 
         public static bool IsInviteCooldownActive(out int remainingTicks)
         {
-            remainingTicks = GetRemainingTicks();
+            remainingTicks = GetRemainingTicks(lastInviteToDance, StripperMod.settings.InviteCooldownTicks);
 
             return remainingTicks > 0;
+        }
+
+        public static bool IsWorkGiverDanceCooldownActive(Pawn pawn, out int remainingTicks)
+        {
+            int lastTick = lastWorkGiverDanceTicks.TryGetValue(pawn.thingIDNumber, out int val) ? val : 0;
+            int cooldownTicks = StripperMod.settings.DanceCooldownTicks;
+
+            remainingTicks = GetRemainingTicks(lastTick, cooldownTicks);
+            return remainingTicks > 0;
+        }
+
+        public static void SetLastDanceTick(Pawn pawn, int tick)
+        {
+            lastWorkGiverDanceTicks[pawn.thingIDNumber] = tick;
         }
 
         public static void ClearAvailableProstitutes()
