@@ -382,7 +382,7 @@ namespace Stripper
                     StripperPole.currentDancer = pawn;
                     pawn.jobs.StartJob(JobMaker.MakeJob(
                             SPJobDefOf.UseStripperPole,
-                            StripperPole
+                            StripperPole,Guest
                         ), JobCondition.InterruptForced);
 
                     Guest.jobs.StartJob(JobMaker.MakeJob(SPJobDefOf.WatchStripperPole, StripperPole, Guest.Position, pawn), JobCondition.InterruptForced);

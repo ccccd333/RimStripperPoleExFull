@@ -52,8 +52,26 @@ namespace Stripper {
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
+
+            if (job.targetB.IsValid)
+            {
+                if (StripperMod.settings.debugLog)
+                {
+                    Log.Message($"[StripperPole] JobDriver_InviteToDance => JobDriver_UseStripperPole");
+                }
+
+                if (!pawn.Reserve(job.targetB.Pawn, job))
+                {
+                    return false;
+                }
+            }
+
+            if(!pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed))
+            {
+                return false;
+            }
             //Log.Message($"UseStripperPole TryMakePreToilReservations {pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed)}");
-            return pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed);
+            return true;
         }
 
         protected override IEnumerable<Toil> MakeNewToils() {
