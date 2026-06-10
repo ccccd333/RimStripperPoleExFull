@@ -175,12 +175,17 @@ namespace Stripper
             else
             {
                 //bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map).Any();
-                bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map)
-                    .Any(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g));
+                //bool hasVisitGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map)
+                //    .Any(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g));
 
-                if (!hasVisitGuest)
+                var targetGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(selPawn.Map)
+                    .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g) && selPawn.CanReserve(g))
+                    .InRandomOrder()
+                    .FirstOrDefault();
+
+                if (targetGuest == null)
                 {
-                    yield return new FloatMenuOption("SP_CRM_NoGuests".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                    yield return new FloatMenuOption("SP_CRM_NoGuests".Translate(), null);
                 }
                 else if (StripperPoleHelper.IsSearchingForCustomer)
                 {
@@ -193,16 +198,43 @@ namespace Stripper
                 }
                 else
                 {
+                    Log.Message($"[StripperPole] Building_StripperPole GetFloatMenuOptions Invite TargetB: {targetGuest}");
                     Action doIt = () =>
                     {
                         selPawn.drafter.Drafted = false;
-                        Job job = new Job(SPJobDefOf.SP_InviteToDance, this);
+                        Job job = new Job(SPJobDefOf.SP_InviteToDance, this, targetGuest);
                         if (job == null) return;
                         job.playerForced = true;
                         selPawn.jobs.TryTakeOrderedJob(job, JobTag.SatisfyingNeeds);
                     };
                     yield return new FloatMenuOption("SP_CRM_DoApproach".Translate(), doIt);
                 }
+
+                //if (!hasVisitGuest)
+                //{
+                //    yield return new FloatMenuOption("SP_CRM_NoGuests".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+                //}
+                //else if (StripperPoleHelper.IsSearchingForCustomer)
+                //{
+                //    yield return new FloatMenuOption("SP_CRM_IsSearchingForCustomer".Translate(), null, MenuOptionPriority.Default, null, null, 0.0f, null, null);
+
+                //}
+                //else if (StripperPoleHelper.IsInviteCooldownActive(out int remainingTicks))
+                //{
+                //    yield return new FloatMenuOption("SP_CRM_IsInviteCooldownActive".Translate(remainingTicks.ToStringTicksToPeriod()), null);
+                //}
+                //else
+                //{
+                //    Action doIt = () =>
+                //    {
+                //        selPawn.drafter.Drafted = false;
+                //        Job job = new Job(SPJobDefOf.SP_InviteToDance, this);
+                //        if (job == null) return;
+                //        job.playerForced = true;
+                //        selPawn.jobs.TryTakeOrderedJob(job, JobTag.SatisfyingNeeds);
+                //    };
+                //    yield return new FloatMenuOption("SP_CRM_DoApproach".Translate(), doIt);
+                //}
             }
         }
     }

@@ -44,15 +44,14 @@ namespace Stripper
             bool isCanReach = pawn.CanReach(my_pole, PathEndMode.InteractionCell, Danger.Deadly, false, false, TraverseMode.ByPawn);
             if(!isCanReach) { return null; }
 
-            var randomGuests = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
-                .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g))
+            var targetGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
+                .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g) && pawn.CanReserve(g))
                 .InRandomOrder()
-                .Take(StripperMod.settings.maxGuestsToInvite)
-                .ToList();
-            if (randomGuests.NullOrEmpty()) return null;
+                .FirstOrDefault();
+            if (targetGuest == null) return null;
 
 
-            return new Job(SPJobDefOf.SP_InviteToDance, my_pole);
+            return new Job(SPJobDefOf.SP_InviteToDance, my_pole, targetGuest);
         }
     }
 }

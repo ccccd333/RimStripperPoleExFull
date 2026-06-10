@@ -18,24 +18,30 @@ namespace Stripper
 
         private bool silentFail = false;
 
-        private List<Pawn> randomGuests = new List<Pawn>();
+       // private List<Pawn> randomGuests = new List<Pawn>();
         private int indexInvitedGuests = 0;
-        private Pawn approachTarget;
+        //private Pawn approachTarget;
         //private int nextApproachTick;
-
+        private List<Pawn> invitedGuests = new List<Pawn>();
 
         public override void ExposeData()
         {
             base.ExposeData();
 
-            Scribe_Collections.Look(ref randomGuests, "randomGuests", LookMode.Reference);
+            //Scribe_Collections.Look(ref randomGuests, "randomGuests", LookMode.Reference);
+            Scribe_Collections.Look(ref invitedGuests, "invitedGuests", LookMode.Reference);
             Scribe_Values.Look<int>(ref indexInvitedGuests, "indexInvitedGuests", 0, false);
             Scribe_Values.Look<bool>(ref silentFail, "silentFail", false, false);
             //Scribe_Values.Look<int>(ref nextApproachTick, "nextApproachTick", 0, false);
 
-            if (randomGuests == null)
+            //if (randomGuests == null)
+            //{
+               // randomGuests = new List<Pawn>();
+            //}
+
+            if(invitedGuests == null)
             {
-                randomGuests = new List<Pawn>();
+                invitedGuests = new List<Pawn>();
             }
         }
 
@@ -67,44 +73,52 @@ namespace Stripper
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
+            if (!pawn.Reserve(Guest, job))
+            {
+                
+                return false;
+            }
+            Log.Message($"[StripperPole] JobDriver_InviteToDance TryMakePreToilReservations Invite TargetB: {Guest}");
+
             return pawn.Reserve(StripperPole, job, 1, -1, null, errorOnFailed);
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            if (randomGuests.NullOrEmpty())
-            {
-                // このチェックはセーブ→ロード時の対応
-                // ExposeDataでrandomGuestsを復元したのにこのチェックがなければまた取ってきて
-                // job.targetBが指しているものと異なってしまう
-                // job.targetB = randomGuests[indexInvitedGuests]ここも
-                // セーブ→ロード時MakeNewToilsが呼ばれるので、
-                // target.initActionを通った後だとindexInvitedGuests = 1でjob.targetBがindexInvitedGuests = 0の箇所を指している。
-                // これがロード時処理を復帰しようにも、このifに入れないとjob.targetBがindexInvitedGuests = 1の箇所を指してしまう
-                randomGuests = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
-                    .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g))
-                    .InRandomOrder()
-                    .Take(StripperMod.settings.maxGuestsToInvite)
-                    .ToList();
+            //if (randomGuests.NullOrEmpty())
+            //{
+            //    // このチェックはセーブ→ロード時の対応
+            //    // ExposeDataでrandomGuestsを復元したのにこのチェックがなければまた取ってきて
+            //    // job.targetBが指しているものと異なってしまう
+            //    // job.targetB = randomGuests[indexInvitedGuests]ここも
+            //    // セーブ→ロード時MakeNewToilsが呼ばれるので、
+            //    // target.initActionを通った後だとindexInvitedGuests = 1でjob.targetBがindexInvitedGuests = 0の箇所を指している。
+            //    // これがロード時処理を復帰しようにも、このifに入れないとjob.targetBがindexInvitedGuests = 1の箇所を指してしまう
+            //    randomGuests = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
+            //        .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g))
+            //        .InRandomOrder()
+            //        .Take(StripperMod.settings.maxGuestsToInvite)
+            //        .ToList();
 
-                if (indexInvitedGuests >= randomGuests.Count)
-                {
-                    EndJobWith(JobCondition.Incompletable);
-                    yield break;
-                }
+            //    if (indexInvitedGuests >= randomGuests.Count)
+            //    {
+            //        EndJobWith(JobCondition.Incompletable);
+            //        yield break;
+            //    }
 
-                if (randomGuests.Count() > 0)
-                {
-                    // 速攻でエラーで抜けてしまうので最初のやつを入れておく
-                    job.targetB = randomGuests[indexInvitedGuests];
-                }
-            }
+            //    //if (randomGuests.Count() > 0)
+            //    //{
+            //    //    job.targetB = randomGuests[indexInvitedGuests];
+            //    //}
+            //}
 
             //randomGuests = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
             //                         .InRandomOrder()
             //                         .Take(limit)
             //                         .ToList();
-            if (randomGuests.Count() > 0)
+
+
+            //if (randomGuests.Count() > 0)
             {
                 StripperPoleHelper.IsSearchingForCustomer = true;
                 this.AddFinishAction(condition =>
@@ -156,49 +170,91 @@ namespace Stripper
                 {
                     pawn.jobs.curJob.locomotionUrgency = LocomotionUrgency.Walk;
 
-                    bool guestReserved = false;
-
-                    if (indexInvitedGuests > 0 && job.targetB.IsValid)
+                    if (indexInvitedGuests > 0)
                     {
-                        var oldGuest = job.targetB.Thing as Pawn;
+                        var oldGuest = Guest;
+                        if (StripperMod.settings.debugLog)
+                        {
+                            Log.Message($"[StripperPole] JobDriver_InviteToDance oldGuest: {oldGuest}");
+                        }
                         if (pawn.Map.reservationManager.ReservedBy(oldGuest, pawn, job))
                         {
                             pawn.Map.reservationManager.Release(oldGuest, pawn, job);
                         }
-                    }
 
-                    while (indexInvitedGuests < randomGuests.Count)
-                    {
-                        Pawn potentialGuest = randomGuests[indexInvitedGuests];
+                        invitedGuests.Add(oldGuest);
 
-                        if (potentialGuest != null &&       
-                            !potentialGuest.Destroyed && 
-                            Hospitality.Utilities.GuestUtility.ViableGuestTarget(potentialGuest) &&  
-                            pawn.CanReserve(potentialGuest))
+
+                        if (indexInvitedGuests >= StripperMod.settings.maxGuestsToInvite)
                         {
-                            job.targetB = potentialGuest;
-
-                            if (pawn.Reserve(potentialGuest, job))
-                            {
-                                guestReserved = true;
-                                indexInvitedGuests++;
-
-                                if (StripperMod.settings.debugLog)
-                                {
-                                    Log.Message($"[StripperPole] JobDriver_InviteToDance Reserved new TargetB: {potentialGuest}");
-                                }
-                                break;
-                            }
+                            EndJobWith(JobCondition.Incompletable);
+                            return;
                         }
 
-                        indexInvitedGuests++;
+                        var targetGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
+                            .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g)
+                                     && !invitedGuests.Contains(g) && pawn.CanReserve(g))
+                            .InRandomOrder()
+                            .Take(StripperMod.settings.maxGuestsToInvite)
+                            .FirstOrDefault();
+
+                        if (targetGuest == null)
+                        {
+                            EndJobWith(JobCondition.Incompletable);
+                            return;
+                        }
+
+                        job.targetB = targetGuest;
+
+                        if (pawn.Reserve(Guest, job))
+                        {
+                            if (StripperMod.settings.debugLog)
+                            {
+                                Log.Message($"[StripperPole] JobDriver_InviteToDance Reserved new TargetB: {Guest}");
+                            }
+                        }
+                        else
+                        {
+                            EndJobWith(JobCondition.Incompletable);
+                            return;
+                        }
                     }
 
-                    if (!guestReserved)
-                    {
-                        EndJobWith(JobCondition.Incompletable);
-                        return;
-                    }
+                    ++indexInvitedGuests;
+
+
+                    //    while (indexInvitedGuests < randomGuests.Count)
+                    //    {
+                    //        Pawn potentialGuest = randomGuests[indexInvitedGuests];
+
+                    //        if (potentialGuest != null &&
+                    //            !potentialGuest.Destroyed &&
+                    //            Hospitality.Utilities.GuestUtility.ViableGuestTarget(potentialGuest) &&
+                    //            pawn.CanReserve(potentialGuest))
+                    //        {
+                    //            job.targetB = potentialGuest;
+
+                    //            if (pawn.Reserve(potentialGuest, job))
+                    //            {
+                    //                guestReserved = true;
+                    //                indexInvitedGuests++;
+
+                    //                if (StripperMod.settings.debugLog)
+                    //                {
+                    //                    Log.Message($"[StripperPole] JobDriver_InviteToDance Reserved new TargetB: {potentialGuest}");
+                    //                }
+                    //                break;
+                    //            }
+                    //        }
+
+                    //        indexInvitedGuests++;
+                    //    }
+
+                    //if (!guestReserved)
+                    //{
+                    //    EndJobWith(JobCondition.Incompletable);
+                    //    return;
+                    //}
                 };
                 wander.tickAction = () =>
                 {
@@ -396,13 +452,13 @@ namespace Stripper
 
                 yield return doDance;
             }
-            else
-            {
-                Messages.Message("SP_Invite_NoGuest".Translate(), MessageTypeDefOf.RejectInput, false);
+            //else
+            //{
+            //    Messages.Message("SP_Invite_NoGuest".Translate(), MessageTypeDefOf.RejectInput, false);
 
-                EndJobWith(JobCondition.Incompletable);
-                yield break;
-            }
+            //    EndJobWith(JobCondition.Incompletable);
+            //    yield break;
+            //}
 
 
         }
