@@ -7,6 +7,20 @@
     <supportedVersions>
         <li>1.6</li>
     </supportedVersions>
+    <modDependencies>
+        <li>
+            <packageId>rim.job.world</packageId>
+            <displayName>RimJobWorld</displayName>
+        </li>
+        <li>
+            <packageId>c0ffee.rimworld.animations</packageId>
+            <displayName>RimWorld Animations</displayName>
+        </li>
+        <li>
+            <packageId>Orion.Hospitality</packageId>
+            <displayName>Hospitality</displayName>
+        </li>
+    </modDependencies>
 	<loadAfter>
 		<li>rim.job.world</li>
 		<li>c0ffee.rimworld.animations</li>
