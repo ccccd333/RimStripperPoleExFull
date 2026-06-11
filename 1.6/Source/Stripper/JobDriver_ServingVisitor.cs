@@ -28,7 +28,7 @@ namespace Stripper
 
             yield return Toils_Reserve.Reserve(iTarget, 1, 0);
 
-            int basePrice = StripperPaymentHelper.PriceOfPerformance(pawn, StripperMod.settings.baseProstitutionPrice, StripperMod.settings.danceBeautyMultiplier);
+            int basePrice = StripperPaymentHelper.PriceOfPerformance(pawn, StripperMod.settings.baseProstitutionPrice, StripperMod.settings.prostitutionBeautyMultiplier);
 
             yield return Toils_Goto.GotoThing(iTarget, PathEndMode.OnCell);
 

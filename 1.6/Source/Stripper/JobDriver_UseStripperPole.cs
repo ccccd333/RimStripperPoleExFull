@@ -318,6 +318,13 @@ namespace Stripper {
                     SPThingDefOf.Mote_StripLightBall,
                     1f
                 );
+
+                if (rotationMote == null)
+                {
+                    //Log.Message($"Lights={SPThingDefOf.Mote_StripLightBallLights}");
+                    Log.Error("[StripperPole] rotationMote is null");
+                    return;
+                }
             }
 
             if (lightsMote == null || lightsMote.Destroyed)
@@ -331,11 +338,27 @@ namespace Stripper {
                     1f
                 );
 
+                if (lightsMote == null)
+                {
+                    //Log.Message($"Ball={SPThingDefOf.Mote_StripLightBall}");
+                    Log.Error("[StripperPole] lightsMote is null");
+                    return;
+                }
+
                 lightsMote.rotationRate = -3f;
             }
-            
-            rotationMote.Maintain();
-            lightsMote.Maintain();
+
+            try
+            {
+                rotationMote?.Maintain();
+                lightsMote?.Maintain();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"[StripperPole] DanceEffect Maintain failed: {e}");
+                rotationMote = null;
+                lightsMote = null;
+            }
         }
 
         private void DanceMusic()
@@ -350,7 +373,17 @@ namespace Stripper {
                     )
                 );
             }
-            danceMusic.Maintain();
+
+            try
+            {
+                danceMusic?.Maintain();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"[StripperPole] DanceMusic Maintain failed: {e}");
+                danceMusic = null;
+            }
+            
         }
 
 		private void TickClothes() {

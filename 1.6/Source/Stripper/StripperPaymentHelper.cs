@@ -18,7 +18,7 @@ namespace Stripper
             }
 
             float beauty = performer.GetStatValue(StatDefOf.PawnBeauty);
-            return Math.Max(1, (int)Math.Round(basePrice + beauty * beautyPricePerPoint));
+            return Math.Max(1, (int)Math.Round(basePrice * (beauty * beautyPricePerPoint)));
         }
 
         public static int PayClientToPerformer(Pawn client, Pawn performer, int price, HashSet<Pawn> watchers, bool useVirtualPocket = false)
