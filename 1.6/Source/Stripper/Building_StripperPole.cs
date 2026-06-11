@@ -198,7 +198,7 @@ namespace Stripper
                 }
                 else
                 {
-                    Log.Message($"[StripperPole] Building_StripperPole GetFloatMenuOptions Invite TargetB: {targetGuest}");
+                    //Log.Message($"[StripperPole] Building_StripperPole GetFloatMenuOptions Invite TargetB: {targetGuest}");
                     Action doIt = () =>
                     {
                         selPawn.drafter.Drafted = false;
