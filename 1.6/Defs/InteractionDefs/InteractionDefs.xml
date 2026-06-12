@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ダンサーがダンスをしたソーシャルログエントリ -->
+  <InteractionDef>
+    <defName>SP_DancePerformed</defName>
+    <label>performed a seductive dance</label>
+    <symbol>Things/Mote/SpeechSymbols/Romance</symbol>
+    <socialFightBaseChance>0.0</socialFightBaseChance>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] performed a seductive dance.</li>
+        <li>r_logentry->[INITIATOR_nameDef] danced sensually.</li>
+        <li>r_logentry->[INITIATOR_nameDef] put on a provocative performance.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  
+  <!-- ダンサーが客を誘うソーシャルログエントリ -->
+  <InteractionDef>
+    <defName>SP_InviteToDance</defName>
+    <label>invited to watch a seductive dance</label>
+    <symbol>Things/Mote/SpeechSymbols/Romance</symbol>
+    <socialFightBaseChance>0.0</socialFightBaseChance>
+    <logRulesInitiator>
+		<rulesStrings>
+		    <li>r_logentry->[INITIATOR_nameDef] invited others to watch a dance.</li>
+		    <li>r_logentry->[INITIATOR_nameDef] invited others to enjoy a dance performance.</li>
+		    <li>r_logentry->[INITIATOR_nameDef] encouraged others to watch a dance.</li>
+		</rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+</Defs>

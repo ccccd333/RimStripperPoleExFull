@@ -1,4 +1,4 @@
-﻿using RimWorld;
+using RimWorld;
 using rjw;
 using System;
 using System.Collections.Generic;
@@ -35,57 +35,53 @@ namespace Stripper
         protected override IEnumerable<Toil> MakeNewToils()
         {
             DoSetup();
-            if (Partner.CurJob.def == SPJobDefOf.SP_ServingVisitor)
+            
+            this.FailOn(() => Partner == null || Partner.CurJob == null);
+            yield return Toils_Reserve.Reserve(iTarget, 1, 0);
+
+            Toil waitForPartner = new Toil();
+            waitForPartner.defaultCompleteMode = ToilCompleteMode.Never;
+            waitForPartner.initAction = delegate
             {
-                this.FailOn(() => Partner.CurJob == null);
-                yield return Toils_Reserve.Reserve(iTarget, 1, 0);
+                Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
+            };
+            waitForPartner.tickAction = delegate
+            {
+                Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
 
-                Toil waitForPartner = new Toil();
-                waitForPartner.defaultCompleteMode = ToilCompleteMode.Never;
-                waitForPartner.initAction = delegate
+                if (Partner != null &&
+                    pawn.Position.DistanceTo(Partner.Position) <= 1f)
                 {
-                    Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
-                    //pawn.pather.StopDead(); // その場に立ち止まらせる
-                };
-                waitForPartner.tickAction = delegate
-                {
-                    Log.Message($"CLIENT START {pawn} {pawn.CurJobDef}");
-                    //pawn.pather.StopDead();
+                    ReadyForNextToil();
+                }
+            };
+            yield return waitForPartner;
 
-                    if (Partner != null &&
-                        pawn.Position.DistanceTo(Partner.Position) <= 1f)
+            var lovedToil = new Toil();
+
+            lovedToil.defaultCompleteMode = ToilCompleteMode.Never;
+            lovedToil.socialMode = RandomSocialMode.Off;
+            lovedToil.handlingFacing = true;
+            lovedToil.tickAction = () =>
+            {
+                if (pawn.IsHashIntervalTick(ticks_between_hearts))
+                    ThrowMetaIconF(pawn.Position, pawn.Map, FleckDefOf.Heart);
+            };
+            lovedToil.AddFinishAction(() =>
+            {
+                if (xxx.is_human(pawn))
+                {
+                    var comp = xxx.GetCompRJW(pawn);
+                    if (comp != null)
                     {
-                        ReadyForNextToil();
+                        comp.drawNude = false;
+                        pawn.Drawer.renderer.SetAllGraphicsDirty();
                     }
-                };
-                yield return waitForPartner;
-
-                var lovedToil = new Toil();
-
-                lovedToil.defaultCompleteMode = ToilCompleteMode.Never;
-                lovedToil.socialMode = RandomSocialMode.Off;
-                lovedToil.handlingFacing = true;
-                lovedToil.tickAction = () =>
-                {
-                    if (pawn.IsHashIntervalTick(ticks_between_hearts))
-                        ThrowMetaIconF(pawn.Position, pawn.Map, FleckDefOf.Heart);
-                };
-                lovedToil.AddFinishAction(() =>
-                {
-                    if (xxx.is_human(pawn))
-                    {
-                        var comp = xxx.GetCompRJW(pawn);
-                        if (comp != null)
-                        {
-                            comp.drawNude = false;
-                            pawn.Drawer.renderer.SetAllGraphicsDirty();
-                        }
-                    }
-                    GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
-                });
-                lovedToil.FailOn(() => Partner.CurJob?.def != SPJobDefOf.SP_ServingVisitor);
-                yield return lovedToil;
-            }
+                }
+                GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
+            });
+            lovedToil.FailOn(() => Partner == null || Partner.CurJob == null || Partner.CurJob.def != SPJobDefOf.SP_ServingVisitor);
+            yield return lovedToil;
         }
 
     }

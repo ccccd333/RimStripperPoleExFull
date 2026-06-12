@@ -8,12 +8,12 @@ using Verse.AI.Group;
 
 namespace Stripper
 {
-    public class JobDriver_InviteToDance : JobDriver
+    public class JobDriver_InviteToDance : JobDriver_StripperPoleBase
     {
         private InteractionDef InteractionDef => InteractionDefOf.RecruitAttempt;
 
-        private readonly TargetIndex StripperPoleIndex = TargetIndex.A;
-        private Building_StripperPole StripperPole => (Building_StripperPole)job.GetTarget(StripperPoleIndex);
+        //private readonly TargetIndex StripperPoleIndex = TargetIndex.A;
+        //private Building_StripperPole StripperPole => (Building_StripperPole)job.GetTarget(StripperPoleIndex);
         private Pawn Guest => job.targetB.Pawn;
 
         private bool silentFail = false;
@@ -222,39 +222,6 @@ namespace Stripper
 
                     ++indexInvitedGuests;
 
-
-                    //    while (indexInvitedGuests < randomGuests.Count)
-                    //    {
-                    //        Pawn potentialGuest = randomGuests[indexInvitedGuests];
-
-                    //        if (potentialGuest != null &&
-                    //            !potentialGuest.Destroyed &&
-                    //            Hospitality.Utilities.GuestUtility.ViableGuestTarget(potentialGuest) &&
-                    //            pawn.CanReserve(potentialGuest))
-                    //        {
-                    //            job.targetB = potentialGuest;
-
-                    //            if (pawn.Reserve(potentialGuest, job))
-                    //            {
-                    //                guestReserved = true;
-                    //                indexInvitedGuests++;
-
-                    //                if (StripperMod.settings.debugLog)
-                    //                {
-                    //                    Log.Message($"[StripperPole] JobDriver_InviteToDance Reserved new TargetB: {potentialGuest}");
-                    //                }
-                    //                break;
-                    //            }
-                    //        }
-
-                    //        indexInvitedGuests++;
-                    //    }
-
-                    //if (!guestReserved)
-                    //{
-                    //    EndJobWith(JobCondition.Incompletable);
-                    //    return;
-                    //}
                 };
                 wander.tickAction = () =>
                 {
@@ -436,10 +403,10 @@ namespace Stripper
                 doDance.initAction = () =>
                 {
                     StripperPole.currentDancer = pawn;
-                    pawn.jobs.StartJob(JobMaker.MakeJob(
-                            SPJobDefOf.UseStripperPole,
-                            StripperPole,Guest
-                        ), JobCondition.InterruptForced);
+                    //pawn.jobs.StartJob(JobMaker.MakeJob(
+                    //        SPJobDefOf.UseStripperPole,
+                    //        StripperPole,Guest
+                    //    ), JobCondition.InterruptForced);
 
                     Guest.jobs.StartJob(JobMaker.MakeJob(SPJobDefOf.WatchStripperPole, StripperPole, Guest.Position, pawn), JobCondition.InterruptForced);
                     StripperPoleHelper.LastInviteToDance = Find.TickManager.TicksGame;
@@ -451,6 +418,11 @@ namespace Stripper
                 };
 
                 yield return doDance;
+
+                foreach (var toil in MakeDanceToils())
+                {
+                    yield return toil;
+                }
             }
             //else
             //{
@@ -475,6 +447,9 @@ namespace Stripper
                     }
 
                     PawnUtility.ForceWait(talkee, duration, pawn);
+
+                    // ダンスのお誘いへインタラクションを記録
+                    Find.PlayLog.Add(new PlayLogEntry_Interaction(SPInteractionDefOf.SP_InviteToDance, pawn, pawn, null));
                     //TargetThingB = pawn;
                     //MoteMaker.MakeInteractionBubble(pawn, talkee, intDef.interactionMote, intDef.GetSymbol(pawn.Faction, pawn.Ideo), intDef.GetSymbolColor(pawn.Faction));
                 },

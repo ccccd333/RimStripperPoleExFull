@@ -43,10 +43,19 @@
 		<driverClass>Stripper.JobDriver_WaitForDancer</driverClass>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
-	<JobDef>
+	<JobDef Class="Stripper.Job_UseStripperPole_Def">
 		<defName>SP_InviteToDance</defName>
 		<driverClass>Stripper.JobDriver_InviteToDance</driverClass>
+		<reportString>doing a dance</reportString>
 		<casualInterruptible>false</casualInterruptible>
+		<joyDuration>4000</joyDuration>
+		<joyKind>Physical_Dance</joyKind>
+		<turnMin>45</turnMin>
+		<turnMax>90</turnMax>
+		<undressMin>200</undressMin>
+		<undressMax>350</undressMax>
+		<recordCountName>DancesPerformed</recordCountName>
+		<logDef>UseStripperPole</logDef>
 	</JobDef>
 	<JobDef>
 		<defName>SP_GoToDanceCellAndWait</defName>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>[NL] Facial Animation - WIP</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <success>Always</success>
+      <operations>
+        <!-- 売春行為中の表情-->
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/FacialAnimation.FaceAnimationDef[defName="Lovin" or defName="Lovin2"]/targetJobs</xpath>
+          <success>Always</success>
+          <value>
+            <li>SP_ServingVisitor</li>
+            <li>SP_SexClient</li>
+          </value>
+        </li>
+        <!-- ダンス中・誘い中・観客の表情-->
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/FacialAnimation.FaceAnimationDef[defName="SocialRelax" or defName="StandAndBeSociallyActive"]/targetJobs</xpath>
+          <success>Always</success>
+          <value>
+            <li>UseStripperPole</li>
+            <li>SP_InviteToDance</li>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>

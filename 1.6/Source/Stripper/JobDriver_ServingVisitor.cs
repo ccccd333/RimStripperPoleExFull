@@ -1,4 +1,4 @@
-﻿using RimWorld;
+using RimWorld;
 using rjw;
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,15 @@ namespace Stripper
             this.FailOn(() => pawn.Drafted);
             this.FailOn(() => Partner.IsFighting());
 
-            Job clientWaitJob = JobMaker.MakeJob(SPJobDefOf.SP_WaitForDancer, pawn);
-            Partner.jobs.StartJob(clientWaitJob, JobCondition.InterruptForced);
+            yield return new Toil
+            {
+                initAction = delegate
+                {
+                    Job clientWaitJob = JobMaker.MakeJob(SPJobDefOf.SP_WaitForDancer, pawn);
+                    Partner.jobs.StartJob(clientWaitJob, JobCondition.InterruptForced);
+                },
+                defaultCompleteMode = ToilCompleteMode.Instant
+            };
 
             yield return Toils_Reserve.Reserve(iTarget, 1, 0);
 

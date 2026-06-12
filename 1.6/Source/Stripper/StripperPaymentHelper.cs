@@ -18,7 +18,8 @@ namespace Stripper
             }
 
             float beauty = performer.GetStatValue(StatDefOf.PawnBeauty);
-            return Math.Max(1, (int)Math.Round(basePrice * (beauty * beautyPricePerPoint)));
+            float beautyMult = 1f + (beauty * (beautyPricePerPoint - 1f));
+            return Math.Max(1, (int)Math.Round(basePrice * beautyMult));
         }
 
         public static int PayClientToPerformer(Pawn client, Pawn performer, int price, HashSet<Pawn> watchers, bool useVirtualPocket = false)
@@ -34,7 +35,7 @@ namespace Stripper
                 return price;
             }
 
-            // –{l‚ÌƒVƒ‹ƒo[‚ª‘«‚è‚È‚¢ê‡Aˆê‚ÉŒ©‚Ä‚¢‚½’†‚©‚çŒ¨‘ã‚í‚è‚³‚¹‚é
+            // æœ¬äººã®ã‚·ãƒ«ãƒãƒ¼ãŒè¶³ã‚Šãªã„å ´åˆã€ä¸€ç·’ã«è¦‹ã¦ã„ãŸä¸­ã‹ã‚‰è‚©ä»£ã‚ã‚Šã•ã›ã‚‹
             if (watchers != null)
             {
                 foreach (Pawn member in watchers)
@@ -44,7 +45,7 @@ namespace Stripper
                         continue;
                     }
 
-                    // ‘ã‚í‚è‚Éx•¥‚¤
+                    // ä»£ã‚ã‚Šã«æ”¯æ‰•ã†
                     amountLeft = PayFromInventory(member, performer, amountLeft);
                     if (amountLeft <= 0)
                     {

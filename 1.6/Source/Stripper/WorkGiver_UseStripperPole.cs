@@ -39,7 +39,7 @@ namespace Stripper {
             var pole = StripperPoleHelper.GetStripperPoleForPawn(pawn);
             if (pole == null) return null;
             if (!pole.CanUse(pawn)) return null;
-
+            if (!pawn.CanReserve(pole) ) return null;
             StripperPoleHelper.SetLastDanceTick(pawn, Find.TickManager.TicksGame);
             return new Job(pole.GetJobDef(), pole);
         }

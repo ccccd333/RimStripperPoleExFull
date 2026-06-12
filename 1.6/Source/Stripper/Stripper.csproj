@@ -72,7 +72,9 @@
     <Compile Include="JobDriver_GoToDanceCellAndWait.cs" />
     <Compile Include="JobDriver_InviteToDance.cs" />
     <Compile Include="JobDriver_SexClient.cs" />
+    <Compile Include="JobDriver_StripperPoleBase.cs" />
     <Compile Include="JobDriver_WaitForDancer.cs" />
+    <Compile Include="SPInteractionDefOf.cs" />
     <Compile Include="SPJobDefOf.cs" />
     <Compile Include="JobDriver_ServingVisitor.cs" />
     <Compile Include="JobDriver_WatchStripperPole.cs" />

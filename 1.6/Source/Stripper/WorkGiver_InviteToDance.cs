@@ -31,7 +31,7 @@ namespace Stripper
             foreach (var p in poles) {
                 var stripperPole = p as Building_StripperPole;
                 if (stripperPole != null) {
-                    if(stripperPole.owners.Count == 1 && stripperPole.IsOwner(pawn))
+                    if(stripperPole.owners.Count == 1 && stripperPole.IsOwner(pawn) && pawn.CanReserve(stripperPole))
                     {
                         owner_pole = true;
                         my_pole = stripperPole;

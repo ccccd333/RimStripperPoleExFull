@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <SP_DancePerformed.label>ストリップダンスを披露した</SP_DancePerformed.label>
+  <SP_DancePerformed.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef]は官能的なダンスを披露した。</SP_DancePerformed.logRulesInitiator.rulesStrings.0>
+  <SP_DancePerformed.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef]は妖艶な踊りを見せた。</SP_DancePerformed.logRulesInitiator.rulesStrings.1>
+  <SP_DancePerformed.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef]は挑発的なパフォーマンスを披露した。</SP_DancePerformed.logRulesInitiator.rulesStrings.2>
+
+  <SP_InviteToDance.label>ストリップダンスに誘っている</SP_InviteToDance.label>
+  <SP_InviteToDance.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef]は目線を外しながらストリップダンスに誘ってみた。</SP_InviteToDance.logRulesInitiator.rulesStrings.0>
+  <SP_InviteToDance.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef]は素っ気ない感じでストリップダンスに誘った。</SP_InviteToDance.logRulesInitiator.rulesStrings.1>
+  <SP_InviteToDance.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef]は少し俯いてストリップダンスに誘った。</SP_InviteToDance.logRulesInitiator.rulesStrings.2>
+  
+</LanguageData>

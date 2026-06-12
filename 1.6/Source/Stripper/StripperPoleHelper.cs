@@ -1,4 +1,4 @@
-﻿using RimWorld;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,6 +113,16 @@ namespace Stripper
             if (dancerWatcherMap.ContainsKey(dancer))
             {
                 dancerWatcherMap.Remove(dancer);
+            }
+        }
+
+        public static IEnumerable<Pawn> GetAllWatchers(Pawn dancer)
+        {
+            if (dancer == null) yield break;
+            if (dancerWatcherMap.TryGetValue(dancer, out var watchers) && watchers != null)
+            {
+                foreach (var w in watchers)
+                    yield return w;
             }
         }
 

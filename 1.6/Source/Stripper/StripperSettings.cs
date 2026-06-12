@@ -42,7 +42,7 @@ namespace Stripper
 
         public int InviteCooldownTicks => Mathf.RoundToInt(inviteCooldownSeconds * (2500f / 3600f));
 
-        public int InviteWanderTicks => Mathf.RoundToInt(inviteWanderSeconds * (2500f / 3600f));
+        public int InviteWanderTicks => inviteWanderSeconds * 60;
 
         public int DanceCooldownTicks => Mathf.RoundToInt(danceCooldownSeconds * (2500f / 3600f));
 
