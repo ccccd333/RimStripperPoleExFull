@@ -43,29 +43,24 @@ namespace Stripper
 
         protected TargetIndex StripperPoleIndex = TargetIndex.A;
         protected Building_StripperPole StripperPole => (Building_StripperPole)job.GetTarget(StripperPoleIndex);
+        protected Toil gotoPoleToil;
 
         protected Job_UseStripperPole_Def def => (Job_UseStripperPole_Def)job.def;
 
         protected IEnumerable<Toil> MakeDanceToils()
         {
             var gotoToil = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.OnCell);
+            gotoPoleToil = gotoToil;
+            // UAPのPatch_StripPole_StartOnArrivalがPatherArrival Toilを探してテレポートバグを誘発するため、
+            // defaultCompleteModeをNeverに変更してUAPのフック注入対象から外し、安全に到着を処理する。
+            gotoToil.defaultCompleteMode = ToilCompleteMode.Never;
             gotoToil.FailOn(() => pawn.Drafted);
-            gotoToil.AddFinishAction(() => {
-                if (StripperMod.settings.debugLog)
+            gotoToil.tickAction = () => {
+                if (!pawn.pather.Moving)
                 {
-                    Log.Message($"[StripperPole] MakeNewToils gotoToil AddFinishAction. pawn: {pawn} curJob: {this.pawn.CurJob} this.job {this.job}");
+                    ReadyForNextToil();
                 }
-
-                // UAPのアニメーション強制開始によるテレポートバグを修正する。
-                // UAPのPatch_StripPole_StartOnArrivalは、このgotoToilにFinishActionを追加してアニメーションを開始させる。
-                // 徴兵などでこのToilが中断された場合でもFinishActionは実行されるため、到着前にアニメーションが始まってテレポートしてしまう。
-                // ここでポールに到着していなければ job.targetA を無効化することで、UAP側の pole == null チェックに引っ掛けさせ処理をキャンセルさせる。
-                var pole = job.GetTarget(TargetIndex.A).Thing;
-                if (pole != null && pawn.Position != pole.Position && pawn.Position != pole.InteractionCell)
-                {
-                    job.targetA = LocalTargetInfo.Invalid;
-                }
-            });
+            };
 
             var dancing = new Toil();
             dancing.tickAction = StripperPoleTick;
@@ -192,78 +187,103 @@ namespace Stripper
 
             // 売春可能なポーンはJobDriver_WatchStripperPole側(観客)で挿入される
             // ダンスが正常終了時ダイアログボックス表示用のToilを生成
+            bool dialogOpened = false;
             var prostitute = new Toil();
             prostitute.defaultCompleteMode = ToilCompleteMode.Never;
             prostitute.initAction = () => {
-                // ダイアログボックス
-                if (StripperMod.settings.debugLog)
+                try
                 {
-                    Log.Message($"[StripperPole] Try prostitute toil. pawn: {pawn}");
-                }
-
-                if (!pawn.IsColonist)
-                {
-                    pawn.jobs.curDriver.ReadyForNextToil();
-                    return;
-                }
-
-                StripperPoleHelper.DistributeDancePayout(pawn);
-
-                Pawn prostituteTarget = StripperPoleHelper.GetRandomAvailableProstitute(pawn);
-                StripperPoleHelper.UnregisterDancer(pawn);
-
-                if (prostituteTarget == null)
-                {
-                    pawn.jobs.curDriver.ReadyForNextToil();
-                    return;
-                }
-
-                if (StripperMod.settings.debugLog)
-                {
-                    Log.Message($"[StripperPole] prostituteTarget: {prostituteTarget.LabelShort} pawn: {pawn.LabelShort}");
-                }
-
-                string title = "SP_Prostitute_Title".Translate();
-                string text = "SP_Prostitute_Text".Translate(pawn, prostituteTarget);
-
-                Pawn dancer = pawn;
-                Pawn customer = prostituteTarget;
-
-                // 行為選択ダイアログをポップアップ
-                Find.WindowStack.Add(new Dialog_ProstitutionNegotiation(
-                    title,
-                    text,
-                    dancer,
-                    customer,
-                    (SexInteractionResolved resolved) =>
+                    // ダイアログボックス
+                    if (StripperMod.settings.debugLog)
                     {
-                        // 選択された行為をSexPropsとしてキャッシュ
-                        // JobDriver_SexBaseInitiator.Start()がpawn.GetRMBSexPropsCache() で
-                        // これを拾ってくれるので、指定した体位で行為が実行される
-                        if (resolved != null)
-                        {
-                            var SP = new SexProps(dancer, customer)
-                            {
-                                isWhoring = true,
-                                canBeGuilty = false,
-                                interaction = resolved.Interaction,
-                                resolved = resolved
-                            };
-                            dancer.GetRJWPawnData().SexProps = SP;
-                        }
-
-                        Messages.Message("SP_Prostitute_Accept".Translate(), MessageTypeDefOf.PositiveEvent);
-
-                        Job gettin_loved = JobMaker.MakeJob(SPJobDefOf.SP_ServingVisitor, customer);
-                        dancer.jobs.StartJob(gettin_loved, JobCondition.InterruptForced);
-                    },
-                    () =>
-                    {
-                        Messages.Message("SP_Prostitute_Reject".Translate(), MessageTypeDefOf.NeutralEvent);
-                        dancer.jobs.curDriver.ReadyForNextToil();
+                        Log.Message($"[StripperPole] Try prostitute toil. pawn: {pawn}");
                     }
-                ));
+
+                    if (!pawn.IsColonist)
+                    {
+                        pawn.jobs.curDriver.ReadyForNextToil();
+                        return;
+                    }
+
+                    StripperPoleHelper.DistributeDancePayout(pawn);
+
+                    Pawn prostituteTarget = StripperPoleHelper.GetRandomAvailableProstitute(pawn);
+                    StripperPoleHelper.UnregisterDancer(pawn);
+
+                    if (prostituteTarget == null)
+                    {
+                        pawn.jobs.curDriver.ReadyForNextToil();
+                        return;
+                    }
+
+                    if (StripperMod.settings.debugLog)
+                    {
+                        Log.Message($"[StripperPole] prostituteTarget: {prostituteTarget.LabelShort} pawn: {pawn.LabelShort}");
+                    }
+
+                    string title = "SP_Prostitute_Title".Translate();
+                    string text = "SP_Prostitute_Text".Translate(pawn, prostituteTarget);
+
+                    Pawn dancer = pawn;
+                    Pawn customer = prostituteTarget;
+
+                    dialogOpened = true;
+
+                    // 行為選択ダイアログをポップアップ
+                    Find.WindowStack.Add(new Dialog_ProstitutionNegotiation(
+                        title,
+                        text,
+                        dancer,
+                        customer,
+                        (SexInteractionResolved resolved) =>
+                        {
+                            // 選択された行為をSexPropsとしてキャッシュ
+                            // JobDriver_SexBaseInitiator.Start()がpawn.GetRMBSexPropsCache() で
+                            // これを拾ってくれるので、指定した体位で行為が実行される
+                            if (resolved != null)
+                            {
+                                var SP = new SexProps(dancer, customer)
+                                {
+                                    isWhoring = true,
+                                    canBeGuilty = false,
+                                    interaction = resolved.Interaction,
+                                    resolved = resolved
+                                };
+                                dancer.GetRJWPawnData().SexProps = SP;
+                            }
+
+                            Messages.Message("SP_Prostitute_Accept".Translate(), MessageTypeDefOf.PositiveEvent);
+
+                            Job gettin_loved = JobMaker.MakeJob(SPJobDefOf.SP_ServingVisitor, customer);
+                            dancer.jobs.StartJob(gettin_loved, JobCondition.InterruptForced);
+                        },
+                        () =>
+                        {
+                            Messages.Message("SP_Prostitute_Reject".Translate(), MessageTypeDefOf.NeutralEvent);
+                            dancer.jobs.curDriver.ReadyForNextToil();
+                        }
+                    ));
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"[StripperPole] Exception in prostitute toil initAction: {ex}");
+                    pawn.jobs.curDriver.ReadyForNextToil();
+                }
             };
+            prostitute.tickAction = () => {
+                // ダイアログが開いた後にウィンドウが閉じられた場合、安全にToilを完了させる
+                if (dialogOpened && !Find.WindowStack.IsOpen<Dialog_ProstitutionNegotiation>())
+                {
+                    if (StripperMod.settings.debugLog)
+                    {
+                        Log.Message($"[StripperPole] Prostitution dialog closed; advancing prostitute toil. pawn: {pawn}");
+                    }
+                    pawn.jobs.curDriver.ReadyForNextToil();
+                }
+            };
+            prostitute.AddFinishAction(() => {
+                StripperPoleHelper.UnregisterDancer(pawn);
+            });
 
             yield return gotoToil;
             yield return dancing;
@@ -426,6 +446,15 @@ namespace Stripper
 			*/
 
             StripperPole.currentDanceInfo = GetInfoString("dancing");
+        }
+
+        public override void Notify_PatherArrived()
+        {
+            base.Notify_PatherArrived();
+            if (CurToil != null && CurToil == gotoPoleToil)
+            {
+                ReadyForNextToil();
+            }
         }
 
         private void StopSession()

@@ -16,6 +16,7 @@ namespace Stripper
         private Pawn customer;
         private Action<SexInteractionResolved> onAccept;
         private Action onReject;
+        private bool actionInvoked = false;
 
         // 行為選択リスト
         private List<SexInteractionResolved> availableInteractions;
@@ -173,6 +174,7 @@ namespace Stripper
             GUI.enabled = canAccept;
             if (Widgets.ButtonText(new Rect(buttonRow.x + 50f, buttonRow.y, 200f, buttonRow.height), "SP_Prostitute_Accept".Translate()))
             {
+                actionInvoked = true;
                 onAccept?.Invoke(selectedInteraction);
                 Close();
             }
@@ -180,8 +182,19 @@ namespace Stripper
 
             if (Widgets.ButtonText(new Rect(buttonRow.width - 250f, buttonRow.y, 200f, buttonRow.height), "SP_Prostitute_Reject".Translate()))
             {
+                actionInvoked = true;
                 onReject?.Invoke();
                 Close();
+            }
+        }
+
+        public override void PostClose()
+        {
+            base.PostClose();
+            if (!actionInvoked)
+            {
+                actionInvoked = true;
+                onReject?.Invoke();
             }
         }
 
