@@ -39,6 +39,7 @@
 	<SP_Settings_SexType_Sixtynine>シックスナイン時倍率</SP_Settings_SexType_Sixtynine>
 
 	<SP_Settings_InviteCooldown>客の呼び込みクールタイム秒数</SP_Settings_InviteCooldown>
+	<SP_Settings_InviteFailedCooldown>到達可能な客がいない時のクールタイム秒数（自発）</SP_Settings_InviteFailedCooldown>
 	<SP_Settings_Invite_Wander>客の呼び込み中にうろうろする秒数</SP_Settings_Invite_Wander>
 	<SP_Settings_Invite_BaseChance>客がダンスの招待を受ける基本確率（％）</SP_Settings_Invite_BaseChance>
 	<SP_Settings_Invite_BeautyMult>客がダンスの招待を受ける確率（美しさによる倍率)</SP_Settings_Invite_BeautyMult>

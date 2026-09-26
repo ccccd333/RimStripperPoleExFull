@@ -354,7 +354,7 @@ namespace Stripper
                 if (rotationMote == null)
                 {
                     //Log.Message($"Lights={SPThingDefOf.Mote_StripLightBallLights}");
-                    Log.Error("[StripperPole] rotationMote is null");
+                    //Log.Error("[StripperPole] rotationMote is null");
                     return;
                 }
             }
@@ -373,7 +373,7 @@ namespace Stripper
                 if (lightsMote == null)
                 {
                     //Log.Message($"Ball={SPThingDefOf.Mote_StripLightBall}");
-                    Log.Error("[StripperPole] lightsMote is null");
+                    //Log.Error("[StripperPole] lightsMote is null");
                     return;
                 }
 
@@ -385,9 +385,9 @@ namespace Stripper
                 rotationMote?.Maintain();
                 lightsMote?.Maintain();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Log.Error($"[StripperPole] DanceEffect Maintain failed: {e}");
+                //Log.Error($"[StripperPole] DanceEffect Maintain failed: {e}");
                 rotationMote = null;
                 lightsMote = null;
             }

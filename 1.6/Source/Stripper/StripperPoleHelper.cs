@@ -17,6 +17,7 @@ namespace Stripper
         private static Dictionary<Pawn, HashSet<Pawn>> dancerWatcherMap = new Dictionary<Pawn, HashSet<Pawn>>();
         private static bool isSearchingForCustomer = false;
         private static int lastInviteToDance = 0;
+        private static int lastInviteNoGuestsTick = 0;
         //private static int lastWorkGiverDanceSecond = 0;
         private static Dictionary<int, int> lastWorkGiverDanceTicks = new Dictionary<int, int>();
 
@@ -32,6 +33,12 @@ namespace Stripper
             set { lastInviteToDance = value; }
         }
 
+        public static int LastInviteNoGuestsTick
+        {
+            get { return lastInviteNoGuestsTick; }
+            set { lastInviteNoGuestsTick = value; }
+        }
+
         public static void ExposeData()
         {
             if (Scribe.mode == LoadSaveMode.Saving)
@@ -41,6 +48,7 @@ namespace Stripper
 
             Scribe_Values.Look(ref isSearchingForCustomer, "isSearchingForCustomer", false);
             Scribe_Values.Look(ref lastInviteToDance, "lastInviteToDance", 0);
+            Scribe_Values.Look(ref lastInviteNoGuestsTick, "lastInviteNoGuestsTick", 0);
             Scribe_Collections.Look(ref lastWorkGiverDanceTicks, "lastWorkGiverDanceTicks", LookMode.Value, LookMode.Value);
 
             if (lastWorkGiverDanceTicks == null)
@@ -72,6 +80,18 @@ namespace Stripper
             remainingTicks = GetRemainingTicks(lastInviteToDance, StripperMod.settings.InviteCooldownTicks);
 
             return remainingTicks > 0;
+        }
+
+        public static bool IsInviteNoGuestsCooldownActive(out int remainingTicks)
+        {
+            remainingTicks = GetRemainingTicks(lastInviteNoGuestsTick, StripperMod.settings.InviteFailedCooldownTicks);
+
+            return remainingTicks > 0;
+        }
+
+        public static void SetLastInviteNoGuestsTick(int tick)
+        {
+            lastInviteNoGuestsTick = tick;
         }
 
         public static bool IsWorkGiverDanceCooldownActive(Pawn pawn, out int remainingTicks)

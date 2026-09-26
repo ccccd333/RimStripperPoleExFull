@@ -1,4 +1,4 @@
-﻿using rjw;
+using rjw;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,6 +128,15 @@ namespace Stripper
             }
             listing.Gap();
 
+            listing.Label("SP_Settings_InviteFailedCooldown".Translate());
+            Rect spifc_rect = listing.GetRect(30f);
+            Widgets.TextFieldNumeric(spifc_rect, ref settings.inviteFailedCooldownSeconds, ref _bufferInviteFailedCooldown, 0, 1000000);
+            if (int.TryParse(_bufferInviteFailedCooldown, out int resultFailed))
+            {
+                settings.inviteFailedCooldownSeconds = resultFailed;
+            }
+            listing.Gap();
+
             listing.Label("SP_Settings_Invite_Wander".Translate());
             Rect spiw_rect = listing.GetRect(30f);
             Widgets.TextFieldNumeric(spiw_rect, ref settings.inviteWanderSeconds, ref _bufferInviteWander, 1.0f, 1000.0f);
@@ -192,6 +201,7 @@ namespace Stripper
         private string _bufferProstPrice;
         private string _bufferProstBeauty;
         private string _bufferInviteCooldown;
+        private string _bufferInviteFailedCooldown;
         private string _bufferInviteWander;
         private string _bufferInviteChanceBase;
         private string _bufferInviteChanceBeautyMult;

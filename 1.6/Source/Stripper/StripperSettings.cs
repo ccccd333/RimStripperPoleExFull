@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Verse;
 
 namespace Stripper
@@ -31,6 +31,7 @@ namespace Stripper
         public float prostitutePartsSixtynine = 1.0f;
 
         public int inviteCooldownSeconds = 21600;
+        public int inviteFailedCooldownSeconds = 7200; // 到達可能な客がいない時のクールタイム（デフォルト2時間 = 5000 ticks）
         public int inviteWanderSeconds = 10;
 
         public float inviteBaseChance = 0.3f;
@@ -41,6 +42,8 @@ namespace Stripper
         public int danceCooldownSeconds = 7200;
 
         public int InviteCooldownTicks => Mathf.RoundToInt(inviteCooldownSeconds * (2500f / 3600f));
+
+        public int InviteFailedCooldownTicks => Mathf.RoundToInt(inviteFailedCooldownSeconds * (2500f / 3600f));
 
         public int InviteWanderTicks => inviteWanderSeconds * 60;
 
@@ -75,6 +78,7 @@ namespace Stripper
             Scribe_Values.Look(ref prostitutePartsSixtynine, "prostitutePartsSixtynine", 1.0f);
 
             Scribe_Values.Look(ref inviteCooldownSeconds, "inviteCooldownSeconds", 21600);
+            Scribe_Values.Look(ref inviteFailedCooldownSeconds, "inviteFailedCooldownSeconds", 7200);
             Scribe_Values.Look(ref inviteWanderSeconds, "inviteWanderSeconds", 10);
 
             Scribe_Values.Look(ref inviteBaseChance, "inviteBaseChance", 0.3f);

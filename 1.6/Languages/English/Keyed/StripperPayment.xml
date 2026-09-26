@@ -48,6 +48,7 @@
 	<SP_Settings_SexType_Sixtynine>Sixty-Nine Multiplier</SP_Settings_SexType_Sixtynine>
 
 	<SP_Settings_InviteCooldown>Customer Invitation Cooldown (seconds)</SP_Settings_InviteCooldown>
+	<SP_Settings_InviteFailedCooldown>Customer Invitation Cooldown When No Reachable Guests (seconds)</SP_Settings_InviteFailedCooldown>
 	<SP_Settings_Invite_Wander>Wandering Time While Seeking Customers (seconds)</SP_Settings_Invite_Wander>
 	<SP_Settings_Invite_BaseChance>Base Chance a Guest Accepts a Dance Invitation (%)</SP_Settings_Invite_BaseChance>
 	<SP_Settings_Invite_BeautyMult>Guest Acceptance Chance Beauty Multiplier</SP_Settings_Invite_BeautyMult>

@@ -1,4 +1,4 @@
-﻿using Hospitality;
+using Hospitality;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,6 +132,10 @@ namespace Stripper
                             MessageTypeDefOf.RejectInput,
                             false);
                     }
+                    else if ((condition == JobCondition.Incompletable || condition == JobCondition.ErroredPather) && !job.playerForced)
+                    {
+                        StripperPoleHelper.SetLastInviteNoGuestsTick(Find.TickManager.TicksGame);
+                    }
 
                     if (StripperMod.settings.debugLog)
                     {
@@ -193,7 +197,9 @@ namespace Stripper
 
                         var targetGuest = Hospitality.Utilities.GuestUtility.GetAllGuests(pawn.Map)
                             .Where(g => Hospitality.Utilities.GuestUtility.ViableGuestTarget(g)
-                                     && !invitedGuests.Contains(g) && pawn.CanReserve(g))
+                                     && !invitedGuests.Contains(g)
+                                     && pawn.CanReserve(g)
+                                     && pawn.CanReach(g, PathEndMode.Touch, Danger.Some))
                             .InRandomOrder()
                             .Take(StripperMod.settings.maxGuestsToInvite)
                             .FirstOrDefault();
