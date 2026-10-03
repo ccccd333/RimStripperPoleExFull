@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
     <name>Stripper Pole</name>
-    <author>CryptidFarmer</author>
-	<url>https://gitgud.io/cryptidfarmer/rimworld-stripper-pole</url>
-    <description>This mod adds stripper poles and dance spots. Pawns can do or watch a dance for recreation.</description>
+    <author>CryptidFarmer, ccccd333</author>
+    <url>https://github.com/ccccd333/RimStripperPoleExFull</url>
+    <description>This mod adds stripper poles and dance spots. Pawns can do or watch a dance for recreation.
+
+Forked and updated by ccccd333 with new features (prostitution system, customer invitation via Hospitality, bug fixes, and more).
+
+Latest Releases / Updates:
+https://github.com/ccccd333/RimStripperPoleExFull/releases
+
+Original mod by CryptidFarmer:
+https://gitgud.io/cryptidfarmer/rimworld-stripper-pole</description>
     <supportedVersions>
         <li>1.6</li>
     </supportedVersions>
