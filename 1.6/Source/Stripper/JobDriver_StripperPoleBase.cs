@@ -34,6 +34,7 @@ namespace Stripper
         private int undressTick;
         private int turnTick;
         private int ticks_elapsed;
+        private bool isDanceAnimationStarted = false;
 
         private const string GroupAnimDefName = "GroupAnimation_Female_Stripper_UAP_Start";
 
@@ -49,6 +50,10 @@ namespace Stripper
 
         protected IEnumerable<Toil> MakeDanceToils()
         {
+            this.AddFinishAction((condition) => {
+                StopDanceAnimation();
+            });
+
             var gotoToil = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.OnCell);
             gotoPoleToil = gotoToil;
             // UAPのPatch_StripPole_StartOnArrivalがPatherArrival Toilを探してテレポートバグを誘発するため、
@@ -71,8 +76,6 @@ namespace Stripper
                 //ticks_elapsed++;
             };
             dancing.initAction = () => {
-                Log.Message($"[StripperPole] MakeNewToils dancing initAction. pawn: {pawn}");
-
                 var comp = pawn.TryGetComp<Rimworld_Animations.CompExtendedAnimator>();
                 if (comp != null && !comp.IsAnimating)
                 {
@@ -86,6 +89,7 @@ namespace Stripper
                             // Fully-qualify to avoid Verse.AnimationUtility ambiguity
                             Rimworld_Animations.AnimationUtility.StartGroupAnimation(
                                 new List<Pawn> { pawn }, anim_def, StripperPole);
+                            isDanceAnimationStarted = true;
                         }
                     }
                 }
@@ -163,18 +167,7 @@ namespace Stripper
                 pawn.Drawer.renderer.SetAllGraphicsDirty();
                 GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
 
-                var comp = pawn.TryGetComp<Rimworld_Animations.CompExtendedAnimator>();
-                if (comp != null && comp.IsAnimating)
-                {
-                    var anim_def = ResolveGroupDef();
-                    if (comp.CurrentGroupAnimation == anim_def)
-                    {
-                        // UAPで開始されたPoleアニメーションの停止
-                        Rimworld_Animations.AnimationUtility.StopGroupAnimation(pawn);
-                    }
-                }
-
-                //Rimworld_Animations.AnimationUtility.StopGroupAnimation(pawn);
+                StopDanceAnimation();
 
                 AddPlayLog();
             });
@@ -302,6 +295,7 @@ namespace Stripper
             Scribe_Values.Look<int>(ref nextApparel, "nextApparel", 0, false);
             Scribe_Values.Look<int>(ref undressTick, "undressTick", 0, false);
             Scribe_Values.Look<int>(ref turnTick, "turnTick", 0, false);
+            Scribe_Values.Look(ref isDanceAnimationStarted, "isDanceAnimationStarted", false);
 
 
             //if (Scribe.mode == LoadSaveMode.PostLoadInit)
@@ -497,13 +491,30 @@ namespace Stripper
                         || n.IndexOf("pole", StringComparison.OrdinalIgnoreCase) >= 0;
                 });
 
-            if (cand == null)
-                Log.Warning($"[UAP] StartOnArrival: GroupAnimationDef '{GroupAnimDefName}' not found.");
-            else
-                Log.Warning($"[UAP] StartOnArrival: Using fallback GroupAnimationDef '{cand.defName}'. " +
-                            $"Consider renaming GroupAnimDefName constant to your exact defName.");
+            if (cand != null && StripperMod.settings.debugLog)
+            {
+                Log.Message($"[StripperPole] Using fallback GroupAnimationDef '{cand.defName}'.");
+            }
 
             return cand;
+        }
+
+        private void StopDanceAnimation()
+        {
+            var comp = pawn?.TryGetComp<Rimworld_Animations.CompExtendedAnimator>();
+            var anim_def = ResolveGroupDef();
+            bool isOurAnim = comp != null && comp.IsAnimating && anim_def != null && comp.CurrentGroupAnimation == anim_def;
+
+            if (!isDanceAnimationStarted && !isOurAnim) return;
+
+            isDanceAnimationStarted = false;
+
+            if (pawn != null)
+            {
+                // UAPの位置ロック（UAP_AnimationPositionLock）はStopGroupAnimation(List<Pawn>)のPostfixで解除されるため、
+                // List<Pawn>版を呼び出してUAPのロック解除を確実に発火させる
+                Rimworld_Animations.AnimationUtility.StopGroupAnimation(new List<Pawn> { pawn });
+            }
         }
     }
 }
