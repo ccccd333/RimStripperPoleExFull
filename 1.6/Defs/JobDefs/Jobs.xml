@@ -35,12 +35,13 @@
 	<JobDef>
 		<defName>SP_SexClient</defName>
 		<driverClass>Stripper.JobDriver_SexClient</driverClass>
-		<reportString>enjoyin TargetA.</reportString>
+		<reportString>enjoying TargetA.</reportString>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
 	<JobDef>
 		<defName>SP_WaitForDancer</defName>
 		<driverClass>Stripper.JobDriver_WaitForDancer</driverClass>
+		<reportString>waiting for dancer.</reportString>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
 	<JobDef Class="Stripper.Job_UseStripperPole_Def">
@@ -60,6 +61,7 @@
 	<JobDef>
 		<defName>SP_GoToDanceCellAndWait</defName>
 		<driverClass>Stripper.JobDriver_GoToDanceCellAndWait</driverClass>
+		<reportString>moving to dance area.</reportString>
 		<casualInterruptible>false</casualInterruptible>
 	</JobDef>
 </Defs>

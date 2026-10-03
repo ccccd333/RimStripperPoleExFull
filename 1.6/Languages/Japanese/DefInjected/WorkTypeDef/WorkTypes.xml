@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <StripperPole_Dancer.labelShort>ストリップ</StripperPole_Dancer.labelShort>
+  <StripperPole_Dancer.pawnLabel>ダンサー</StripperPole_Dancer.pawnLabel>
+  <StripperPole_Dancer.gerundLabel>ダンス</StripperPole_Dancer.gerundLabel>
+  <StripperPole_Dancer.description>訪問客を楽しませるためにダンスを踊ります。</StripperPole_Dancer.description>
+  <StripperPole_Dancer.verb>ダンス</StripperPole_Dancer.verb>
+</LanguageData>

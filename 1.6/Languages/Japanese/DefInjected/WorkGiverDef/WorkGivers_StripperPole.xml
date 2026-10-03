@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <WG_UseStripperPole.label>ダンスを披露する</WG_UseStripperPole.label>
+  <WG_UseStripperPole.gerund>ダンス中</WG_UseStripperPole.gerund>
+  <WG_UseStripperPole.verb>ダンス</WG_UseStripperPole.verb>
+  <WG_InviteToDance.label>客を招待する</WG_InviteToDance.label>
+  <WG_InviteToDance.gerund>客を招待中</WG_InviteToDance.gerund>
+  <WG_InviteToDance.verb>招待</WG_InviteToDance.verb>
+</LanguageData>

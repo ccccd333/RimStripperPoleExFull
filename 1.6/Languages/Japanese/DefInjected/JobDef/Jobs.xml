@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <UseStripperPole.reportString>ポールダンス中</UseStripperPole.reportString>
+  <WatchStripperPole.reportString>ダンスを鑑賞中</WatchStripperPole.reportString>
+  <SP_ServingVisitor.reportString>TargetAに奉仕中</SP_ServingVisitor.reportString>
+  <SP_SexClient.reportString>TargetAを楽しんでいる</SP_SexClient.reportString>
+  <SP_WaitForDancer.reportString>ダンサーを待機中</SP_WaitForDancer.reportString>
+  <SP_InviteToDance.reportString>ダンスを披露中</SP_InviteToDance.reportString>
+  <SP_GoToDanceCellAndWait.reportString>ダンス場所へ移動中</SP_GoToDanceCellAndWait.reportString>
+</LanguageData>
