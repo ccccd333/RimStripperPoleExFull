@@ -19,7 +19,7 @@ Joy Gain: Fixed a bug where the joy gauge was not increasing for both the dancer
 UAP Teleportation: Fixed an issue where pawns were forcibly teleported to the pole location if drafted while pole dancing.
 
 Required Mods
-UAP (Utility Animation Framework)
+UAP
 RimWorld-Animations 2.0
 RJW (RimJobWorld)
 
