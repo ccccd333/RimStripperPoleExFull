@@ -1,0 +1,45 @@
+
+[New Feature] Added sensitive interaction logging for RimTalk integration.
+
+1. Stripper Pole Mod Settings (Options Menu)
+
+Open the in-game menu: Options → Mod Options.
+Select Stripper Pole from the mod list.
+Scroll down to the bottom to find [RimTalk Integration Settings].
+Check "Enable sensitive interactions for RimTalk" to turn it ON.
+
+2. RimTalk Settings & Verification
+
+Go to Mod Options and select RimTalk from the list.
+Under RimTalk's General Settings, ensure that "Override all interactions with AI dialogue" is enabled.
+Click the gear icon next to that checkbox. This will open the Priority Interactions window.
+Locate the Stripper Pole section and enable the following:
+SP_DancePerformed_Sensitive (Triggered when performing a pole dance)
+SP_InviteToDance_Sensitive (Triggered when inviting a guest to dance)
+SP_WatchDance_Sensitive (Triggered when a guest starts watching the dance)
+
+Once enabled, RimTalk will prioritize generating dialogues during pole dance events.
+
+(Tip: If you weren't aware of this setting, enabling other RJW animation interactions here will also prioritize conversations during intimate acts.)
+
+--------------
+
+[機能追加]
+RimTalk連携でセンシティブインタラクト記録するようにしました。
+<やり方>
+1. Stripper Pole Mod側の設定（オプション画面）
+ゲーム内メニューの 「オプション」 → 「Mod設定」 を開きます。
+一覧から 「Stripper Pole」 を選択します。
+設定画面の下部にある 【RimTalk連携設定】 までスクロールします。
+「RimTalk用のセンシティブなインタラクトを有効化」 のチェックボックスを ON（チェック） にします。
+
+2. RimTalk側の確認・設定
+「Mod設定」→一覧から「RimTalk」を選択します。
+RimTalkの基本設定で、「すべてのインタラクションをAIの対話で上書きする」が有効になっていることを確認してください。
+そのチェックの横の歯車ボタンを押してください。優先インタラクション画面が開くのでその中から「Stripper Pole」の個所で
+SP_DancePerformed_Sensitive （ポールダンス披露時）
+SP_InviteToDance_Sensitive （客へのダンスお誘い時）
+SP_WatchDance_Sensitive （客がダンスを見始めた時）
+を有効にしてみてください。これでポールダンス時に優先してRimtalk側で会話されるはずです。
+
+また、今までこの設定を知らなかった場合は他のRJWのアニメーションもチェックしておくと行為の会話が優先されます。
