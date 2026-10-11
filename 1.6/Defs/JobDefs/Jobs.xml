@@ -18,7 +18,7 @@
 		<defName>WatchStripperPole</defName>
 		<driverClass>Stripper.JobDriver_WatchStripperPole</driverClass>
 		<reportString>watching a dance</reportString>
-		<casualInterruptible>true</casualInterruptible>
+		<casualInterruptible>false</casualInterruptible>
         <joyDuration>4000</joyDuration>
         <joyMaxParticipants>8</joyMaxParticipants>
     	<joyKind>Visual_Dance</joyKind>

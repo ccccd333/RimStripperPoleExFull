@@ -455,7 +455,15 @@ namespace Stripper
                     PawnUtility.ForceWait(talkee, duration, pawn);
 
                     // ダンスのお誘いへインタラクションを記録
-                    Find.PlayLog.Add(new PlayLogEntry_Interaction(SPInteractionDefOf.SP_InviteToDance, pawn, pawn, null));
+                    if (StripperMod.settings.enableRimTalkSensitiveInteractions)
+                    {
+                        Pawn recipient = talkee ?? pawn;
+                        Find.PlayLog.Add(new PlayLogEntry_StripperSensitive(SPInteractionDefOf.SP_InviteToDance_Sensitive, pawn, recipient, null));
+                    }
+                    else
+                    {
+                        Find.PlayLog.Add(new PlayLogEntry_Interaction(SPInteractionDefOf.SP_InviteToDance, pawn, pawn, null));
+                    }
                     //TargetThingB = pawn;
                     //MoteMaker.MakeInteractionBubble(pawn, talkee, intDef.interactionMote, intDef.GetSymbol(pawn.Faction, pawn.Ideo), intDef.GetSymbolColor(pawn.Faction));
                 },

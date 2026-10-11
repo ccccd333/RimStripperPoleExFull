@@ -11,4 +11,40 @@
   <SP_InviteToDance.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef]は素っ気ない感じでストリップダンスに誘った。</SP_InviteToDance.logRulesInitiator.rulesStrings.1>
   <SP_InviteToDance.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef]は少し俯いてストリップダンスに誘った。</SP_InviteToDance.logRulesInitiator.rulesStrings.2>
   
+  <SP_DancePerformed_Sensitive.label>いやらしいストリップダンスを披露した</SP_DancePerformed_Sensitive.label>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] は [danced]、[DANCER_breastAction]、[DANCER_reaction]。</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.0>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.1>danced->妖艶にポールにしなだれかかりながら</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.1>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.2>danced->妖艶にポールを伝って踊りながら</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.2>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.3>danced->熱い吐息を漏らしながら</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.3>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.4>DANCER_breastAction(initiator_breastSize==Large)->ブルンブルンと激しく豊満な乳房を揺らし</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.4>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.5>DANCER_breastAction(initiator_breastSize==Average)->いやらしくプルンプルンと乳房を揺らし</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.5>
+   <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.6>DANCER_breastAction(initiator_breastSize==Small)->しなやかに引き締まった身体と可憐な胸を艶めかしくくねらせ</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.6>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.7>DANCER_breastAction(initiator_breastSize==Large)->零れ落ちそうな豊満な巨乳を露わに揺さぶり</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.7>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.8>DANCER_reaction(recipient_isSelf==True,initiator_isExhibitionist==True)->火照った肌を大胆に晒して見せつける快感に陶酔し、恍惚とした笑みを浮かべて一人舞い続けた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.8>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.9>DANCER_reaction(recipient_isSelf==True,initiator_isExhibitionist==False)->甘く熱い息を漏らしながら、陶酔した表情で一人妖艶に踊り続けた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.9>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.10>DANCER_reaction(recipient_isSelf==True)->恍惚とした表情を浮かべ、一人夢中になってストリップダンスを踊り続けた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.10>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.11>DANCER_reaction(recipient_isSelf==False,recipient_gender==Female)->[RECIPIENT_nameDef] の目の前で挑発的に腰をくねらせ、妖艶に尻を振って見せた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.11>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.12>DANCER_reaction(recipient_isSelf==False,recipient_gender==Female)->[RECIPIENT_nameDef] に流し目を送りながら、誘うように過激なダンスを見せつけた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.12>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.13>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->[RECIPIENT_nameDef] の大きく反り立つ巨根を凝視し、太ももを擦り合わせながら身体を火照らせて踊った</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.13>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.14>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->[RECIPIENT_nameDef] の反り立つ股間の巨大なモノに挑発的に尻をすり寄せ、甘い声を漏らして腰を震わせた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.14>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.15>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->[RECIPIENT_nameDef] の猛々しく膨らんだ巨根から目を離せず、欲情を隠せない熱い吐息を漏らしながら踊った</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.15>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.16>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Average)->[RECIPIENT_nameDef] の熱気を帯びた視線と膨らんだ股間を意識して頬を赤らめ、挑発的に腰を振って見せた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.16>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.17>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Average)->[RECIPIENT_nameDef] の目の前で甘い吐息を漏らし、興奮を誘うように妖艶に身をくねらせた</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.17>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.18>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male)->[RECIPIENT_nameDef] の熱い眼差しを受け止め、挑発的な笑みを浮かべて身を寄せながら踊った</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.18>
+  <SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.19>DANCER_reaction(p=0.01)->妖艶な笑みを浮かべて魅惑的なストリップダンスを披露した</SP_DancePerformed_Sensitive.logRulesInitiator.rulesStrings.19>
+
+  <SP_InviteToDance_Sensitive.label>ストリップダンスに誘っている</SP_InviteToDance_Sensitive.label>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] は [DANCER_inviteStyle]、[RECIPIENT_nameDef] をダンスに誘った。</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.0>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.1>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Large)->大胆にはだけた胸元から豊満な谷間を見せつけ、挑発的な笑みで</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.1>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.2>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Average)->大胆に胸元を強調し、妖艶な流し目を送りながら</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.2>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.3>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Small)->挑発的に薄着の身体を密着させ、大胆な笑みで</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.3>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.4>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Large)->恥じらいで赤面しながらも、零れそうな豊満な胸元をちらつかせて</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.4>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.5>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Average)->頬を赤らめて恥じらいながらも、強調された胸元を意識させながら</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.5>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.6>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Small)->恥ずかしそうに上目遣いで頬を染めながら</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.6>
+  <SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.7>DANCER_inviteStyle(p=0.01)->妖艶に微笑みながら</SP_InviteToDance_Sensitive.logRulesInitiator.rulesStrings.7>
+
+  <SP_WatchDance_Sensitive.label>ストリップダンスを見ている</SP_WatchDance_Sensitive.label>
+  <SP_WatchDance_Sensitive.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] は [RECIPIENT_nameDef] のいやらしいストリップダンスをじっと見つめている。</SP_WatchDance_Sensitive.logRulesInitiator.rulesStrings.0>
+  <SP_WatchDance_Sensitive.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef] は息を呑みながら [RECIPIENT_nameDef] のいやらしいストリップダンスを見つめている。</SP_WatchDance_Sensitive.logRulesInitiator.rulesStrings.1>
+
 </LanguageData>

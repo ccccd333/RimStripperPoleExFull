@@ -51,6 +51,11 @@ namespace Stripper
         protected IEnumerable<Toil> MakeDanceToils()
         {
             this.AddFinishAction((condition) => {
+                if (StripperPole != null && StripperPole.currentDancer == pawn)
+                {
+                    StripperPole.currentDancer = null;
+                    StripperPole.currentDanceInfo = "";
+                }
                 StopDanceAnimation();
             });
 
@@ -107,8 +112,18 @@ namespace Stripper
                 StripperPole.currentDanceInfo = "";
                 StripperPole.currentDancer = pawn;
 
-                // ダンス開始時にソーシャルログへインタラクションを記録
-                Find.PlayLog.Add(new PlayLogEntry_Interaction(SPInteractionDefOf.SP_DancePerformed, pawn, pawn, null));
+                // ダンス開始時にソーシャルログへ記録
+                if (StripperMod.settings.enableRimTalkSensitiveInteractions)
+                {
+                    Pawn closestViewer = StripperPoleHelper.FindClosestViewer(StripperPole, pawn);
+                    Pawn recipient = closestViewer ?? pawn;
+                    Find.PlayLog.Add(new PlayLogEntry_StripperSensitive(SPInteractionDefOf.SP_DancePerformed_Sensitive, pawn, recipient, null));
+                }
+                else
+                {
+                    // RimTalk非連携時は元の動作通り pawn, pawn で通常ログを記録
+                    Find.PlayLog.Add(new PlayLogEntry_Interaction(SPInteractionDefOf.SP_DancePerformed, pawn, pawn, null));
+                }
                 
             };
             dancing.AddFinishAction(() => {
@@ -121,7 +136,6 @@ namespace Stripper
                 }
                 StripperPole.currentDanceInfo = "";
                 StripperPole.lastDanceInfo = GetInfoString("danced");
-                StripperPole.currentDancer = null;
 
                 AddRecords();
                 JoyUtility.TryGainRecRoomThought(pawn);

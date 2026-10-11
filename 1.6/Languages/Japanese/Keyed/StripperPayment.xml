@@ -72,5 +72,9 @@
 	<SP_Invite_WaitingForGuest>客を待っている</SP_Invite_WaitingForGuest>
 	<SP_Invite_StartingDance>ダンスを始めようとしている</SP_Invite_StartingDance>
 
+	<SP_Settings_RimTalk_Title>RimTalk連携設定</SP_Settings_RimTalk_Title>
+	<SP_Settings_RimTalkSensitiveInteractions>RimTalk用のセンシティブなインタラクトを有効化</SP_Settings_RimTalkSensitiveInteractions>
+	<SP_Settings_RimTalkSensitiveInteractions_Desc>ダンス中やお誘い時に、RJWの胸サイズや相手のペニスサイズ、露出狂等の特性を反映した詳細でセンシティブなソーシャルログを発行します。RimTalkがこれをキャッチしてAI会話を生成します。</SP_Settings_RimTalkSensitiveInteractions_Desc>
+	<SP_Settings_RimTalkNotActiveNote>※現在RimTalkは導入/有効化されていません（導入時に機能します）</SP_Settings_RimTalkNotActiveNote>
 
 </LanguageData>

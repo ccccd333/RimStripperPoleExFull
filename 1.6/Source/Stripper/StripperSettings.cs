@@ -14,6 +14,7 @@ namespace Stripper
         public bool spawnSilverForDance = false;
         public bool spawnSilverForProstitution = false;
         public bool debugLog = false;
+        public bool enableRimTalkSensitiveInteractions = false;
 
         public float prostitutePartsVaginal = 1.0f;
         public float prostitutePartsAnal = 1.0f;
@@ -61,6 +62,7 @@ namespace Stripper
             Scribe_Values.Look(ref spawnSilverForDance, "spawnSilverForDance", false);
             Scribe_Values.Look(ref spawnSilverForProstitution, "spawnSilverForProstitution", false);
             Scribe_Values.Look(ref debugLog, "debugLog", false);
+            Scribe_Values.Look(ref enableRimTalkSensitiveInteractions, "enableRimTalkSensitiveInteractions", false);
 
             Scribe_Values.Look(ref prostitutePartsVaginal, "prostitutePartsVaginal", 1.0f);
             Scribe_Values.Look(ref prostitutePartsAnal, "prostitutePartsAnal", 1.0f);

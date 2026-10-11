@@ -82,4 +82,9 @@
 	<SP_Invite_WaitingForGuest>Waiting for the Guest</SP_Invite_WaitingForGuest>
 	<SP_Invite_StartingDance>Starting the Dance</SP_Invite_StartingDance>
 
+	<SP_Settings_RimTalk_Title>RimTalk Integration</SP_Settings_RimTalk_Title>
+	<SP_Settings_RimTalkSensitiveInteractions>Enable Sensitive Interactions for RimTalk</SP_Settings_RimTalkSensitiveInteractions>
+	<SP_Settings_RimTalkSensitiveInteractions_Desc>Emits detailed and provocative social interactions reflecting RJW breast and penis sizes as well as exhibitionist traits during dancing and invitations. RimTalk captures these for AI dialogues.</SP_Settings_RimTalkSensitiveInteractions_Desc>
+	<SP_Settings_RimTalkNotActiveNote>* RimTalk is currently not active (will take effect once enabled).</SP_Settings_RimTalkNotActiveNote>
+
 </LanguageData>

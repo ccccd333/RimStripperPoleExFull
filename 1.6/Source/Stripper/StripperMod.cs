@@ -8,11 +8,24 @@ using static rjw.xxx;
 
 namespace Stripper
 {
+    [StaticConstructorOnStartup]
     public class StripperMod : Mod
     {
         public static StripperSettings settings;
+        public static bool isRimTalkActive;
         private Vector2 scrollPosition = Vector2.zero;
+        private static float viewHeight = 2200f;
         private Dictionary<rjwSextype, string> _partsBuffers = new Dictionary<rjwSextype, string>();
+
+        static StripperMod()
+        {
+            isRimTalkActive = CheckRimTalkActive();
+            if (!isRimTalkActive && settings != null)
+            {
+                settings.enableRimTalkSensitiveInteractions = false;
+            }
+        }
+
         public StripperMod(ModContentPack content) : base(content)
         {
             settings = GetSettings<StripperSettings>();
@@ -20,9 +33,9 @@ namespace Stripper
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Rect scrollOuterRect = new Rect(0, 0, inRect.width, inRect.height);
-            float totalHeight = 1500f;
-            Rect scrollInnerRect = new Rect(0, 0, inRect.width - 20f, totalHeight);
+            UpdateRimTalkActiveState();
+            Rect scrollOuterRect = inRect;
+            Rect scrollInnerRect = new Rect(0f, 0f, inRect.width - 20f, viewHeight);
 
             Widgets.BeginScrollView(scrollOuterRect, ref scrollPosition, scrollInnerRect);
 
@@ -188,11 +201,43 @@ namespace Stripper
 
             listing.GapLine();
 
+            listing.Label("SP_Settings_RimTalk_Title".Translate());
+            if (isRimTalkActive)
+            {
+                listing.CheckboxLabeled("SP_Settings_RimTalkSensitiveInteractions".Translate(), ref settings.enableRimTalkSensitiveInteractions, "SP_Settings_RimTalkSensitiveInteractions_Desc".Translate());
+            }
+            else
+            {
+                settings.enableRimTalkSensitiveInteractions = false;
+                GUI.color = Color.gray;
+                bool dummy = false;
+                listing.CheckboxLabeled("SP_Settings_RimTalkSensitiveInteractions".Translate(), ref dummy, "SP_Settings_RimTalkSensitiveInteractions_Desc".Translate());
+                listing.Label("SP_Settings_RimTalkNotActiveNote".Translate());
+                GUI.color = Color.white;
+            }
+
+            listing.GapLine();
+
             listing.CheckboxLabeled("DebugLog", ref settings.debugLog);
 
+            viewHeight = listing.CurHeight + 60f;
             listing.End();
             Widgets.EndScrollView();
             settings.Write();
+        }
+
+        public static void UpdateRimTalkActiveState()
+        {
+            isRimTalkActive = CheckRimTalkActive();
+            if (!isRimTalkActive && settings != null)
+            {
+                settings.enableRimTalkSensitiveInteractions = false;
+            }
+        }
+
+        public static bool CheckRimTalkActive()
+        {
+            return ModLister.GetActiveModWithIdentifier("cj.rimtalk") != null;
         }
 
         // 数値入力用のバッファ（RimWorldの仕様で必要）
@@ -207,7 +252,6 @@ namespace Stripper
         private string _bufferInviteChanceBeautyMult;
         private string _bufferMaxGuestsToInvite;
         private string _bufferDanceCooldownSeconds;
-        private string _bufferPartMult;
 
         public override string SettingsCategory() => "Stripper Mod Settings";
     }

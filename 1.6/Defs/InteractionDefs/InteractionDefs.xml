@@ -31,4 +31,88 @@
     </logRulesInitiator>
   </InteractionDef>
 
+  <!-- センシティブなダンス披露インタラクション（RimTalk連携） -->
+  <InteractionDef>
+    <defName>SP_DancePerformed_Sensitive</defName>
+    <label>performed a sensitive strip dance</label>
+    <symbol>Things/Mote/SpeechSymbols/Romance</symbol>
+    <socialFightBaseChance>0.0</socialFightBaseChance>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [danced], [DANCER_breastAction], and [DANCER_reaction].</li>
+
+        <li>danced->danced seductively on the pole</li>
+        <li>danced->moved sensually along the pole</li>
+        <li>danced->moved sensually with heavy breaths</li>
+
+        <li>DANCER_breastAction(initiator_breastSize==Large)->violently shaking her heavy, voluptuous breasts</li>
+        <li>DANCER_breastAction(initiator_breastSize==Average)->sensually swaying her soft breasts</li>
+        <li>DANCER_breastAction(initiator_breastSize==Small)->gracefully arching her supple body with her modest chest</li>
+        <li>DANCER_breastAction(initiator_breastSize==Large)->boldly swaying her massive overflowing breasts</li>
+
+        <!-- Recipient is self (dancing alone) -->
+        <li>DANCER_reaction(recipient_isSelf==True,initiator_isExhibitionist==True)->flaunted her flushed body boldly with an ecstatic smirk, reveling in the private exhibition</li>
+        <li>DANCER_reaction(recipient_isSelf==True,initiator_isExhibitionist==False)->let out hot, sweet breaths lost in an intoxicating private dance</li>
+        <li>DANCER_reaction(recipient_isSelf==True)->smiled in ecstasy as she continued dancing for herself</li>
+
+        <!-- Recipient is female -->
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Female)->thrust out her hips provocatively right in front of [RECIPIENT_nameDef]</li>
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Female)->cast a sultry glance at [RECIPIENT_nameDef] while shaking her hips teasingly</li>
+
+        <!-- Recipient is male with large penis -->
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->stared intensely at his towering bulge, rubbing her thighs together flushed with arousal</li>
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->thrust out her hips teasingly toward his massive member, shuddering with sweet gasps</li>
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Large)->became captivated by his huge member, unable to conceal her heated lust while dancing</li>
+
+        <!-- Recipient is male with average penis -->
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Average)->blushed while noticing his heated gaze and bulging crotch, swaying her hips provocatively</li>
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male,recipient_penisSize==Average)->let out sweet gasps before him, arching her body to arouse his desires</li>
+
+        <!-- Recipient is male fallback -->
+        <li>DANCER_reaction(recipient_isSelf==False,recipient_gender==Male)->brought her hips right before him, arching her body with a provocative smirk</li>
+
+        <!-- General fallback (low weight so specific rules take priority) -->
+        <li>DANCER_reaction(p=0.01)->performed an enchanting, seductive strip dance</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <!-- センシティブな客引き・お誘いインタラクション（RimTalk連携） -->
+  <InteractionDef>
+    <defName>SP_InviteToDance_Sensitive</defName>
+    <label>invited to watch a seductive dance</label>
+    <symbol>Things/Mote/SpeechSymbols/Romance</symbol>
+    <socialFightBaseChance>0.0</socialFightBaseChance>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [DANCER_inviteStyle] invited [RECIPIENT_nameDef] to watch a dance.</li>
+
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Large)->boldly exposing her cleavage from an unbuttoned top with a provocative smirk</li>
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Average)->boldly highlighting her bust while casting a sultry glance</li>
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==True,initiator_breastSize==Small)->pressuring her scantily clad body close with a bold smile</li>
+
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Large)->blushing with embarrassment yet flaunting her overflowing cleavage</li>
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Average)->blushing shyly while making him aware of her accentuated bust</li>
+        <li>DANCER_inviteStyle(initiator_isExhibitionist==False,initiator_breastSize==Small)->gazing upward shyly with blushing cheeks</li>
+
+        <!-- Fallback invite style -->
+        <li>DANCER_inviteStyle(p=0.01)->smiling seductively</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <!-- 観客の鑑賞インタラクション（RimTalk連携） -->
+  <InteractionDef>
+    <defName>SP_WatchDance_Sensitive</defName>
+    <label>watching strip dance</label>
+    <symbol>Things/Mote/SpeechSymbols/Romance</symbol>
+    <socialFightBaseChance>0.0</socialFightBaseChance>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] is watching [RECIPIENT_nameDef]'s seductive strip dance intently.</li>
+        <li>r_logentry->[INITIATOR_nameDef] held their breath while watching [RECIPIENT_nameDef]'s sensual strip dance.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
 </Defs>

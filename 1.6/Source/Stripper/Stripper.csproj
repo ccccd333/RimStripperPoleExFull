@@ -94,6 +94,8 @@
     <Compile Include="StripperPaymentHelper.cs" />
     <Compile Include="WorkGiver_InviteToDance.cs" />
     <Compile Include="WorkGiver_UseStripperPole.cs" />
+    <Compile Include="StripperRJWHelper.cs" />
+    <Compile Include="PlayLogEntry_StripperSensitive.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

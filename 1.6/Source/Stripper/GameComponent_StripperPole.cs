@@ -1,4 +1,4 @@
-﻿using Verse;
+using Verse;
 
 namespace Stripper
 {
@@ -16,16 +16,17 @@ namespace Stripper
             StripperPoleHelper.ClearAllPoles();
             Instance = this;
         }
+        public override void StartedNewGame()
+        {
+            base.StartedNewGame();
+            StripperMod.UpdateRimTalkActiveState();
+        }
 
-        //public override void StartedNewGame()
-        //{
-
-        //}
-
-        //public override void LoadedGame()
-        //{
-        //    StripperPoleHelper.ClearAvailableProstitutes();
-        //}
+        public override void LoadedGame()
+        {
+            base.LoadedGame();
+            StripperMod.UpdateRimTalkActiveState();
+        }
 
         public override void ExposeData()
         {

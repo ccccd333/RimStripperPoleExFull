@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -115,6 +115,13 @@ namespace Stripper
                     }
                     isWatching = true;
                     StripperPoleHelper.RegisterAvailableProstitute(dancer, pawn);
+                }
+
+                // 観賞開始時にRimTalk用センシティブインタラクトを発行（客がダンサーを見始め、ダンサーも客に向けて踊る）
+                if (dancer != null && StripperMod.settings.enableRimTalkSensitiveInteractions)
+                {
+                    Find.PlayLog.Add(new PlayLogEntry_StripperSensitive(SPInteractionDefOf.SP_WatchDance_Sensitive, pawn, dancer, null));
+                    Find.PlayLog.Add(new PlayLogEntry_StripperSensitive(SPInteractionDefOf.SP_DancePerformed_Sensitive, dancer, pawn, null));
                 }
 
             };

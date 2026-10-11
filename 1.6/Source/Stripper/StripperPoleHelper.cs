@@ -146,6 +146,26 @@ namespace Stripper
             }
         }
 
+        /// <summary>
+        /// ダンサーに最も近いアクティブな観客を検索（登録されたウォッチャーのみ）
+        /// </summary>
+        public static Pawn FindClosestViewer(Thing pole, Pawn dancer)
+        {
+            if (dancer == null || !dancer.Spawned) return null;
+
+            // 登録されているアクティブなウォッチャーのみを対象にする
+            if (dancerWatcherMap.TryGetValue(dancer, out var watchers) && watchers != null && watchers.Count > 0)
+            {
+                var valid = watchers
+                    .Where(w => w != null && w.Spawned && !w.Dead && !w.Downed && w != dancer && w.RaceProps != null && w.RaceProps.Humanlike)
+                    .OrderBy(w => w.Position.DistanceToSquared(dancer.Position))
+                    .FirstOrDefault();
+                if (valid != null) return valid;
+            }
+
+            return null;
+        }
+
         public static Pawn GetRandomAvailableProstitute(Pawn dancer)
         {
             if (dancer == null) return null;
