@@ -87,4 +87,39 @@
 	<SP_Settings_RimTalkSensitiveInteractions_Desc>Emits detailed and provocative social interactions reflecting RJW breast and penis sizes as well as exhibitionist traits during dancing and invitations. RimTalk captures these for AI dialogues.</SP_Settings_RimTalkSensitiveInteractions_Desc>
 	<SP_Settings_RimTalkNotActiveNote>* RimTalk is currently not active (will take effect once enabled).</SP_Settings_RimTalkNotActiveNote>
 
+	<SP_AutoProstitution_Label>Service Menu</SP_AutoProstitution_Label>
+	<SP_AutoProstitution_Desc>Automatically serves customers according to the pre-configured service menu.</SP_AutoProstitution_Desc>
+	<SP_AutoProstitutionSettings_Label>Service Menu</SP_AutoProstitutionSettings_Label>
+	<SP_AutoProstitutionSettings_Desc>Configure prioritized prostitution services (1st to 3rd priority) by customer gender.</SP_AutoProstitutionSettings_Desc>
+	<SP_AutoProstitutionSettings_Title>Service Menu</SP_AutoProstitutionSettings_Title>
+	<SP_AutoProstitutionSettings_PoleInfo>Stage: {0} (Dancer: {1})</SP_AutoProstitutionSettings_PoleInfo>
+	<SP_SharedPole>Shared</SP_SharedPole>
+	<SP_CustomerGender_Male>Menu for Male Guests</SP_CustomerGender_Male>
+	<SP_CustomerGender_Female>Menu for Female Guests</SP_CustomerGender_Female>
+	<SP_PrioritySlot>Priority {0}</SP_PrioritySlot>
+	<SP_PrioritySlot_1>Main Service</SP_PrioritySlot_1>
+	<SP_PrioritySlot_2>2nd Choice</SP_PrioritySlot_2>
+	<SP_PrioritySlot_3>3rd Choice</SP_PrioritySlot_3>
+	<SP_ActNone>(None)</SP_ActNone>
+	<SP_ClearSlot>Clear</SP_ClearSlot>
+	<SP_AutoProstitution_RandomOrder>Randomly pick from configured menu</SP_AutoProstitution_RandomOrder>
+	<SP_AutoProstitutionSettings_Hint>* Services are checked from top to bottom. If any service is compatible, it begins automatically. If none match, manual negotiation will open.</SP_AutoProstitutionSettings_Hint>
+	<SP_Prostitute_AutoAccepted>{0} started serving {1} (Menu: {2}).</SP_Prostitute_AutoAccepted>
+
+	<SP_SexType_Vaginal>Vaginal</SP_SexType_Vaginal>
+	<SP_SexType_Anal>Anal</SP_SexType_Anal>
+	<SP_SexType_Oral>Oral</SP_SexType_Oral>
+	<SP_SexType_Fellatio>Fellatio</SP_SexType_Fellatio>
+	<SP_SexType_Cunnilingus>Cunnilingus</SP_SexType_Cunnilingus>
+	<SP_SexType_Boobjob>Boobjob</SP_SexType_Boobjob>
+	<SP_SexType_Handjob>Handjob</SP_SexType_Handjob>
+	<SP_SexType_Footjob>Footjob</SP_SexType_Footjob>
+	<SP_SexType_Fingering>Fingering</SP_SexType_Fingering>
+	<SP_SexType_Scissoring>Scissoring</SP_SexType_Scissoring>
+	<SP_SexType_Fisting>Fisting</SP_SexType_Fisting>
+	<SP_SexType_Rimming>Rimming</SP_SexType_Rimming>
+	<SP_SexType_DoublePenetration>Double Penetration</SP_SexType_DoublePenetration>
+	<SP_SexType_Sixtynine>Sixty-Nine</SP_SexType_Sixtynine>
+	<SP_SexType_MutualMasturbation>Mutual Masturbation</SP_SexType_MutualMasturbation>
+
 </LanguageData>

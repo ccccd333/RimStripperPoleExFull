@@ -77,4 +77,39 @@
 	<SP_Settings_RimTalkSensitiveInteractions_Desc>ダンス中やお誘い時に、RJWの胸サイズや相手のペニスサイズ、露出狂等の特性を反映した詳細でセンシティブなソーシャルログを発行します。RimTalkがこれをキャッチしてAI会話を生成します。</SP_Settings_RimTalkSensitiveInteractions_Desc>
 	<SP_Settings_RimTalkNotActiveNote>※現在RimTalkは導入/有効化されていません（導入時に機能します）</SP_Settings_RimTalkNotActiveNote>
 
+	<SP_AutoProstitution_Label>接客メニュー</SP_AutoProstitution_Label>
+	<SP_AutoProstitution_Desc>事前に決めたメニューに従って、客のお相手を自動でおこないます。</SP_AutoProstitution_Desc>
+	<SP_AutoProstitutionSettings_Label>サービスメニュー</SP_AutoProstitutionSettings_Label>
+	<SP_AutoProstitutionSettings_Desc>事前に決めたメニューに従って、客のお相手を自動でおこないます。</SP_AutoProstitutionSettings_Desc>
+	<SP_AutoProstitutionSettings_Title>接客メニュー</SP_AutoProstitutionSettings_Title>
+	<SP_AutoProstitutionSettings_PoleInfo>ステージ: {0}（担当ダンサー: {1}）</SP_AutoProstitutionSettings_PoleInfo>
+	<SP_SharedPole>共用</SP_SharedPole>
+	<SP_CustomerGender_Male>男性客向けメニュー</SP_CustomerGender_Male>
+	<SP_CustomerGender_Female>女性客向けメニュー</SP_CustomerGender_Female>
+	<SP_PrioritySlot>第{0}希望</SP_PrioritySlot>
+	<SP_PrioritySlot_1>メインサービス</SP_PrioritySlot_1>
+	<SP_PrioritySlot_2>第2希望</SP_PrioritySlot_2>
+	<SP_PrioritySlot_3>第3希望</SP_PrioritySlot_3>
+	<SP_ActNone>(提供なし)</SP_ActNone>
+	<SP_ClearSlot>クリア</SP_ClearSlot>
+	<SP_AutoProstitution_RandomOrder>登録メニューからランダムに選ぶ</SP_AutoProstitution_RandomOrder>
+	<SP_AutoProstitutionSettings_Hint>※上位のメニューから順に対応可能か確認し、自動でお相手を引き受けます。どれも対応できない場合は手動で交渉します。</SP_AutoProstitutionSettings_Hint>
+	<SP_Prostitute_AutoAccepted>{0}は{1}のお相手をはじめました（メニュー: {2}）</SP_Prostitute_AutoAccepted>
+
+	<SP_SexType_Vaginal>本番（膣）</SP_SexType_Vaginal>
+	<SP_SexType_Anal>アナル</SP_SexType_Anal>
+	<SP_SexType_Oral>口腔</SP_SexType_Oral>
+	<SP_SexType_Fellatio>フェラチオ</SP_SexType_Fellatio>
+	<SP_SexType_Cunnilingus>クンニ</SP_SexType_Cunnilingus>
+	<SP_SexType_Boobjob>パイズリ</SP_SexType_Boobjob>
+	<SP_SexType_Handjob>手コキ</SP_SexType_Handjob>
+	<SP_SexType_Footjob>足コキ</SP_SexType_Footjob>
+	<SP_SexType_Fingering>指入れ</SP_SexType_Fingering>
+	<SP_SexType_Scissoring>貝合わせ</SP_SexType_Scissoring>
+	<SP_SexType_Fisting>フィスト</SP_SexType_Fisting>
+	<SP_SexType_Rimming>アナル舐め</SP_SexType_Rimming>
+	<SP_SexType_DoublePenetration>二穴挿入</SP_SexType_DoublePenetration>
+	<SP_SexType_Sixtynine>シックスナイン</SP_SexType_Sixtynine>
+	<SP_SexType_MutualMasturbation>相互オナニー</SP_SexType_MutualMasturbation>
+
 </LanguageData>

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building_StripperPole.cs" />
+    <Compile Include="Dialog_AutoProstitutionSettings.cs" />
     <Compile Include="Dialog_ProstitutionNegotiation.cs" />
     <Compile Include="GameComponent_StripperPole.cs" />
     <Compile Include="JobDriver_GoToDanceCellAndWait.cs" />

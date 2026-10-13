@@ -31,7 +31,8 @@ namespace Stripper
             Pawn dancer,
             Pawn customer,
             Action<SexInteractionResolved> onAccept,
-            Action onReject)
+            Action onReject,
+            List<SexInteractionResolved> prebuiltInteractions = null)
         {
             this.title = title;
             this.text = text;
@@ -46,13 +47,13 @@ namespace Stripper
             this.absorbInputAroundWindow = true;
 
             // ダンサー(initiator)と客(recipient)の間で実行可能な行為一覧を取得
-            availableInteractions = BuildInteractionList(dancer, customer);
+            availableInteractions = prebuiltInteractions ?? BuildInteractionList(dancer, customer);
 
             // デフォルトで最初の行為を選択しておく
             selectedInteraction = availableInteractions.FirstOrDefault();
         }
 
-        private static List<SexInteractionResolved> BuildInteractionList(Pawn initiator, Pawn recipient)
+        public static List<SexInteractionResolved> BuildInteractionList(Pawn initiator, Pawn recipient)
         {
             try
             {

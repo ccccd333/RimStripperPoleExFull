@@ -234,6 +234,49 @@ namespace Stripper
                     Pawn dancer = pawn;
                     Pawn customer = prostituteTarget;
 
+                    // 実行可能行為リストを構築
+                    var availableInteractions = Dialog_ProstitutionNegotiation.BuildInteractionList(dancer, customer);
+
+                    if (StripperMod.settings != null && StripperMod.settings.debugLog)
+                    {
+                        Log.Message($"[StripperPole AutoDiag] Toil reached. Dancer: {dancer?.LabelShort}, Customer: {customer?.LabelShort}, StripperPole: {StripperPole?.ThingID ?? "NULL"}, PoleAutoEnabled: {StripperPole?.autoProstitutionEnabled.ToString() ?? "N/A"}");
+                    }
+
+                    // 自動化判定（ポールで売春自動化がONの場合）
+                    if (StripperPole != null && StripperPole.autoProstitutionEnabled)
+                    {
+                        var autoResolved = StripperPole.TryGetAutoInteraction(dancer, customer, availableInteractions);
+                        if (autoResolved != null)
+                        {
+                            if (StripperMod.settings.debugLog)
+                            {
+                                Log.Message($"[StripperPole] Auto-prostitution triggered: {dancer.LabelShort} and {customer.LabelShort} with {autoResolved.Interaction?.Def?.defName}");
+                            }
+
+                            var SP = new SexProps(dancer, customer)
+                            {
+                                isWhoring = true,
+                                canBeGuilty = false,
+                                interaction = autoResolved.Interaction,
+                                resolved = autoResolved
+                            };
+                            dancer.GetRJWPawnData().SexProps = SP;
+
+                            string actLabel = Dialog_AutoProstitutionSettings.GetSexTypeLabel(autoResolved.Interaction.Sextype);
+                            if (actLabel.NullOrEmpty())
+                            {
+                                actLabel = autoResolved.Interaction?.Extension?.RMBLabel?.CapitalizeFirst();
+                                if (actLabel.NullOrEmpty()) actLabel = autoResolved.Interaction?.Def?.defName;
+                            }
+
+                            Messages.Message("SP_Prostitute_AutoAccepted".Translate(dancer.LabelShort, customer.LabelShort, actLabel), MessageTypeDefOf.PositiveEvent);
+
+                            Job gettin_loved = JobMaker.MakeJob(SPJobDefOf.SP_ServingVisitor, customer);
+                            dancer.jobs.StartJob(gettin_loved, JobCondition.InterruptForced);
+                            return;
+                        }
+                    }
+
                     dialogOpened = true;
 
                     // 行為選択ダイアログをポップアップ
@@ -268,7 +311,8 @@ namespace Stripper
                         {
                             Messages.Message("SP_Prostitute_Reject".Translate(), MessageTypeDefOf.NeutralEvent);
                             dancer.jobs.curDriver.ReadyForNextToil();
-                        }
+                        },
+                        availableInteractions
                     ));
                 }
                 catch (Exception ex)
